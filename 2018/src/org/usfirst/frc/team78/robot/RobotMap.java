@@ -29,4 +29,10 @@ public class RobotMap {
 	public static final int Right1 = 2;
 	public static final int Right2 = 3;
 	
+	public static final int RIGHT_ENC_A = 0;
+	public static final int RIGHT_ENC_B = 1;
+	public static final int LEFT_ENC_A = 3;
+	public static final int LEFT_ENC_B = 4;
+	
+	
 }
