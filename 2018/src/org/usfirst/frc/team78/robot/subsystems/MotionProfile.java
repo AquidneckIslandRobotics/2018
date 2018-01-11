@@ -12,7 +12,7 @@ public class MotionProfile extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public int unitSize = 1; //feet
+	public int unitSize = 1; // 1 unit is the same as 1 foot/meter/inch (we havent figured out what to use yet)
 
 	public double getDistanceFromPoints(double x1, double y1, double x2, double y2) {
 		double dist = 0;
