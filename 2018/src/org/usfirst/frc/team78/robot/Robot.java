@@ -7,14 +7,15 @@
 
 package org.usfirst.frc.team78.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team78.robot.commands.ExampleCommand;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
-import org.usfirst.frc.team78.robot.subsystems.ExampleSubsystem;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,10 +25,8 @@ import org.usfirst.frc.team78.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();
-	public static OI m_oi;
 	
+	public static OI m_oi;
 	public static Chassis chassis = new Chassis();
 
 	Command m_autonomousCommand;
@@ -37,14 +36,90 @@ public class Robot extends TimedRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+//----for game data----------	
+	char R = 'R';
+	char L = 'L';
+	boolean alliance_R_SwitchState, R_scaleState, opposite_R_SwitchState;
+	boolean alliance_L_SwitchState, L_scaleState, opposite_L_SwitchState;
+//---------------------------	
+	
+	public char getGameSpecificData(String s) {
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+		if(s == "alliance") {
+			return gameData.charAt(0);
+		}else if(s == "scale") {
+			return gameData.charAt(1);
+		}else if(s == "opposing") {
+			return gameData.charAt(2);
+		}else {
+			return gameData.charAt(0);
+		}
+		
+	}
+	public Alliance getAlliance() {
+		return DriverStation.getInstance().getAlliance();
+	}
+	
+	public void getSwitchColor() {
+		if(getAlliance() == Alliance.Red) {
+			if(getGameSpecificData("alliance") == R) {
+				alliance_R_SwitchState = false;
+				alliance_L_SwitchState = true;
+			}else if(getGameSpecificData("alliance") == L) {
+				alliance_R_SwitchState = true;
+				alliance_L_SwitchState = false;
+			}else if(getGameSpecificData("scale") == R) {
+				R_scaleState = false;
+				L_scaleState = true;
+			}else if(getGameSpecificData("scale") == L) {
+				R_scaleState = true;
+				L_scaleState = false;
+			}else if(getGameSpecificData("opposing") == R) {
+				opposite_R_SwitchState = false;
+				opposite_L_SwitchState = true;
+			}else if(getGameSpecificData("opposing") == L) {
+				opposite_R_SwitchState = true;
+				opposite_L_SwitchState = false;
+			}  
+		}else if(getAlliance() == Alliance.Blue) {
+			if(getGameSpecificData("alliance") == R) {
+				alliance_R_SwitchState = true;
+				alliance_L_SwitchState = false;
+			}else if(getGameSpecificData("alliance") == L) {
+				alliance_R_SwitchState = false;
+				alliance_L_SwitchState = true;
+			}else if(getGameSpecificData("scale") == R) {
+				R_scaleState = true;
+				L_scaleState = false;
+			}else if(getGameSpecificData("scale") == L) {
+				R_scaleState = false;
+				L_scaleState = true;
+			}else if(getGameSpecificData("opposing") == R) {
+				opposite_R_SwitchState = true;
+				opposite_L_SwitchState = false;
+			}else if(getGameSpecificData("opposing") == L) {
+				opposite_R_SwitchState = true;
+				opposite_L_SwitchState = false;
+			}  
+		}	
+		
+	}
+	
+	
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		
+		
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
 	}
-
+	
+	
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
@@ -52,6 +127,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		
+		
 
 	}
 
@@ -86,6 +163,15 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		
+		getSwitchColor();
+		SmartDashboard.putBoolean("Alliance_R", alliance_R_SwitchState);
+		SmartDashboard.putBoolean("Alliance_L", alliance_L_SwitchState);
+		SmartDashboard.putBoolean("Scale_R", R_scaleState);
+		SmartDashboard.putBoolean("Scale_L", L_scaleState);
+		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
+		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
+		
 	}
 
 	/**
@@ -105,6 +191,9 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		
+		getSwitchColor();
+		
 	}
 
 	/**
@@ -113,6 +202,14 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		
+		SmartDashboard.putBoolean("Alliance_R", alliance_R_SwitchState);
+		SmartDashboard.putBoolean("Alliance_L", alliance_L_SwitchState);
+		SmartDashboard.putBoolean("Scale_R", R_scaleState);
+		SmartDashboard.putBoolean("Scale_L", L_scaleState);
+		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
+		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
 	}
 
 	/**

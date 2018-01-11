@@ -24,10 +24,10 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	
-	public static final int Left1 = 0;
-	public static final int Left2 = 1;
-	public static final int Right1 = 2;
-	public static final int Right2 = 3;
+	public static final int LEFT_1 = 0;
+	public static final int LEFT_2 = 1;
+	public static final int RIGHT_1 = 2;
+	public static final int RIGHT_2 = 3;
 	
 	public static final int RIGHT_ENC_A = 0;
 	public static final int RIGHT_ENC_B = 1;
