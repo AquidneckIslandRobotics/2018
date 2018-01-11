@@ -1,5 +1,7 @@
 package org.usfirst.frc.team78.robot.subsystems;
 
+import org.opencv.core.Mat;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,23 +24,18 @@ public class MotionProfile extends Subsystem {
 		}else if(y1 == y2) {
 			dist = x2 - x1;
 		}else {
-			if(x2 > x1) {
+			if(!(x1 == x2)) {
 				xRadius = x2 - x1;
-				//xCenter += x1;
-			}else if(x2 < x1) {
-				xRadius = x2 - x1;
-				//xCenter -= x1;
 			}
 			
-			if(y2 > y1) {
+			if(!(y1 == y2)) {
 				yRadius = y2 - y1;
-				//yCenter += y1;
-			}else if(y2 < y1) {
-				yRadius = y2 - y1;
-				//yCenter -= y1; 
 			}
 			
-			double arcLength = (2 * Math.PI * Math.abs(xRadius) / 4);
+			xRadius = Math.abs(xRadius);
+			yRadius = Math.abs(yRadius);
+			
+			double arcLength = ((2 * Math.PI * xRadius) / 4);
 			dist = arcLength;
 		}
 		
