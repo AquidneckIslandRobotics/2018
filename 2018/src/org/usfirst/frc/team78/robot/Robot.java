@@ -212,6 +212,13 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putBoolean("Scale_L", L_scaleState);
 		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
 		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
+		
+		SmartDashboard.putData("right enc", chassis.getRightEnc());
+		SmartDashboard.putData("left enc", chassis.getLeftEnc());
+		SmartDashboard.putData("Angle", chassis.getAngle());
+		SmartDashboard.putData("Yaw", chassis.getYaw());
+		SmartDashboard.putData("Roll", chassis.getRoll());
+		
 	}
 
 	/**
