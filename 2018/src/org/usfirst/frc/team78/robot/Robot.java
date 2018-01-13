@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.MotionProfile;
 
@@ -44,6 +46,8 @@ public class Robot extends TimedRobot {
 	boolean alliance_R_SwitchState, R_scaleState, opposite_R_SwitchState;
 	boolean alliance_L_SwitchState, L_scaleState, opposite_L_SwitchState;
 //---------------------------	
+
+	
 	
 	public char getGameSpecificData(String s) {
 		String gameData;
@@ -72,13 +76,15 @@ public class Robot extends TimedRobot {
 			}else if(getGameSpecificData("alliance") == L) {
 				alliance_R_SwitchState = true;
 				alliance_L_SwitchState = false;
-			}else if(getGameSpecificData("scale") == R) {
+			}
+			if(getGameSpecificData("scale") == R) {
 				R_scaleState = false;
 				L_scaleState = true;
 			}else if(getGameSpecificData("scale") == L) {
 				R_scaleState = true;
 				L_scaleState = false;
-			}else if(getGameSpecificData("opposing") == R) {
+			}
+			if(getGameSpecificData("opposing") == R) {
 				opposite_R_SwitchState = false;
 				opposite_L_SwitchState = true;
 			}else if(getGameSpecificData("opposing") == L) {
@@ -92,13 +98,15 @@ public class Robot extends TimedRobot {
 			}else if(getGameSpecificData("alliance") == L) {
 				alliance_R_SwitchState = false;
 				alliance_L_SwitchState = true;
-			}else if(getGameSpecificData("scale") == R) {
+			}
+			if(getGameSpecificData("scale") == R) {
 				R_scaleState = true;
 				L_scaleState = false;
 			}else if(getGameSpecificData("scale") == L) {
 				R_scaleState = false;
 				L_scaleState = true;
-			}else if(getGameSpecificData("opposing") == R) {
+			}
+			if(getGameSpecificData("opposing") == R) {
 				opposite_R_SwitchState = true;
 				opposite_L_SwitchState = false;
 			}else if(getGameSpecificData("opposing") == L) {
@@ -118,7 +126,7 @@ public class Robot extends TimedRobot {
 		
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
-		
+		chassis.chassisInit();
 	}
 	
 	
@@ -203,7 +211,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
+		
 		
 		
 		SmartDashboard.putBoolean("Alliance_R", alliance_R_SwitchState);
@@ -213,12 +221,21 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
 		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
 		
-		SmartDashboard.putData("right enc", chassis.getRightEnc());
-		SmartDashboard.putData("left enc", chassis.getLeftEnc());
-		SmartDashboard.putData("Angle", chassis.getAngle());
-		SmartDashboard.putData("Yaw", chassis.getYaw());
-		SmartDashboard.putData("Roll", chassis.getRoll());
+		SmartDashboard.putData("right enc", chassis.rightEnc);
+		SmartDashboard.putData("left enc", chassis.leftEnc);
+		SmartDashboard.putData("gyro", chassis.navx);
 		
+		SmartDashboard.putNumber("TurnPID", chassis.turnSpeed.getSpeed());
+		
+		SmartDashboard.putData("TurnController", chassis.turnController);
+		
+//		SmartDashboard.putNumber("Angle", chassis.getAngle());
+//		SmartDashboard.putData("Yaw", chassis.getYaw());
+//		SmartDashboard.putData("Roll", chassis.getRoll());
+		
+		
+		
+		Scheduler.getInstance().run();
 	}
 
 	/**
@@ -226,5 +243,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	
 	}
 }

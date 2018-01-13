@@ -1,14 +1,22 @@
 package org.usfirst.frc.team78.robot.subsystems;
 
+import java.io.PipedOutputStream;
+
 import javax.swing.text.AbstractDocument.LeafElement;
 
 import org.usfirst.frc.team78.robot.OI;
 import org.usfirst.frc.team78.robot.RobotMap;
+import org.usfirst.frc.team78.robot.TurnOutput;
 import org.usfirst.frc.team78.robot.commands.DriveWithJoysticks;
+import org.usfirst.frc.team78.robot.commands.Turn;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -28,15 +36,23 @@ public class Chassis extends Subsystem {
 	
 	public AHRS navx = new AHRS(SPI.Port.kMXP);
 	
+	public TurnOutput turnSpeed = new TurnOutput();
+	public PIDController turnController = new PIDController(0.025,0.00005,0.05, navx, turnSpeed);
+
+	
 //---------------------------------------------
 	
+	public void chassisInit() {
+//		turnController.enable();
+	}
+	
     public void initDefaultCommand() {
-    	setDefaultCommand(new DriveWithJoysticks());
+    	setDefaultCommand(new Turn());
     }
     
     public void driveWithJoysticks() {
     	setSpeed(-OI.DriverStick.getY(), OI.DriverStick.getThrottle());
-    	}
+	}
     
     public void setSpeed(double left, double right) {
     	Left1Motor.set(left);
@@ -54,9 +70,13 @@ public class Chassis extends Subsystem {
     		Right2Motor.set(speed);
     	}    	
     }
+    
+    public void turn(double angle) {
+    	turnController.setSetpoint(angle);
+    }
 
 //----------------------------------------------    
-    
+   
     public Encoder getRightEnc() {
 		return rightEnc;
 	}
@@ -64,18 +84,19 @@ public class Chassis extends Subsystem {
     public Encoder getLeftEnc() {
 		return leftEnc;
 	}
-    
-    public AHRS getYaw() {
-		return getYaw();
-	}
-    public AHRS getAngle() {
-    	return getAngle();
+   
+//    public AHRS getYaw() {
+//		return getYaw();
+//	}
+    public double getAngle() {
+    	return navx.getAngle();
     }
-    public AHRS getRoll() {
-    	return getRoll();
-    }
+//    public AHRS getRoll() {
+//    	return getRoll();
+//    }
     
     
     
 }
+
 
