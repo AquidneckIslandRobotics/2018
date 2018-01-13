@@ -10,11 +10,14 @@ import org.usfirst.frc.team78.robot.TurnOutput;
 import org.usfirst.frc.team78.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team78.robot.commands.Turn;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -36,8 +39,11 @@ public class Chassis extends Subsystem {
 	
 	public AHRS navx = new AHRS(SPI.Port.kMXP);
 	
-	public TurnOutput turnSpeed = new TurnOutput();
+	public TurnOutput turnSpeed = new TurnOutput(); // change turnout to speed instead
 	public PIDController turnController = new PIDController(0.025,0.00005,0.05, navx, turnSpeed);
+	
+	public Servo servo = new Servo(9);
+	public AnalogInput lidar = new AnalogInput(3);
 
 	
 //---------------------------------------------
@@ -47,7 +53,7 @@ public class Chassis extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new Turn());
+    	setDefaultCommand(new DriveWithJoysticks());
     }
     
     public void driveWithJoysticks() {
@@ -85,18 +91,17 @@ public class Chassis extends Subsystem {
 		return leftEnc;
 	}
    
-//    public AHRS getYaw() {
-//		return getYaw();
-//	}
     public double getAngle() {
     	return navx.getAngle();
     }
-//    public AHRS getRoll() {
-//    	return getRoll();
-//    }
+
+    public void setServo(double val) {
+    	servo.set(val);
+    }
     
-    
-    
+    public double getLidar() {
+    	return lidar.getVoltage();
+    }
 }
 
 

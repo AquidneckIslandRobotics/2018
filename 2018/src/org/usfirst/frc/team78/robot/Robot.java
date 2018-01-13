@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
 	boolean alliance_L_SwitchState, L_scaleState, opposite_L_SwitchState;
 //---------------------------	
 
-	
+	double servo = 128;
 	
 	public char getGameSpecificData(String s) {
 		String gameData;
@@ -203,7 +203,7 @@ public class Robot extends TimedRobot {
 		}
 		
 		getSwitchColor();
-		
+	
 	}
 
 	/**
@@ -228,14 +228,17 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("TurnPID", chassis.turnSpeed.getSpeed());
 		
 		SmartDashboard.putData("TurnController", chassis.turnController);
+		SmartDashboard.putData("Turn",new Turn());
+		SmartDashboard.putData("Chassis",chassis);
 		
-//		SmartDashboard.putNumber("Angle", chassis.getAngle());
-//		SmartDashboard.putData("Yaw", chassis.getYaw());
-//		SmartDashboard.putData("Roll", chassis.getRoll());
+		SmartDashboard.getNumber("servo", servo);
+		SmartDashboard.putNumber("servo put", servo);
+		SmartDashboard.putNumber("lidar", chassis.getLidar());
 		
-		
+		chassis.setServo(servo);
 		
 		Scheduler.getInstance().run();
+		
 	}
 
 	/**
