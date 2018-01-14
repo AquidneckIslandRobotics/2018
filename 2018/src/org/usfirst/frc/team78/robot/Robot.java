@@ -46,8 +46,9 @@ public class Robot extends TimedRobot {
 	boolean alliance_R_SwitchState, R_scaleState, opposite_R_SwitchState;
 	boolean alliance_L_SwitchState, L_scaleState, opposite_L_SwitchState;
 //---------------------------	
-
-	double servo = 128;
+	double servo = 0.5;
+	
+	
 	
 	public char getGameSpecificData(String s) {
 		String gameData;
@@ -138,12 +139,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		
-		
 
 	}
 
 	@Override
-	public void disabledPeriodic() {
+	public void disabledPeriodic() {	
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -203,6 +204,8 @@ public class Robot extends TimedRobot {
 		}
 		
 		getSwitchColor();
+		
+		SmartDashboard.putNumber("servo val", servo);
 	
 	}
 
@@ -231,11 +234,13 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Turn",new Turn());
 		SmartDashboard.putData("Chassis",chassis);
 		
-		SmartDashboard.getNumber("servo", servo);
-		SmartDashboard.putNumber("servo put", servo);
+		
 		SmartDashboard.putNumber("lidar", chassis.getLidar());
 		
-		chassis.setServo(servo);
+
+		
+		
+		chassis.setServo(SmartDashboard.getNumber("servo val", servo));
 		
 		Scheduler.getInstance().run();
 		
