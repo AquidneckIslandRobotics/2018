@@ -2,7 +2,7 @@ package org.usfirst.frc.team78.robot;
 
 import edu.wpi.first.wpilibj.PIDOutput;
 
-public class TurnOutput implements PIDOutput{
+public class SpeedOutput implements PIDOutput{
 
 	double speed;
 	

@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team78.robot.commands.Distance;
 import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.MotionProfile;
@@ -206,7 +207,7 @@ public class Robot extends TimedRobot {
 		getSwitchColor();
 		
 		SmartDashboard.putNumber("servo val", servo);
-	
+		chassis.chassisInit();
 	}
 
 	/**
@@ -224,15 +225,22 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
 		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
 		
-		SmartDashboard.putData("right enc", chassis.rightEnc);
-		SmartDashboard.putData("left enc", chassis.leftEnc);
+		SmartDashboard.putNumber("right enc", chassis.getRightEnc());
+		SmartDashboard.putNumber("left enc", chassis.getLeftEnc());
 		SmartDashboard.putData("gyro", chassis.navx);
 		
 		SmartDashboard.putNumber("TurnPID", chassis.turnSpeed.getSpeed());
-		
 		SmartDashboard.putData("TurnController", chassis.turnController);
 		SmartDashboard.putData("Turn",new Turn());
+		
 		SmartDashboard.putData("Chassis",chassis);
+		
+		SmartDashboard.putNumber("leftDistPID", chassis.leftDistanceSpeed.getSpeed());
+		SmartDashboard.putNumber("rightDistPID", chassis.rightDistanceSpeed.getSpeed());
+		SmartDashboard.putData("right drive controller", chassis.rightDistanceController);
+		SmartDashboard.putData("left drive controller", chassis.leftDistanceController);
+		SmartDashboard.putData("drive", new Distance());
+		
 		
 		
 		SmartDashboard.putNumber("lidar", chassis.getLidar());

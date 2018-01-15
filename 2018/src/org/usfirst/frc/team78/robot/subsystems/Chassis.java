@@ -6,7 +6,7 @@ import javax.swing.text.AbstractDocument.LeafElement;
 
 import org.usfirst.frc.team78.robot.OI;
 import org.usfirst.frc.team78.robot.RobotMap;
-import org.usfirst.frc.team78.robot.TurnOutput;
+import org.usfirst.frc.team78.robot.SpeedOutput;
 import org.usfirst.frc.team78.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team78.robot.commands.Turn;
 
@@ -39,17 +39,30 @@ public class Chassis extends Subsystem {
 	
 	public AHRS navx = new AHRS(SPI.Port.kMXP);
 	
-	public TurnOutput turnSpeed = new TurnOutput(); // change turnout to speed instead
+	public SpeedOutput turnSpeed = new SpeedOutput();
 	public PIDController turnController = new PIDController(0.025,0.00005,0.05, navx, turnSpeed);
+	
+	public SpeedOutput rightDistanceSpeed = new SpeedOutput();
+	public SpeedOutput leftDistanceSpeed = new SpeedOutput();
+	public PIDController rightDistanceController = new PIDController(0.03, 0.002, 0.04, rightEnc, rightDistanceSpeed);
+	public PIDController leftDistanceController = new PIDController(0.03, 0.002, 0.04, leftEnc, leftDistanceSpeed);
 	
 	public Servo servo = new Servo(9);
 	public AnalogInput lidar = new AnalogInput(3);
 
 	
+//---------------------------------------------	
+	
+	double wheelDiameterInFeet = RobotMap.WHEEL_DIAMETER / 12;
+	double pulsesPerRot = RobotMap.PULSES_PER_ROTATION;
+	
+	double pulsesToFeet = ((wheelDiameterInFeet * Math.PI) / pulsesPerRot);
+	double feetToPulses = (pulsesPerRot / (wheelDiameterInFeet * Math.PI));
+	
 //---------------------------------------------
 	
 	public void chassisInit() {
-//		turnController.enable();
+		resetEnc();
 	}
 	
     public void initDefaultCommand() {
@@ -80,17 +93,31 @@ public class Chassis extends Subsystem {
     public void turn(double angle) {
     	turnController.setSetpoint(angle);
     }
+    
+    public void drive(double leftDistance, double rightDistance) {
+    	
+    	leftDistance *= feetToPulses;
+    	rightDistance *= feetToPulses;
+     	
+    	leftDistanceController.setSetpoint(leftDistance);
+    	rightDistanceController.setSetpoint(rightDistance);
+    }
 
 //----------------------------------------------    
    
-    public Encoder getRightEnc() {
-		return rightEnc;
+    public double getRightEnc() {
+		return rightEnc.getRaw();
 	}
     
-    public Encoder getLeftEnc() {
-		return leftEnc;
+    public double getLeftEnc() {
+		return leftEnc.getRaw();
 	}
    
+    public void resetEnc() {
+    	rightEnc.reset();
+    	leftEnc.reset();
+    }
+    
     public double getAngle() {
     	return navx.getAngle();
     }

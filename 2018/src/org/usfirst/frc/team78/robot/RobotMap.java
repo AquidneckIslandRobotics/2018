@@ -34,5 +34,7 @@ public class RobotMap {
 	public static final int LEFT_ENC_A = 5;
 	public static final int LEFT_ENC_B = 4;
 	
+	public static final double WHEEL_DIAMETER = 6;
+	public static final double PULSES_PER_ROTATION = 480;
 	
 }
