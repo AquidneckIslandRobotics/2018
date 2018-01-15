@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team78.robot.commands.Distance;
 import org.usfirst.frc.team78.robot.commands.Turn;
+import org.usfirst.frc.team78.robot.commands.drivetopoint;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.MotionProfile;
 
@@ -239,7 +240,9 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("rightDistPID", chassis.rightDistanceSpeed.getSpeed());
 		SmartDashboard.putData("right drive controller", chassis.rightDistanceController);
 		SmartDashboard.putData("left drive controller", chassis.leftDistanceController);
-		SmartDashboard.putData("drive", new Distance());
+		
+		
+		SmartDashboard.putData("drive", new drivetopoint());
 		
 		
 		

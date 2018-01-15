@@ -5,6 +5,7 @@ import java.io.PipedOutputStream;
 import javax.swing.text.AbstractDocument.LeafElement;
 
 import org.usfirst.frc.team78.robot.OI;
+import org.usfirst.frc.team78.robot.Robot;
 import org.usfirst.frc.team78.robot.RobotMap;
 import org.usfirst.frc.team78.robot.SpeedOutput;
 import org.usfirst.frc.team78.robot.commands.DriveWithJoysticks;
@@ -101,6 +102,18 @@ public class Chassis extends Subsystem {
      	
     	leftDistanceController.setSetpoint(leftDistance);
     	rightDistanceController.setSetpoint(rightDistance);
+    	
+    	leftDistanceController.enable();
+    	rightDistanceController.enable();
+    	leftDistanceController.setContinuous(false);
+    	leftDistanceController.setOutputRange(-0.5, 0.5);
+    	rightDistanceController.setContinuous(false);
+    	rightDistanceController.setOutputRange(-0.5, 0.5);
+    	
+
+    	double rSpeed = Robot.chassis.rightDistanceSpeed.getSpeed();
+    	double lSpeed = Robot.chassis.leftDistanceSpeed.getSpeed();
+    	Robot.chassis.setSpeed(lSpeed, -rSpeed);
     }
 
 //----------------------------------------------    
