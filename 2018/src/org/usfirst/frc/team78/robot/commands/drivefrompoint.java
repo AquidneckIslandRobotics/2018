@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class drivefrompoint extends Command {
 
 	double rightdist;
+	double leftdist;
 	
 	
     public drivefrompoint() {
@@ -25,12 +26,19 @@ public class drivefrompoint extends Command {
     	Robot.chassis.rightDistanceController.setContinuous(false);
     	Robot.chassis.rightDistanceController.setOutputRange(-0.5, 0.5);
     	Robot.chassis.rightDistanceController.setSetpoint(rightdist);
+    	
+    	leftdist = Robot.motionProfile.getDistanceFromPoints(0, 0, 0, 1);
+    	leftdist *= Robot.chassis.feetToPulses;
+    	Robot.chassis.leftDistanceController.setContinuous(false);
+    	Robot.chassis.leftDistanceController.setOutputRange(-0.5, 0.5);
+    	Robot.chassis.leftDistanceController.setSetpoint(leftdist);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double rspeed = Robot.chassis.rightDistanceSpeed.getSpeed();
-    	Robot.chassis.setSideSpeed("right", rspeed);
+    	double lspeed = Robot.chassis.leftDistanceSpeed.getSpeed();
+    	Robot.chassis.setSpeed(lspeed, -rspeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
