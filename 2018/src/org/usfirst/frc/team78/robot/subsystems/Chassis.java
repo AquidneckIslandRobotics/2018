@@ -57,8 +57,8 @@ public class Chassis extends Subsystem {
 	double wheelDiameterInFeet = RobotMap.WHEEL_DIAMETER / 12;
 	double pulsesPerRot = RobotMap.PULSES_PER_ROTATION;
 	
-	double pulsesToFeet = ((wheelDiameterInFeet * Math.PI) / pulsesPerRot);
-	double feetToPulses = (pulsesPerRot / (wheelDiameterInFeet * Math.PI));
+	public double pulsesToFeet = ((wheelDiameterInFeet * Math.PI) / pulsesPerRot);
+	public double feetToPulses = (pulsesPerRot / (wheelDiameterInFeet * Math.PI));
 	
 //---------------------------------------------
 	
@@ -95,26 +95,15 @@ public class Chassis extends Subsystem {
     	turnController.setSetpoint(angle);
     }
     
-    public void drive(double leftDistance, double rightDistance) {
-    	
-    	leftDistance *= feetToPulses;
-    	rightDistance *= feetToPulses;
-     	
-    	leftDistanceController.setSetpoint(leftDistance);
-    	rightDistanceController.setSetpoint(rightDistance);
-    	
-    	leftDistanceController.enable();
-    	rightDistanceController.enable();
-    	leftDistanceController.setContinuous(false);
-    	leftDistanceController.setOutputRange(-0.5, 0.5);
-    	rightDistanceController.setContinuous(false);
-    	rightDistanceController.setOutputRange(-0.5, 0.5);
-    	
-
-    	double rSpeed = Robot.chassis.rightDistanceSpeed.getSpeed();
-    	double lSpeed = Robot.chassis.leftDistanceSpeed.getSpeed();
-    	Robot.chassis.setSpeed(lSpeed, -rSpeed);
-    }
+//    public void drive(double leftDistance, double rightDistance) {
+//    	
+//    	leftDistance *= feetToPulses;
+//    	rightDistance *= feetToPulses;
+//     	
+//    	leftDistanceController.setSetpoint(leftDistance);
+//    	rightDistanceController.setSetpoint(rightDistance);
+//    	
+//    }
 
 //----------------------------------------------    
    
