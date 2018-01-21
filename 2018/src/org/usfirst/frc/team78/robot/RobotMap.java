@@ -23,4 +23,20 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
+	
+	//Ports for Drive motor controllers
+	public static final int LEFT_1 = 0;
+	public static final int LEFT_2 = 1;
+	public static final int RIGHT_1 = 2;
+	public static final int RIGHT_2 = 3;
+	
+	//Drive train encoders plugged into roborio
+	public static final int RIGHT_ENC_A = 0;
+	public static final int RIGHT_ENC_B = 1;
+	public static final int LEFT_ENC_A = 5;
+	public static final int LEFT_ENC_B = 4;
+	
+	public static final double WHEEL_DIAMETER = 6;
+	public static final double PULSES_PER_ROTATION = 120;
+	
 }
