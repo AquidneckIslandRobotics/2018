@@ -12,6 +12,7 @@ import org.usfirst.frc.team78.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team78.robot.commands.Turn;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -19,10 +20,14 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 /**
@@ -30,10 +35,14 @@ import com.kauailabs.navx.frc.AHRS;
  */
 public class Chassis extends Subsystem {
 
-	public Victor Left1Motor = new Victor(RobotMap.LEFT_1);
-	public Victor Left2Motor = new Victor(RobotMap.LEFT_2);
-	public Victor Right1Motor = new Victor(RobotMap.RIGHT_1);
-	public Victor Right2Motor = new Victor(RobotMap.RIGHT_2);
+	public TalonSRX leftFront = new TalonSRX(RobotMap.LEFT_FRONT);
+	public TalonSRX leftTop = new TalonSRX(RobotMap.LEFT_TOP);
+	public TalonSRX leftBottom = new TalonSRX(RobotMap.LEFT_BOTTOM);	
+;	public TalonSRX rightFront = new TalonSRX(RobotMap.RIGHT_FRONT);
+	public TalonSRX rightTop = new TalonSRX(RobotMap.RIGHT_TOP);
+	public TalonSRX rightBottom = new TalonSRX(RobotMap.RIGHT_BOTTOM);
+	
+	public DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFT_HIGH, RobotMap.SHIFT_LOW);
 	
 	public Encoder rightEnc = new Encoder(RobotMap.RIGHT_ENC_A, RobotMap.RIGHT_ENC_B);
 	public Encoder leftEnc = new Encoder(RobotMap.LEFT_ENC_A, RobotMap.LEFT_ENC_B);
@@ -50,7 +59,6 @@ public class Chassis extends Subsystem {
 	
 	public Servo servo = new Servo(9);
 	public AnalogInput lidar = new AnalogInput(3);
-
 	
 //---------------------------------------------	
 	
@@ -60,10 +68,25 @@ public class Chassis extends Subsystem {
 	public double pulsesToFeet = ((wheelDiameterInFeet * Math.PI) / pulsesPerRot);
 	public double feetToPulses = (pulsesPerRot / (wheelDiameterInFeet * Math.PI));
 	
+	public boolean shiftIsHigh;
+	
 //---------------------------------------------
 	
 	public void chassisInit() {
 		resetEnc();
+		
+		leftTop.follow(leftFront);
+		leftBottom.follow(leftFront);
+		
+		rightTop.follow(rightFront);
+		rightBottom.follow(rightFront);
+		
+		leftFront.setInverted(true);
+		leftTop.setInverted(true);
+		leftBottom.setInverted(true);
+		rightFront.setInverted(true);
+		rightTop.setInverted(true);
+		rightBottom.setInverted(true);
 	}
 	
     public void initDefaultCommand() {
@@ -75,19 +98,15 @@ public class Chassis extends Subsystem {
 	}
     
     public void setSpeed(double left, double right) {
-    	Left1Motor.set(left);
-    	Left2Motor.set(left);
-    	Right1Motor.set(right);
-    	Right2Motor.set(right);
+    	leftFront.set(ControlMode.PercentOutput, left);
+    	rightFront.set(ControlMode.PercentOutput, right);
     }
     
     public void setSideSpeed(String side, double speed) {
     	if(side == "left") {
-    		Left1Motor.set(speed);
-    		Left2Motor.set(speed);
+    		leftFront.set(ControlMode.PercentOutput, speed);
     	}else if(side == "right") {
-    		Right1Motor.set(speed);
-    		Right2Motor.set(speed);
+    		rightFront.set(ControlMode.PercentOutput, speed);
     	}    	
     }
     
@@ -105,6 +124,14 @@ public class Chassis extends Subsystem {
 //    	
 //    }
 
+    public void shift(boolean state) {
+    	if(state) {
+    		shifter.set(Value.kForward);
+    	}else{
+    		shifter.set(Value.kReverse);
+    	}
+    }
+    
 //----------------------------------------------    
    
     public double getRightEnc() {
