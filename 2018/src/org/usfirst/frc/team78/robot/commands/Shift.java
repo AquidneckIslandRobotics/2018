@@ -21,6 +21,7 @@ public class Shift extends Command {
     		Robot.chassis.shift(false);
     	}else if(!Robot.chassis.shiftIsHigh) {
     		Robot.chassis.shift(true);
+    		Robot.compressor.stop();
     	}
     }
 
@@ -36,6 +37,7 @@ public class Shift extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.chassis.shiftIsHigh = !Robot.chassis.shiftIsHigh;
+    	Robot.compressor.start();
     }
 
     // Called when another command which requires one or more of the same

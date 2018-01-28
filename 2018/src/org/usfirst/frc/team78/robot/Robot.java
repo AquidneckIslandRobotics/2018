@@ -7,8 +7,10 @@
 
 package org.usfirst.frc.team78.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -34,6 +36,8 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static Chassis chassis = new Chassis();
 	public static MotionProfile motionProfile = new MotionProfile();
+	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
+	public static Compressor compressor = new Compressor();
 	
 
 	Command m_autonomousCommand;
@@ -248,6 +252,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("test",new drivefrompoint());
 		
 		chassis.setServo(SmartDashboard.getNumber("servo val", servo));
+		
+		SmartDashboard.putBoolean("shift is high", chassis.shiftIsHigh);
 		
 		Scheduler.getInstance().run();
 		

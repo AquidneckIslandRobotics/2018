@@ -70,10 +70,15 @@ public class Chassis extends Subsystem {
 	
 	public boolean shiftIsHigh;
 	
+	int timeoutMs = 5000;
+	
+	double pdpVoltage;
 //---------------------------------------------
 	
 	public void chassisInit() {
 		resetEnc();
+		
+		pdpVoltage = Robot.pdp.getVoltage();
 		
 		leftTop.follow(leftFront);
 		leftBottom.follow(leftFront);
@@ -87,6 +92,31 @@ public class Chassis extends Subsystem {
 		rightFront.setInverted(true);
 		rightTop.setInverted(true);
 		rightBottom.setInverted(true);
+		
+		
+		double secondsFromNeutralToFull = 0.25;
+		leftFront.configOpenloopRamp( secondsFromNeutralToFull, timeoutMs);
+		leftTop.configOpenloopRamp(secondsFromNeutralToFull, timeoutMs);
+		leftBottom.configOpenloopRamp(secondsFromNeutralToFull, timeoutMs);
+		rightFront.configOpenloopRamp(secondsFromNeutralToFull, timeoutMs);
+		rightTop.configOpenloopRamp(secondsFromNeutralToFull, timeoutMs);
+		rightBottom.configOpenloopRamp(secondsFromNeutralToFull, timeoutMs);
+		
+		int currentLimit = 200;
+		leftFront.configContinuousCurrentLimit(currentLimit, timeoutMs);
+		leftTop.configContinuousCurrentLimit(currentLimit, timeoutMs);
+		leftBottom.configContinuousCurrentLimit(currentLimit, timeoutMs);
+		rightFront.configContinuousCurrentLimit(currentLimit, timeoutMs);
+		rightTop.configContinuousCurrentLimit(currentLimit, timeoutMs);
+		rightBottom.configContinuousCurrentLimit(currentLimit, timeoutMs);
+		
+		leftFront.enableCurrentLimit(true);
+		leftTop.enableCurrentLimit(true);
+		leftBottom.enableCurrentLimit(true);
+		rightFront.enableCurrentLimit(true);
+		rightTop.enableCurrentLimit(true);
+		rightBottom.enableCurrentLimit(true);
+		
 	}
 	
     public void initDefaultCommand() {
@@ -114,15 +144,6 @@ public class Chassis extends Subsystem {
     	turnController.setSetpoint(angle);
     }
     
-//    public void drive(double leftDistance, double rightDistance) {
-//    	
-//    	leftDistance *= feetToPulses;
-//    	rightDistance *= feetToPulses;
-//     	
-//    	leftDistanceController.setSetpoint(leftDistance);
-//    	rightDistanceController.setSetpoint(rightDistance);
-//    	
-//    }
 
     public void shift(boolean state) {
     	if(state) {
