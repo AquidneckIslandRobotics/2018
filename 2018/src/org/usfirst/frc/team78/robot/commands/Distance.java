@@ -18,22 +18,22 @@ public class Distance extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	
-    	Robot.chassis.leftDistanceController.setContinuous(false);
-    	Robot.chassis.leftDistanceController.setOutputRange(-0.5, 0.5);
-    	Robot.chassis.rightDistanceController.setContinuous(false);
-    	Robot.chassis.rightDistanceController.setOutputRange(-0.5, 0.5);
+//    	Robot.chassis.leftDistanceController.setContinuous(false);
+//    	Robot.chassis.leftDistanceController.setOutputRange(-0.5, 0.5);
+//    	Robot.chassis.rightDistanceController.setContinuous(false);
+//    	Robot.chassis.rightDistanceController.setOutputRange(-0.5, 0.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double rSpeed = Robot.chassis.rightDistanceSpeed.getSpeed();
-    	double lSpeed = Robot.chassis.leftDistanceSpeed.getSpeed();
-    	Robot.chassis.setSpeed(lSpeed, -rSpeed);
+//    	double rSpeed = Robot.chassis.rightDistanceSpeed.getSpeed();
+//    	double lSpeed = Robot.chassis.leftDistanceSpeed.getSpeed();
+//    	Robot.chassis.setSpeed(lSpeed, -rSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return !(Robot.chassis.rightDistanceController.isEnabled() && Robot.chassis.leftDistanceController.isEnabled());
+    	return true; //!(Robot.chassis.rightDistanceController.isEnabled() && Robot.chassis.leftDistanceController.isEnabled());
     }
 
     // Called once after isFinished returns true

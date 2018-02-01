@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
 
 /**
@@ -44,21 +45,16 @@ public class Chassis extends Subsystem {
 	
 	public DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFT_HIGH, RobotMap.SHIFT_LOW);
 	
-	public Encoder rightEnc = new Encoder(RobotMap.RIGHT_ENC_A, RobotMap.RIGHT_ENC_B);
-	public Encoder leftEnc = new Encoder(RobotMap.LEFT_ENC_A, RobotMap.LEFT_ENC_B);
-	
 	public AHRS navx = new AHRS(SPI.Port.kMXP);
 	
-	public SpeedOutput turnSpeed = new SpeedOutput();
-	public PIDController turnController = new PIDController(0.025,0.00005,0.05, navx, turnSpeed);
-	
-	public SpeedOutput rightDistanceSpeed = new SpeedOutput();
-	public SpeedOutput leftDistanceSpeed = new SpeedOutput();
-	public PIDController rightDistanceController = new PIDController(0.03, 0.002, 0.04, rightEnc, rightDistanceSpeed);
-	public PIDController leftDistanceController = new PIDController(0.03, 0.002, 0.04, leftEnc, leftDistanceSpeed);
-	
-	public Servo servo = new Servo(9);
-	public AnalogInput lidar = new AnalogInput(3);
+//	public SpeedOutput turnSpeed = new SpeedOutput();
+//	public PIDController turnController = new PIDController(0.025,0.00005,0.05, navx, turnSpeed);
+//	
+//	public SpeedOutput rightDistanceSpeed = new SpeedOutput();
+//	public SpeedOutput leftDistanceSpeed = new SpeedOutput();
+//	public PIDController rightDistanceController = new PIDController(0.03, 0.002, 0.04, rightEnc, rightDistanceSpeed);
+//	public PIDController leftDistanceController = new PIDController(0.03, 0.002, 0.04, leftEnc, leftDistanceSpeed);
+
 	
 //---------------------------------------------	
 	
@@ -93,7 +89,6 @@ public class Chassis extends Subsystem {
 		rightTop.setInverted(true);
 		rightBottom.setInverted(true);
 		
-		
 		double secondsFromNeutralToFull = 0.25;
 		leftFront.configOpenloopRamp( secondsFromNeutralToFull, timeoutMs);
 		leftTop.configOpenloopRamp(secondsFromNeutralToFull, timeoutMs);
@@ -102,20 +97,9 @@ public class Chassis extends Subsystem {
 		rightTop.configOpenloopRamp(secondsFromNeutralToFull, timeoutMs);
 		rightBottom.configOpenloopRamp(secondsFromNeutralToFull, timeoutMs);
 		
-		int currentLimit = 200;
-		leftFront.configContinuousCurrentLimit(currentLimit, timeoutMs);
-		leftTop.configContinuousCurrentLimit(currentLimit, timeoutMs);
-		leftBottom.configContinuousCurrentLimit(currentLimit, timeoutMs);
-		rightFront.configContinuousCurrentLimit(currentLimit, timeoutMs);
-		rightTop.configContinuousCurrentLimit(currentLimit, timeoutMs);
-		rightBottom.configContinuousCurrentLimit(currentLimit, timeoutMs);
-		
-		leftFront.enableCurrentLimit(true);
-		leftTop.enableCurrentLimit(true);
-		leftBottom.enableCurrentLimit(true);
-		rightFront.enableCurrentLimit(true);
-		rightTop.enableCurrentLimit(true);
-		rightBottom.enableCurrentLimit(true);
+		leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		rightFront.setSensorPhase(true);
 		
 	}
 	
@@ -140,9 +124,9 @@ public class Chassis extends Subsystem {
     	}    	
     }
     
-    public void turn(double angle) {
-    	turnController.setSetpoint(angle);
-    }
+//    public void turn(double angle) {
+//    	turnController.setSetpoint(angle);
+//    }
     
 
     public void shift(boolean state) {
@@ -155,29 +139,33 @@ public class Chassis extends Subsystem {
     
 //----------------------------------------------    
    
-    public double getRightEnc() {
-		return rightEnc.getRaw();
-	}
+    public double rightMagVelocity() {
+    	double vel = pulsesToFeet * rightFront.getSelectedSensorVelocity(0);
+    	return vel;
+    }
     
-    public double getLeftEnc() {
-		return leftEnc.getRaw();
-	}
-   
+    public double leftMagVelocity() {
+    	double vel = pulsesToFeet * leftFront.getSelectedSensorVelocity(0);
+    	return vel;
+    }
+    
+    public double rightMagPosition() {
+    	double pos = pulsesToFeet * rightFront.getSelectedSensorPosition(0);
+    	return pos;
+    }
+    
+    public double leftMagPosition() {
+    	double pos = pulsesToFeet * leftFront.getSelectedSensorPosition(0);
+    	return pos;
+    }
+    
     public void resetEnc() {
-    	rightEnc.reset();
-    	leftEnc.reset();
+    	rightFront.setSelectedSensorPosition(0, 0, 0);
+    	leftFront.setSelectedSensorPosition(0, 0, 0);
     }
     
     public double getAngle() {
     	return navx.getAngle();
-    }
-
-    public void setServo(double val) {
-    	servo.set(val);
-    }
-    
-    public double getLidar() {
-    	return lidar.getVoltage();
     }
 }
 

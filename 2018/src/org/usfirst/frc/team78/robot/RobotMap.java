@@ -40,6 +40,6 @@ public class RobotMap {
 	public static final int SHIFT_LOW = 0; //dogs outward
 	
 	public static final double WHEEL_DIAMETER = 6;
-	public static final double PULSES_PER_ROTATION = 120;
+	public static final double PULSES_PER_ROTATION = 4096;
 	
 }

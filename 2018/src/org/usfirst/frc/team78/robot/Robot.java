@@ -211,8 +211,6 @@ public class Robot extends TimedRobot {
 		}
 		
 		getSwitchColor();
-		
-		SmartDashboard.putNumber("servo val", servo);
 		chassis.chassisInit();
 	}
 
@@ -231,32 +229,24 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
 		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
 		
-		SmartDashboard.putNumber("right enc", chassis.getRightEnc());
-		SmartDashboard.putNumber("left enc", chassis.getLeftEnc());
+		SmartDashboard.putNumber("right Vel", chassis.rightMagVelocity());
+		SmartDashboard.putNumber("left Vel", chassis.leftMagVelocity());
+		SmartDashboard.putNumber("right Pos", chassis.rightMagPosition());
+		SmartDashboard.putNumber("left Pos", chassis.leftMagPosition());
 		SmartDashboard.putData("gyro", chassis.navx);
-		
-		SmartDashboard.putNumber("TurnPID", chassis.turnSpeed.getSpeed());
-		SmartDashboard.putData("TurnController", chassis.turnController);
-		SmartDashboard.putData("Turn",new Turn());
-		
 		SmartDashboard.putData("Chassis",chassis);
-		
-		SmartDashboard.putNumber("leftDistPID", chassis.leftDistanceSpeed.getSpeed());
-		SmartDashboard.putNumber("rightDistPID", chassis.rightDistanceSpeed.getSpeed());
-		SmartDashboard.putData("right drive controller", chassis.rightDistanceController);
-		SmartDashboard.putData("left drive controller", chassis.leftDistanceController);		
-		
-		SmartDashboard.putNumber("lidar", chassis.getLidar());
-		
-
-		SmartDashboard.putData("test",new drivefrompoint());
-		
-		chassis.setServo(SmartDashboard.getNumber("servo val", servo));
-		
 		SmartDashboard.putBoolean("shift is high", chassis.shiftIsHigh);
 		
-		Scheduler.getInstance().run();
+//		SmartDashboard.putNumber("TurnPID", chassis.turnSpeed.getSpeed());
+//		SmartDashboard.putData("TurnController", chassis.turnController);
+//		SmartDashboard.putData("Turn",new Turn());		
+//		SmartDashboard.putNumber("leftDistPID", chassis.leftDistanceSpeed.getSpeed());
+//		SmartDashboard.putNumber("rightDistPID", chassis.rightDistanceSpeed.getSpeed());
+//		SmartDashboard.putData("right drive controller", chassis.rightDistanceController);
+//		SmartDashboard.putData("left drive controller", chassis.leftDistanceController);			
+//		SmartDashboard.putData("test",new drivefrompoint());
 		
+		Scheduler.getInstance().run();
 	}
 
 	/**

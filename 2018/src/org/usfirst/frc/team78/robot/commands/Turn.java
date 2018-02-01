@@ -17,24 +17,23 @@ public class Turn extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-//    	Robot.chassis.turnController.enable();
-//    	Robot.chassis.turn(angle);
-    	Robot.chassis.turnController.setContinuous(true);
-    	Robot.chassis.turnController.setInputRange(-180.0f, 180.0f);
-    	Robot.chassis.turnController.setOutputRange(-1.0, 1.0);
+//    	Robot.chassis.turnController.setContinuous(true);
+//    	Robot.chassis.turnController.setInputRange(-180.0f, 180.0f);
+//    	Robot.chassis.turnController.setOutputRange(-1.0, 1.0);
     }
    
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double speed = Robot.chassis.turnSpeed.getSpeed();
-    	Robot.chassis.setSpeed(speed, speed);
+//    	double speed = Robot.chassis.turnSpeed.getSpeed();
+//    	Robot.chassis.setSpeed(speed, speed);
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !(Robot.chassis.turnController.isEnabled());
+    	return true;
+//        return !(Robot.chassis.turnController.isEnabled());
     }
 
     // Called once after isFinished returns true
