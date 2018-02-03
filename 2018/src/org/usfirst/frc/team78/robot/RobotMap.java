@@ -24,6 +24,7 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	
+	//Drive
 	public static final int LEFT_FRONT = 1;
 	public static final int LEFT_TOP = 3;
 	public static final int LEFT_BOTTOM = 2;
@@ -31,14 +32,27 @@ public class RobotMap {
 	public static final int RIGHT_TOP = 14;
 	public static final int RIGHT_BOTTOM = 16;
 	
+	//Sensors
 	public static final int RIGHT_ENC_A = 0;
 	public static final int RIGHT_ENC_B = 1;
 	public static final int LEFT_ENC_A = 5;
 	public static final int LEFT_ENC_B = 4;
+	public static final int ELEVATOR_POT = 0;
+	public static final int ARM_POT = 0;
+	
+	//Armavator
+	public static final int LEFT_ELEVATOR = 0;
+	public static final int RIGHT_ELEVATOR = 0;
+	public static final int ARM = 0;
+	
+	//Intake
+	public static final int LEFT_INTAKE = 0;
+	public static final int RIGHT_INTAKE = 0;
 	
 	public static final int SHIFT_HIGH = 1; //dogs inward
 	public static final int SHIFT_LOW = 0; //dogs outward
 	
+	//Constant variables
 	public static final double WHEEL_DIAMETER = 6;
 	public static final double PULSES_PER_ROTATION = 4096;
 	
