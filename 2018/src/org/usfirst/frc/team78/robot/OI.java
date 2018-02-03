@@ -21,13 +21,36 @@ public class OI {
 	
 	public static Joystick DriverStick = new Joystick(0);
 	
+	public Button driverA;
+	public Button driverB;
+	public Button driverX;
+	public Button driverY;
 	public Button driverRB;
+	public Button driverRT;
+	public Button driverLB;
+	public Button driverLT;
+	public Button driverDpadUp;
+	public Button driverDpadDown;
+	public Button driverDpadRight;
+	public Button driverDpadLeft;	
 	
 	public OI() {
-			
-		driverRB = new JoystickButton(DriverStick, 6);
+		//creating buttons
+		driverA = new JoystickButton(DriverStick, 1);
+		driverB = new JoystickButton(DriverStick, 1);
+		driverX = new JoystickButton(DriverStick, 1);
+		driverY = new JoystickButton(DriverStick, 1);
+		driverRB = new JoystickButton(DriverStick, 6); //only known btn
+		driverRT = new JoystickButton(DriverStick, 1);
+		driverLB = new JoystickButton(DriverStick, 1);
+		driverLT = new JoystickButton(DriverStick, 1);
+		driverDpadUp = new JoystickButton(DriverStick, 1);
+		driverDpadDown= new JoystickButton(DriverStick, 1);
+		driverDpadRight= new JoystickButton(DriverStick, 1);
+		driverDpadLeft= new JoystickButton(DriverStick, 1);
 		
 		
+		driverRB.whenPressed(new Shift());
 		driverRB.whenReleased(new Shift());
 	}
 	
