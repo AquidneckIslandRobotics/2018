@@ -23,7 +23,7 @@ public class Armavator extends Subsystem {
 	
 	//Sensors	
 	public AnalogInput elevatorPot = new AnalogInput(RobotMap.ELEVATOR_POT);
-	public AnalogInput armPot = new AnalogInput(RobotMap.ARM_POT);
+//	public AnalogInput armPot = new AnalogInput(RobotMap.ARM_POT);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
