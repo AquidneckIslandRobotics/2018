@@ -110,15 +110,15 @@ public class Chassis extends Subsystem {
 		rightFront.configPeakOutputForward(1, 10);
 		rightFront.configPeakOutputReverse(-1, 10);
 		rightFront.selectProfileSlot(1, 1);
-		rightFront.config_kF(0, 0.21, 10);
-		rightFront.config_kP(0, 0.57, 10);
-		rightFront.config_kI(0, 0.005, 10);
-		rightFront.config_kD(0, 42, 10);
+		rightFront.config_kF(0, 0.20, 10); //.21 - .19
+		rightFront.config_kP(0, 0.51, 10); //.57 - .455
+		rightFront.config_kI(0, 0.0, 10);//.005 - .001
+		rightFront.config_kD(0, 0, 10);   //.42 - 20
 		rightFront.configMotionCruiseVelocity(3653, 10);
 		rightFront.configMotionAcceleration(3653, 10);
 		rightFront.setSelectedSensorPosition(0, 1, 10);
 		
-		leftFront.setIntegralAccumulator(20, 0, 10);
+		leftFront.setIntegralAccumulator(19, 0, 10);
 		leftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 10);
 		leftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 10);
 		leftFront.configNominalOutputForward(0, 10);
@@ -126,10 +126,10 @@ public class Chassis extends Subsystem {
 		leftFront.configPeakOutputForward(1, 10);
 		leftFront.configPeakOutputReverse(-1, 10);
 		leftFront.selectProfileSlot(0, 0);
-		leftFront.config_kF(0, 0.22, 10);
-		leftFront.config_kP(0, 0.6, 10);
-		leftFront.config_kI(0, 0.02, 10);
-		leftFront.config_kD(0, 40, 10);
+		leftFront.config_kF(0, 0.20, 10); //.22 - .2199
+		leftFront.config_kP(0, 0.51, 10);  //.6 - .515
+		leftFront.config_kI(0, 0.0, 10); //.02 - .003
+		leftFront.config_kD(0, 0, 10);   //40 - 19
 		leftFront.configMotionCruiseVelocity(3653, 10);
 		leftFront.configMotionAcceleration(3653, 10);
 		leftFront.setSelectedSensorPosition(0, 0, 10);

@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class Test319 extends CommandGroup {
+public class HowToTestAutoPath extends CommandGroup {
 
-    public Test319() {
+    public HowToTestAutoPath() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -25,5 +25,6 @@ public class Test319 extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new FollowTrajectory("78 test auto"));
+//    	addSequential(new FollowTrajectory("SpenceAuto"));
     }
 }

@@ -8,7 +8,7 @@
 package org.usfirst.frc.team78.robot;
 
 import org.usfirst.frc.team78.robot.commands.Shift;
-import org.usfirst.frc.team78.robot.commands.Test319;
+import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -54,7 +54,7 @@ public class OI {
 		driverRB.whenPressed(new Shift());
 		driverRB.whenReleased(new Shift());
 		
-		driverA.whenPressed(new Test319());
+		driverA.whenPressed(new HowToTestAutoPath());
 	}
 	
 	
