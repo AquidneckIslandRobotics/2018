@@ -7,36 +7,25 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Turn extends Command {
+public class StopElevator extends Command {
 
-	double angle;
-	
-    public Turn(double Angle) {
+    public StopElevator() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.chassis);
-        angle = Angle;
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.chassis.turnController.setContinuous(true);
-    	Robot.chassis.turnController.setInputRange(-180.0f, 180.0f);
-    	Robot.chassis.turnController.setOutputRange(-1.0, 1.0);
-    	Robot.chassis.turnController.setSetpoint(angle);
-    	Robot.chassis.turnController.enable();
     }
-   
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double speed = Robot.chassis.turnSpeed.getSpeed();
-    	Robot.chassis.setSpeed(speed, speed);
-    	
+    	Robot.armavator.stopElevator();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !(Robot.chassis.turnController.isEnabled());
+        return true;
     }
 
     // Called once after isFinished returns true

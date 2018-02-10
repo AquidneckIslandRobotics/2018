@@ -8,7 +8,13 @@
 package org.usfirst.frc.team78.robot;
 
 import org.usfirst.frc.team78.robot.commands.Shift;
+import org.usfirst.frc.team78.robot.commands.StopElevator;
+import org.usfirst.frc.team78.robot.commands.Turn;
+import org.usfirst.frc.team78.robot.commands.autos.rightSwitchLeft;
+import org.usfirst.frc.team78.robot.commands.autos.rightSwitchRight;
 import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
+import org.usfirst.frc.team78.robot.commands.LowerElevator;
+import org.usfirst.frc.team78.robot.commands.RaiseElevator;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,6 +27,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	
 	public static Joystick DriverStick = new Joystick(0);
+	public static Joystick ManipulatorStick = new Joystick(1);
 	
 	public Button driverA;
 	public Button driverB;
@@ -33,10 +40,14 @@ public class OI {
 	public Button driverDpadUp;
 	public Button driverDpadDown;
 	public Button driverDpadRight;
-	public Button driverDpadLeft;	
+	public Button driverDpadLeft;
+	
+	public Button manipulatorA;
+	public Button manipulatorLB;
+	public Button manipulatorRB;
 	
 	public OI() {
-		//creating buttons
+		//DRIVER BUTTONS
 		driverA = new JoystickButton(DriverStick, 2);
 		driverB = new JoystickButton(DriverStick, 3);
 		driverX = new JoystickButton(DriverStick, 1);
@@ -50,11 +61,24 @@ public class OI {
 		driverDpadRight= new JoystickButton(DriverStick, 1);
 		driverDpadLeft= new JoystickButton(DriverStick, 1);
 		
-		
 		driverRB.whenPressed(new Shift());
 		driverRB.whenReleased(new Shift());
 		
 		driverA.whenPressed(new HowToTestAutoPath());
+		driverX.whenPressed(new rightSwitchRight());
+		driverB.whenPressed(new rightSwitchLeft());
+		
+		//MANIPULATOR BUTTONS
+		manipulatorA = new JoystickButton(ManipulatorStick, 1);
+		manipulatorLB = new JoystickButton(ManipulatorStick, 5);
+		manipulatorRB = new JoystickButton(ManipulatorStick, 6);
+		
+		manipulatorA.whileHeld(new LowerElevator(0.06));
+		manipulatorA.whenReleased(new StopElevator());
+		manipulatorLB.whileHeld(new LowerElevator(0.65));
+		manipulatorLB.whenReleased(new StopElevator());
+		manipulatorRB.whileHeld(new RaiseElevator(0.65));
+		manipulatorRB.whenReleased(new StopElevator());
 	}
 	
 	

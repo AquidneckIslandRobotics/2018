@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team78.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -138,6 +141,13 @@ public class Robot extends TimedRobot {
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		chassis.chassisInit();
+		armavator.armavatorInit();
+		
+		new Thread(() -> {
+			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+			camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 200, 160, 10);
+		}).start();
+		
 	}
 	
 	
@@ -241,7 +251,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putBoolean("shift is high", chassis.shiftIsHigh);
 		
 //		SmartDashboard.putNumber("TurnPID", chassis.turnSpeed.getSpeed());
-//		SmartDashboard.putData("TurnController", chassis.turnController);
+		SmartDashboard.putData("TurnController", chassis.turnController);
 //		SmartDashboard.putData("Turn",new Turn());		
 //		SmartDashboard.putNumber("leftDistPID", chassis.leftDistanceSpeed.getSpeed());
 //		SmartDashboard.putNumber("rightDistPID", chassis.rightDistanceSpeed.getSpeed());

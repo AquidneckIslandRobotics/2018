@@ -48,9 +48,9 @@ public class Chassis extends Subsystem {
 	
 	public AHRS navx = new AHRS(SPI.Port.kMXP);
 	
-//	public SpeedOutput turnSpeed = new SpeedOutput();
-//	public PIDController turnController = new PIDController(0.025,0.00005,0.05, navx, turnSpeed);
-//	
+	public SpeedOutput turnSpeed = new SpeedOutput();
+	public PIDController turnController = new PIDController(0.015,0.0,0.03, navx, turnSpeed);
+	
 //	public SpeedOutput rightDistanceSpeed = new SpeedOutput();
 //	public SpeedOutput leftDistanceSpeed = new SpeedOutput();
 //	public PIDController rightDistanceController = new PIDController(0.03, 0.002, 0.04, rightEnc, rightDistanceSpeed);
@@ -111,7 +111,7 @@ public class Chassis extends Subsystem {
 		rightFront.configPeakOutputReverse(-1, 10);
 		rightFront.selectProfileSlot(1, 1);
 		rightFront.config_kF(0, 0.20, 10); //.21 - .19
-		rightFront.config_kP(0, 0.51, 10); //.57 - .455
+		rightFront.config_kP(0, 0.505, 10); //.57 - .455
 		rightFront.config_kI(0, 0.0, 10);//.005 - .001
 		rightFront.config_kD(0, 0, 10);   //.42 - 20
 		rightFront.configMotionCruiseVelocity(3653, 10);
@@ -127,7 +127,7 @@ public class Chassis extends Subsystem {
 		leftFront.configPeakOutputReverse(-1, 10);
 		leftFront.selectProfileSlot(0, 0);
 		leftFront.config_kF(0, 0.20, 10); //.22 - .2199
-		leftFront.config_kP(0, 0.51, 10);  //.6 - .515
+		leftFront.config_kP(0, 0.505, 10);  //.6 - .515
 		leftFront.config_kI(0, 0.0, 10); //.02 - .003
 		leftFront.config_kD(0, 0, 10);   //40 - 19
 		leftFront.configMotionCruiseVelocity(3653, 10);

@@ -39,11 +39,14 @@ public class RobotMap {
 	public static final int LEFT_ENC_B = 4;
 	public static final int ELEVATOR_POT = 0;
 	public static final int ARM_POT = 0;
+	public static final int BOTTOM_ELEVATOR_LIMIT = 9;
+	public static final int UPPER_ELEVATOR_LIMIT = 8;
 	
 	//Armavator
-	public static final int LEFT_ELEVATOR = 0;
-	public static final int RIGHT_ELEVATOR = 0;
+	public static final int LEFT_ELEVATOR = 5;
+	public static final int RIGHT_ELEVATOR = 11;
 	public static final int ARM = 0;
+	public static final double ELEVATOR_SPEED = 0.65;
 	
 	//Intake
 	public static final int LEFT_INTAKE = 0;
