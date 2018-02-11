@@ -26,11 +26,9 @@ package com.team319.trajectory;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-//import org.usfirst.frc319.SteamworksBob319.instrumentation;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Notifier;
-//import com.ctre.phoenix.motorcontrol.can;
 import com.team319.trajectory.SrxMotionProfile;
 import com.ctre.phoenix.motion.*;
 
