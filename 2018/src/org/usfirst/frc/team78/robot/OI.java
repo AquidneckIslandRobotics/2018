@@ -8,6 +8,7 @@
 package org.usfirst.frc.team78.robot;
 
 import org.usfirst.frc.team78.robot.commands.Shift;
+import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -36,10 +37,10 @@ public class OI {
 	
 	public OI() {
 		//creating buttons
-		driverA = new JoystickButton(DriverStick, 1);
-		driverB = new JoystickButton(DriverStick, 1);
+		driverA = new JoystickButton(DriverStick, 2);
+		driverB = new JoystickButton(DriverStick, 3);
 		driverX = new JoystickButton(DriverStick, 1);
-		driverY = new JoystickButton(DriverStick, 1);
+		driverY = new JoystickButton(DriverStick, 4);
 		driverRB = new JoystickButton(DriverStick, 6); //only known btn
 		driverRT = new JoystickButton(DriverStick, 1);
 		driverLB = new JoystickButton(DriverStick, 1);
@@ -52,6 +53,8 @@ public class OI {
 		
 		driverRB.whenPressed(new Shift());
 		driverRB.whenReleased(new Shift());
+		
+		driverA.whenPressed(new HowToTestAutoPath());
 	}
 	
 	

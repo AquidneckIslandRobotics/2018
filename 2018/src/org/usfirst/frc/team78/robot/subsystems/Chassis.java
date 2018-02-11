@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.kauailabs.navx.frc.AHRS;
 
 /**
@@ -101,6 +102,38 @@ public class Chassis extends Subsystem {
 		rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		rightFront.setSensorPhase(true);
 		
+		rightFront.setIntegralAccumulator(20, 0, 10);
+		rightFront.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 10);
+		rightFront.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 10);
+		rightFront.configNominalOutputForward(0, 10);
+		rightFront.configNominalOutputReverse(0, 10);
+		rightFront.configPeakOutputForward(1, 10);
+		rightFront.configPeakOutputReverse(-1, 10);
+		rightFront.selectProfileSlot(1, 1);
+		rightFront.config_kF(0, 0.20, 10); //.21 - .19
+		rightFront.config_kP(0, 0.51, 10); //.57 - .455
+		rightFront.config_kI(0, 0.0, 10);//.005 - .001
+		rightFront.config_kD(0, 0, 10);   //.42 - 20
+		rightFront.configMotionCruiseVelocity(3653, 10);
+		rightFront.configMotionAcceleration(3653, 10);
+		rightFront.setSelectedSensorPosition(0, 1, 10);
+		
+		leftFront.setIntegralAccumulator(19, 0, 10);
+		leftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 10);
+		leftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 10);
+		leftFront.configNominalOutputForward(0, 10);
+		leftFront.configNominalOutputReverse(0, 10);
+		leftFront.configPeakOutputForward(1, 10);
+		leftFront.configPeakOutputReverse(-1, 10);
+		leftFront.selectProfileSlot(0, 0);
+		leftFront.config_kF(0, 0.20, 10); //.22 - .2199
+		leftFront.config_kP(0, 0.51, 10);  //.6 - .515
+		leftFront.config_kI(0, 0.0, 10); //.02 - .003
+		leftFront.config_kD(0, 0, 10);   //40 - 19
+		leftFront.configMotionCruiseVelocity(3653, 10);
+		leftFront.configMotionAcceleration(3653, 10);
+		leftFront.setSelectedSensorPosition(0, 0, 10);
+		
 	}
 	
     public void initDefaultCommand() {
@@ -125,7 +158,7 @@ public class Chassis extends Subsystem {
     }
     
 //    public void turn(double angle) {
-//    	turnController.setSetpoint(angle);
+//    	turnController.setSetpoint(angle); 
 //    }
     
 

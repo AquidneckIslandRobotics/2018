@@ -20,9 +20,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team78.robot.commands.Distance;
 import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.drivefrompoint;
+import org.usfirst.frc.team78.robot.subsystems.Armavator;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.MotionProfile;
-
+import org.json.simple.JSONArray;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,8 +37,10 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static Chassis chassis = new Chassis();
 	public static MotionProfile motionProfile = new MotionProfile();
+	public static Armavator armavator = new Armavator();
 	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 	public static Compressor compressor = new Compressor();
+	public static JSONArray test = new JSONArray();
 	
 
 	Command m_autonomousCommand;
