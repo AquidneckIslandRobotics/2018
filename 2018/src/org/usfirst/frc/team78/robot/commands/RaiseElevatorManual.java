@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RaiseElevator extends Command {
+public class RaiseElevatorManual extends Command {
 	
 	double speed;
 	boolean canRaise;
 	
-    public RaiseElevator(double elevatorSpeed) {
+    public RaiseElevatorManual(double elevatorSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	speed = elevatorSpeed;

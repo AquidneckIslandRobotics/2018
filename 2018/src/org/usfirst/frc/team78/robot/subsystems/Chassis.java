@@ -65,6 +65,8 @@ public class Chassis extends Subsystem {
 	public double pulsesToFeet = ((wheelDiameterInFeet * Math.PI) / pulsesPerRot);
 	public double feetToPulses = (pulsesPerRot / (wheelDiameterInFeet * Math.PI));
 	
+	double leftSpeed, rightSpeed;
+	
 	public boolean shiftIsHigh;
 	
 	int timeoutMs = 5000;
@@ -141,7 +143,11 @@ public class Chassis extends Subsystem {
     }
     
     public void driveWithJoysticks() {
-    	setSpeed(-OI.DriverStick.getY(), OI.DriverStick.getThrottle());
+    	if(Math.abs(OI.DriverStick.getY()) < RobotMap.STICK_DEADZONE) leftSpeed = 0;
+    	else leftSpeed = -OI.DriverStick.getY();
+    	if(Math.abs(OI.DriverStick.getThrottle()) < RobotMap.STICK_DEADZONE) rightSpeed = 0;
+    	else rightSpeed = OI.DriverStick.getThrottle();
+    	setSpeed(leftSpeed, rightSpeed);
 	}
     
     public void setSpeed(double left, double right) {

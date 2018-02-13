@@ -25,6 +25,7 @@ import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.drivefrompoint;
 import org.usfirst.frc.team78.robot.subsystems.Armavator;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
+import org.usfirst.frc.team78.robot.subsystems.Intake;
 import org.usfirst.frc.team78.robot.subsystems.MotionProfile;
 import org.json.simple.JSONArray;
 
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
 	public static Chassis chassis = new Chassis();
 	public static MotionProfile motionProfile = new MotionProfile();
 	public static Armavator armavator = new Armavator();
+	public static Intake intake = new Intake();
 	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 	public static Compressor compressor = new Compressor();
 	public static JSONArray test = new JSONArray();
@@ -142,6 +144,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto mode", m_chooser);
 		chassis.chassisInit();
 		armavator.armavatorInit();
+		intake.intakeInit();
 		
 		new Thread(() -> {
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -225,6 +228,8 @@ public class Robot extends TimedRobot {
 		
 		getSwitchColor();
 		chassis.chassisInit();
+		intake.intakeInit();
+		armavator.armavatorInit();
 	}
 
 	/**
@@ -249,6 +254,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("gyro", chassis.navx);
 		SmartDashboard.putData("Chassis",chassis);
 		SmartDashboard.putBoolean("shift is high", chassis.shiftIsHigh);
+		SmartDashboard.putNumber("Arm Pot Value", Robot.armavator.getArmPot());
 		
 //		SmartDashboard.putNumber("TurnPID", chassis.turnSpeed.getSpeed());
 		SmartDashboard.putData("TurnController", chassis.turnController);

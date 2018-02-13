@@ -8,13 +8,22 @@
 package org.usfirst.frc.team78.robot;
 
 import org.usfirst.frc.team78.robot.commands.Shift;
+import org.usfirst.frc.team78.robot.commands.StopArm;
 import org.usfirst.frc.team78.robot.commands.StopElevator;
+import org.usfirst.frc.team78.robot.commands.StopIntake;
 import org.usfirst.frc.team78.robot.commands.Turn;
+import org.usfirst.frc.team78.robot.commands.XboxTriggerButton;
 import org.usfirst.frc.team78.robot.commands.autos.rightSwitchLeft;
 import org.usfirst.frc.team78.robot.commands.autos.rightSwitchRight;
+import org.usfirst.frc.team78.robot.commands.CloseIntakeGrabber;
 import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
-import org.usfirst.frc.team78.robot.commands.LowerElevator;
-import org.usfirst.frc.team78.robot.commands.RaiseElevator;
+import org.usfirst.frc.team78.robot.commands.IntakeCube;
+import org.usfirst.frc.team78.robot.commands.LowerArmManual;
+import org.usfirst.frc.team78.robot.commands.LowerElevatorManual;
+import org.usfirst.frc.team78.robot.commands.OpenIntakeGrabber;
+import org.usfirst.frc.team78.robot.commands.OuttakeCube;
+import org.usfirst.frc.team78.robot.commands.RaiseArmManual;
+import org.usfirst.frc.team78.robot.commands.RaiseElevatorManual;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -45,6 +54,9 @@ public class OI {
 	public Button manipulatorA;
 	public Button manipulatorLB;
 	public Button manipulatorRB;
+	public XboxTriggerButton manipulatorLT;
+	public XboxTriggerButton manipulatorRT;
+	public Button manipulatorBack;
 	
 	public OI() {
 		//DRIVER BUTTONS
@@ -63,6 +75,10 @@ public class OI {
 		
 		driverRB.whenPressed(new Shift());
 		driverRB.whenReleased(new Shift());
+		driverLT.whenPressed(new OpenIntakeGrabber());
+		driverLT.whenReleased(new CloseIntakeGrabber());
+		driverLB.whileHeld(new OuttakeCube(RobotMap.OUTTAKE_SPEED));
+		driverLB.whenReleased(new StopIntake());
 		
 		driverA.whenPressed(new HowToTestAutoPath());
 		driverX.whenPressed(new rightSwitchRight());
@@ -72,14 +88,22 @@ public class OI {
 		manipulatorA = new JoystickButton(ManipulatorStick, 1);
 		manipulatorLB = new JoystickButton(ManipulatorStick, 5);
 		manipulatorRB = new JoystickButton(ManipulatorStick, 6);
+		manipulatorLT = new XboxTriggerButton(ManipulatorStick, 2);
+		manipulatorRT = new XboxTriggerButton(ManipulatorStick, 3);
+		manipulatorBack = new JoystickButton(ManipulatorStick, 7);
 		
-		manipulatorA.whileHeld(new LowerElevator(0.06));
-		manipulatorA.whenReleased(new StopElevator());
-		manipulatorLB.whileHeld(new LowerElevator(0.65));
+		/*manipulatorA.whileHeld(new LowerElevatorManual(RobotMap.ELEVATOR_HOVER_SPEED));
+		manipulatorA.whenReleased(new StopElevator());*/
+		manipulatorA.whileHeld(new IntakeCube(RobotMap.INTAKE_SPEED));
+		manipulatorA.whenReleased(new StopIntake());
+		manipulatorLB.whileHeld(new RaiseElevatorManual(RobotMap.ELEVATOR_SPEED));
 		manipulatorLB.whenReleased(new StopElevator());
-		manipulatorRB.whileHeld(new RaiseElevator(0.65));
-		manipulatorRB.whenReleased(new StopElevator());
+		manipulatorLT.whileHeld(new LowerElevatorManual(RobotMap.ELEVATOR_SPEED));
+		manipulatorLT.whenReleased(new StopElevator());
+		manipulatorRB.whileHeld(new RaiseArmManual(RobotMap.ARM_SPEED));
+		manipulatorRB.whenReleased(new StopArm());
+		manipulatorRT.whileHeld(new LowerArmManual(RobotMap.ARM_SPEED));
+		manipulatorRT.whenReleased(new StopArm());
 	}
-	
 	
 }

@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 /**
  *
@@ -19,13 +20,13 @@ public class Armavator extends Subsystem {
     // here. Call these from Commands.
 	
 	//Motors
-	public TalonSRX leftElevator = new TalonSRX(RobotMap.LEFT_ELEVATOR);
-	public TalonSRX rightElevator = new TalonSRX(RobotMap.RIGHT_ELEVATOR);
-//	public TalonSRX arm = new TalonSRX(RobotMap.ARM);
+	public TalonSRX elevatorLeader = new TalonSRX(RobotMap.LEFT_ELEVATOR);
+	public TalonSRX elevatorFollower = new TalonSRX(RobotMap.RIGHT_ELEVATOR);
+	public TalonSRX arm = new TalonSRX(RobotMap.ARM);
 	
 	//Sensors	
-	public AnalogInput elevatorPot = new AnalogInput(RobotMap.ELEVATOR_POT);
-//	public AnalogInput armPot = new AnalogInput(RobotMap.ARM_POT);
+	//public AnalogInput elevatorPot = new AnalogInput(RobotMap.ELEVATOR_ENCODER);
+	public AnalogInput armPot = new AnalogInput(RobotMap.ARM_POT);
 	public DigitalInput bottomElevatorLimit = new DigitalInput(RobotMap.BOTTOM_ELEVATOR_LIMIT);
 	public DigitalInput upperElevatorLimit = new DigitalInput(RobotMap.UPPER_ELEVATOR_LIMIT);
 	
@@ -35,24 +36,23 @@ public class Armavator extends Subsystem {
     }
     
     public void armavatorInit() {
-    	rightElevator.follow(leftElevator);
-    	rightElevator.setInverted(false);
-    	rightElevator.setNeutralMode(NeutralMode.Brake);
-    	leftElevator.setNeutralMode(NeutralMode.Brake);
+    	elevatorFollower.follow(elevatorLeader);
+    	elevatorFollower.setInverted(false);
+    	elevatorFollower.setNeutralMode(NeutralMode.Brake);
+    	elevatorLeader.setNeutralMode(NeutralMode.Brake);
+    	arm.setNeutralMode(NeutralMode.Brake);
+    	arm.setInverted(true);
     }
     
+    //ELEVATOR METHODS
     public void setElevator(double speed) {
-    	leftElevator.set(ControlMode.PercentOutput, speed);
+    	elevatorLeader.set(ControlMode.PercentOutput, speed);
     }
 
     public void stopElevator() {
     	setElevator(0);
     }
-    
-    public void setArm(double speed) {
-//    	arm.set(ControlMode.PercentOutput, speed);
-    }
-    
+
     public boolean getBottomElevatorLimit() {
     	return bottomElevatorLimit.get();
     }
@@ -60,5 +60,19 @@ public class Armavator extends Subsystem {
     public boolean getUpperElevatorLimit() {
     	return upperElevatorLimit.get();
     }
+    
+    //ARM METHODS
+    public void setArm(double speed) {
+    	arm.set(ControlMode.PercentOutput, speed);
+    }
+    
+    public void stopArm() {
+    	setArm(0);
+    }
+    
+    public double getArmPot() {
+    	return armPot.getAverageVoltage();
+    }
+    
     
 }
