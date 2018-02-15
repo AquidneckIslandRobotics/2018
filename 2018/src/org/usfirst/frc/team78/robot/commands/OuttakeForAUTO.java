@@ -7,11 +7,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class OpenIntakeGrabber extends Command {
+public class OuttakeForAUTO extends Command {
 
-    public OpenIntakeGrabber() {
+	double speed;
+	
+    public OuttakeForAUTO(double outtakeSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	speed = outtakeSpeed;
     }
 
     // Called just before this Command runs the first time
@@ -20,17 +23,16 @@ public class OpenIntakeGrabber extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.openGrabber();
+    	Robot.intake.setIntake(-speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    
     }
 
     // Called when another command which requires one or more of the same

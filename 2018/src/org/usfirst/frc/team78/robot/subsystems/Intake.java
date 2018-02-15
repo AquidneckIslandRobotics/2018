@@ -42,11 +42,11 @@ public class Intake extends Subsystem {
     }
     
     public void closeGrabber() {
-    	grabber.set(Value.kForward); //TODO Check intake gripper pneumatic positions
+    	grabber.set(Value.kReverse); //TODO Check intake gripper pneumatic positions
     }
     
     public void openGrabber() {
-    	grabber.set(Value.kReverse);
+    	grabber.set(Value.kForward);
     }
     
     public void setIntake(double speed) {

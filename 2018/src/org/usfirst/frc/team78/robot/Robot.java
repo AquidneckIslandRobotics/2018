@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team78.robot.commands.AUTO_centerRight;
 import org.usfirst.frc.team78.robot.commands.Distance;
 import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.drivefrompoint;
@@ -28,6 +29,7 @@ import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.Intake;
 import org.usfirst.frc.team78.robot.subsystems.MotionProfile;
 import org.json.simple.JSONArray;
+import org.opencv.features2d.MSER;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -50,6 +52,7 @@ public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	SendableChooser<String> m_startPosition = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -58,8 +61,11 @@ public class Robot extends TimedRobot {
 //----for game data----------	
 	char R = 'R';
 	char L = 'L';
+	char C = 'C';
 	boolean alliance_R_SwitchState, R_scaleState, opposite_R_SwitchState;
 	boolean alliance_L_SwitchState, L_scaleState, opposite_L_SwitchState;
+	public static String startPosition;
+	boolean goRight;
 //---------------------------	
 	double servo = 0.5;
 	
@@ -89,6 +95,7 @@ public class Robot extends TimedRobot {
 			if(getGameSpecificData("alliance") == R) {
 				alliance_R_SwitchState = false;
 				alliance_L_SwitchState = true;
+				
 			}else if(getGameSpecificData("alliance") == L) {
 				alliance_R_SwitchState = true;
 				alliance_L_SwitchState = false;
@@ -133,7 +140,6 @@ public class Robot extends TimedRobot {
 		
 	}
 	
-	
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
@@ -150,6 +156,12 @@ public class Robot extends TimedRobot {
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 			camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 200, 160, 10);
 		}).start();
+		
+		SmartDashboard.putData("Start Position", m_startPosition);
+		m_startPosition.addDefault("Center", "Center");
+		m_startPosition.addObject("Right", "Right");
+		m_startPosition.addObject("Left", "Left");
+		
 		
 	}
 	
@@ -184,8 +196,23 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
-
+//		m_autonomousCommand = m_chooser.getSelected();
+		
+		if(m_startPosition.getSelected().equals("Center")) {
+			if(getGameSpecificData("alliance") == R) {
+				m_autonomousCommand = new AUTO_centerRight();
+			}else if(getGameSpecificData("alliance") == L) {
+//				m_autonomousCommand = 
+			}else {
+				m_autonomousCommand  = null;
+			}
+			
+		}else if(m_startPosition.getSelected().equals("Right")) {
+			
+		}else if(m_startPosition.getSelected().equals("Left")) {
+			
+		}
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -193,6 +220,8 @@ public class Robot extends TimedRobot {
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
 
+		SmartDashboard.putData("auto command",m_autonomousCommand);
+		
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();

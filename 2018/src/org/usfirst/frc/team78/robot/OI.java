@@ -52,6 +52,8 @@ public class OI {
 	public Button driverDpadLeft;
 	
 	public Button manipulatorA;
+	public Button manipulatorB;
+	public Button manipulatorX;
 	public Button manipulatorLB;
 	public Button manipulatorRB;
 	public XboxTriggerButton manipulatorLT;
@@ -64,10 +66,10 @@ public class OI {
 		driverB = new JoystickButton(DriverStick, 3);
 		driverX = new JoystickButton(DriverStick, 1);
 		driverY = new JoystickButton(DriverStick, 4);
-		driverRB = new JoystickButton(DriverStick, 6); //only known btn
-		driverRT = new JoystickButton(DriverStick, 1);
-		driverLB = new JoystickButton(DriverStick, 1);
-		driverLT = new JoystickButton(DriverStick, 1);
+		driverRB = new JoystickButton(DriverStick, 6); 
+		driverRT = new JoystickButton(DriverStick, 8);
+		driverLB = new JoystickButton(DriverStick, 5);
+		driverLT = new JoystickButton(DriverStick, 7);
 		driverDpadUp = new JoystickButton(DriverStick, 1);
 		driverDpadDown= new JoystickButton(DriverStick, 1);
 		driverDpadRight= new JoystickButton(DriverStick, 1);
@@ -80,12 +82,14 @@ public class OI {
 		driverLB.whileHeld(new OuttakeCube(RobotMap.OUTTAKE_SPEED));
 		driverLB.whenReleased(new StopIntake());
 		
-		driverA.whenPressed(new HowToTestAutoPath());
-		driverX.whenPressed(new rightSwitchRight());
-		driverB.whenPressed(new rightSwitchLeft());
+//		driverA.whenPressed(new HowToTestAutoPath());
+//		driverX.whenPressed(new rightSwitchRight());
+//		driverB.whenPressed(new rightSwitchLeft());
 		
 		//MANIPULATOR BUTTONS
 		manipulatorA = new JoystickButton(ManipulatorStick, 1);
+		manipulatorX = new JoystickButton(ManipulatorStick, 3);
+		manipulatorB = new JoystickButton(ManipulatorStick, 2);
 		manipulatorLB = new JoystickButton(ManipulatorStick, 5);
 		manipulatorRB = new JoystickButton(ManipulatorStick, 6);
 		manipulatorLT = new XboxTriggerButton(ManipulatorStick, 2);
@@ -96,6 +100,10 @@ public class OI {
 		manipulatorA.whenReleased(new StopElevator());*/
 		manipulatorA.whileHeld(new IntakeCube(RobotMap.INTAKE_SPEED));
 		manipulatorA.whenReleased(new StopIntake());
+		manipulatorB.whileHeld(new IntakeCube(RobotMap.HOLD_CUBE));
+		manipulatorB.whenReleased(new StopIntake());
+		manipulatorX.whileHeld(new OuttakeCube(RobotMap.OUTTAKE_SPEED));
+		manipulatorX.whenReleased(new StopIntake());
 		manipulatorLB.whileHeld(new RaiseElevatorManual(RobotMap.ELEVATOR_SPEED));
 		manipulatorLB.whenReleased(new StopElevator());
 		manipulatorLT.whileHeld(new LowerElevatorManual(RobotMap.ELEVATOR_SPEED));
