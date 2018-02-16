@@ -1,13 +1,19 @@
-package org.usfirst.frc.team78.robot.commands;
+package org.usfirst.frc.team78.robot.commands.autos;
+
+import org.usfirst.frc.team78.robot.RobotMap;
+import org.usfirst.frc.team78.robot.commands.FollowTrajectory;
+import org.usfirst.frc.team78.robot.commands.OpenIntakeGrabber;
+import org.usfirst.frc.team78.robot.commands.OuttakeForAUTO;
+import org.usfirst.frc.team78.robot.commands.RaiseArmToPreset;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class HowToTestAutoPath extends CommandGroup {
+public class AUTO_centerRight extends CommandGroup {
 
-    public HowToTestAutoPath() {
+    public AUTO_centerRight() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -24,11 +30,9 @@ public class HowToTestAutoPath extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new FollowTrajectory("78 test auto"));
-//    	addSequential(new FollowTrajectory("SpenceAuto"));
-//    	addSequential(new FollowTrajectory("turntest"));
-//    	addSequential(new FollowTrajectory("centerRight"));
-//    	addSequential(new FollowTrajectory("centerLeft"));
-//    	addSequential(new FollowTrajectory("rightSwitchLeftPt1"));
+    	addParallel(new RaiseArmToPreset(RobotMap.ARM_PARRELLEL_PRESET), 3);
+    	addSequential(new FollowTrajectory("centerRight"));
+    	addSequential(new OpenIntakeGrabber());
+//    	addSequential(new OuttakeForAUTO(RobotMap.OUTTAKE_SPEED-0.05), 1);
     }
 }

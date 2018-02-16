@@ -7,24 +7,21 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class OuttakeCube extends Command {
-	double speed;
-	
-    public OuttakeCube(double outtakeSpeed) {
+public class ManualJoystickControls extends Command {
+
+    public ManualJoystickControls() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.intake);
-    	speed = outtakeSpeed;
+    	requires(Robot.armavator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.setIntake(-speed);
+    	Robot.armavator.manualJoystickControls();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,12 +31,14 @@ public class OuttakeCube extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intake.stopIntake();
+    	Robot.armavator.stopArm();
+    	Robot.armavator.stopElevator();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.intake.stopIntake();
+    	Robot.armavator.stopArm();
+    	Robot.armavator.stopElevator();
     }
 }

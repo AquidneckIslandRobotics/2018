@@ -11,10 +11,11 @@ import org.usfirst.frc.team78.robot.commands.Shift;
 import org.usfirst.frc.team78.robot.commands.StopArm;
 import org.usfirst.frc.team78.robot.commands.StopElevator;
 import org.usfirst.frc.team78.robot.commands.StopIntake;
+import org.usfirst.frc.team78.robot.commands.SwitchFront;
 import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.XboxTriggerButton;
-import org.usfirst.frc.team78.robot.commands.autos.rightSwitchLeft;
-import org.usfirst.frc.team78.robot.commands.autos.rightSwitchRight;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchLeft;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchRight;
 import org.usfirst.frc.team78.robot.commands.CloseIntakeGrabber;
 import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
 import org.usfirst.frc.team78.robot.commands.IntakeCube;
@@ -50,10 +51,12 @@ public class OI {
 	public Button driverDpadDown;
 	public Button driverDpadRight;
 	public Button driverDpadLeft;
+	public Button driverStart;
 	
 	public Button manipulatorA;
 	public Button manipulatorB;
 	public Button manipulatorX;
+	public Button manipulatorY;
 	public Button manipulatorLB;
 	public Button manipulatorRB;
 	public XboxTriggerButton manipulatorLT;
@@ -74,6 +77,7 @@ public class OI {
 		driverDpadDown= new JoystickButton(DriverStick, 1);
 		driverDpadRight= new JoystickButton(DriverStick, 1);
 		driverDpadLeft= new JoystickButton(DriverStick, 1);
+		driverStart = new JoystickButton(DriverStick, 10);
 		
 		driverRB.whenPressed(new Shift());
 		driverRB.whenReleased(new Shift());
@@ -81,6 +85,7 @@ public class OI {
 		driverLT.whenReleased(new CloseIntakeGrabber());
 		driverLB.whileHeld(new OuttakeCube(RobotMap.OUTTAKE_SPEED));
 		driverLB.whenReleased(new StopIntake());
+		driverStart.whenReleased(new SwitchFront());
 		
 //		driverA.whenPressed(new HowToTestAutoPath());
 //		driverX.whenPressed(new rightSwitchRight());
@@ -90,21 +95,26 @@ public class OI {
 		manipulatorA = new JoystickButton(ManipulatorStick, 1);
 		manipulatorX = new JoystickButton(ManipulatorStick, 3);
 		manipulatorB = new JoystickButton(ManipulatorStick, 2);
+		manipulatorY = new JoystickButton(ManipulatorStick, 4);
 		manipulatorLB = new JoystickButton(ManipulatorStick, 5);
 		manipulatorRB = new JoystickButton(ManipulatorStick, 6);
 		manipulatorLT = new XboxTriggerButton(ManipulatorStick, 2);
 		manipulatorRT = new XboxTriggerButton(ManipulatorStick, 3);
 		manipulatorBack = new JoystickButton(ManipulatorStick, 7);
 		
-		/*manipulatorA.whileHeld(new LowerElevatorManual(RobotMap.ELEVATOR_HOVER_SPEED));
-		manipulatorA.whenReleased(new StopElevator());*/
+		manipulatorY.whileHeld(new LowerElevatorManual(RobotMap.ELEVATOR_HOVER_SPEED));
+		manipulatorY.whenReleased(new StopElevator());
+//		manipulatorA.whileHeld(new IntakeCube(RobotMap.INTAKE_SPEED));
+//		manipulatorA.whenReleased(new StopIntake());
+//		manipulatorB.whileHeld(new IntakeCube(RobotMap.HOLD_CUBE));
+//		manipulatorB.whenReleased(new StopIntake());
+		manipulatorX.whileHeld(new OuttakeCube(RobotMap.OUTTAKE_SPEED));
+		manipulatorX.whenReleased(new StopIntake());
 		manipulatorA.whileHeld(new IntakeCube(RobotMap.INTAKE_SPEED));
 		manipulatorA.whenReleased(new StopIntake());
 		manipulatorB.whileHeld(new IntakeCube(RobotMap.HOLD_CUBE));
 		manipulatorB.whenReleased(new StopIntake());
-		manipulatorX.whileHeld(new OuttakeCube(RobotMap.OUTTAKE_SPEED));
-		manipulatorX.whenReleased(new StopIntake());
-		manipulatorLB.whileHeld(new RaiseElevatorManual(RobotMap.ELEVATOR_SPEED));
+		manipulatorLB.whileHeld(new RaiseElevatorManual(RobotMap.ELEVATOR_SPEED));// COMMENTED FOR MANUAL CONTROL ON MANIPULATOR JOYSTICKS
 		manipulatorLB.whenReleased(new StopElevator());
 		manipulatorLT.whileHeld(new LowerElevatorManual(RobotMap.ELEVATOR_SPEED));
 		manipulatorLT.whenReleased(new StopElevator());

@@ -68,6 +68,7 @@ public class Chassis extends Subsystem {
 	double leftSpeed, rightSpeed;
 	
 	public boolean shiftIsHigh;
+	public boolean switchFront = true;
 	
 	int timeoutMs = 5000;
 	
@@ -148,6 +149,14 @@ public class Chassis extends Subsystem {
     	if(Math.abs(OI.DriverStick.getThrottle()) < RobotMap.STICK_DEADZONE) rightSpeed = 0;
     	else rightSpeed = OI.DriverStick.getThrottle();
     	setSpeed(leftSpeed, rightSpeed);
+	}
+    
+    public void reverseDriveWithJoysticks() {
+    	if(Math.abs(OI.DriverStick.getY()) < RobotMap.STICK_DEADZONE) leftSpeed = 0;
+    	else leftSpeed = -OI.DriverStick.getY();
+    	if(Math.abs(OI.DriverStick.getThrottle()) < RobotMap.STICK_DEADZONE) rightSpeed = 0;
+    	else rightSpeed = OI.DriverStick.getThrottle();
+    	setSpeed(rightSpeed, leftSpeed);
 	}
     
     public void setSpeed(double left, double right) {

@@ -50,12 +50,12 @@ public class RobotMap {
 	public static final int ARM = 4;
 	public static final double ELEVATOR_SPEED = 0.65; //TODO Add fast and slow variants?
 	public static final double ELEVATOR_HOVER_SPEED = 0.06;
-	public static final double ARM_POT_UPPER_LIMIT = 4.2; //Initial test Monday, February 12, 2018
+	public static final double ARM_POT_UPPER_LIMIT = 4.43; //Initial test Monday, February 12, 2018
 	public static final double ARM_POT_LOWER_LIMIT = 2.45;  //Initial test Monday, February 12, 2018
 	public static final double ARM_SPEED = 0.75; //TODO Tune arm speed
 	public static final double MAX_CLIMB_SPEED = 0.65;
 	public static final double ENGAGE_SPEED = 0.25; //TODO Tune engage speed
-	public static final double ARM_PARRELLEL_PRESET = 3.03;
+	public static final double ARM_PARRELLEL_PRESET = 3.2;
 	
 	
 	//Intake TODO Finalize intake stuff
@@ -74,5 +74,8 @@ public class RobotMap {
 	//Constant variables
 	public static final double WHEEL_DIAMETER = 6;
 	public static final double PULSES_PER_ROTATION = 4096;
+	
+	//start config
+	public static final double ARM_START_CONFIG = 2.573;
 	
 }

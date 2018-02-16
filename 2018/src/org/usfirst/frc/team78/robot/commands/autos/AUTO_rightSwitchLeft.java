@@ -1,20 +1,19 @@
-package org.usfirst.frc.team78.robot.commands;
+package org.usfirst.frc.team78.robot.commands.autos;
 
-import org.usfirst.frc.team78.robot.RobotMap;
+import org.usfirst.frc.team78.robot.commands.FollowTrajectory;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AUTO_centerRight extends CommandGroup {
+public class AUTO_rightSwitchLeft extends CommandGroup {
 
-    public AUTO_centerRight() {
+    public AUTO_rightSwitchLeft() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
-
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
@@ -26,8 +25,6 @@ public class AUTO_centerRight extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new RaiseArmToPreset(RobotMap.ARM_PARRELLEL_PRESET), 3);
-    	addSequential(new FollowTrajectory("centerRight"));
-    	addSequential(new OuttakeForAUTO(RobotMap.OUTTAKE_SPEED), 3);
+    	addSequential(new FollowTrajectory("rightSwitchRightPt1"));
     }
 }

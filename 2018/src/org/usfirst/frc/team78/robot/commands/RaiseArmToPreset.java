@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class RaiseArmToPreset extends Command {
 
 	double preset;
-	double offset = 0.1;
+	double offset = 0.0;
 	
     public RaiseArmToPreset(double Preset) {
         // Use requires() here to declare subsystem dependencies
@@ -27,9 +27,9 @@ public class RaiseArmToPreset extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(Robot.armavator.getArmPot() > (preset+offset)) {
-    		Robot.armavator.setArm(-0.3);
+    		Robot.armavator.setArm(-0.55);
     	}else if(Robot.armavator.getArmPot() < (preset-offset)) {
-    		Robot.armavator.setArm(0.3);
+    		Robot.armavator.setArm(0.55);
     	}else {
     		Robot.armavator.stopArm();
     	}

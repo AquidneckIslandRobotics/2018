@@ -1,8 +1,15 @@
 package org.usfirst.frc.team78.robot.subsystems;
 
+import org.usfirst.frc.team78.robot.OI;
 import org.usfirst.frc.team78.robot.RobotMap;
+import org.usfirst.frc.team78.robot.commands.LowerArmManual;
+import org.usfirst.frc.team78.robot.commands.LowerElevatorManual;
+import org.usfirst.frc.team78.robot.commands.ManualJoystickControls;
+import org.usfirst.frc.team78.robot.commands.RaiseArmManual;
+import org.usfirst.frc.team78.robot.commands.RaiseElevatorManual;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -33,6 +40,7 @@ public class Armavator extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	//setDefaultCommand(new ManualJoystickControls());
     }
     
     public void armavatorInit() {
@@ -40,8 +48,23 @@ public class Armavator extends Subsystem {
     	elevatorFollower.setInverted(false);
     	elevatorFollower.setNeutralMode(NeutralMode.Brake);
     	elevatorLeader.setNeutralMode(NeutralMode.Brake);
+    	elevatorFollower.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
     	arm.setNeutralMode(NeutralMode.Brake);
     	arm.setInverted(true);
+    }
+    
+    public void manualJoystickControls() {
+    	if(OI.ManipulatorStick.getRawAxis(1) > RobotMap.STICK_DEADZONE) {
+    		new RaiseElevatorManual(OI.ManipulatorStick.getRawAxis(1));
+    	} else if(OI.ManipulatorStick.getY() < -RobotMap.STICK_DEADZONE) {
+    		new LowerElevatorManual(OI.ManipulatorStick.getY());
+    	}
+    	
+    	if(OI.ManipulatorStick.getThrottle() > RobotMap.STICK_DEADZONE) {
+    		new RaiseElevatorManual(OI.ManipulatorStick.getThrottle());
+    	} else if(OI.ManipulatorStick.getThrottle() < -RobotMap.STICK_DEADZONE) {
+    		new LowerElevatorManual(OI.ManipulatorStick.getThrottle());
+    	}    	
     }
     
     //ELEVATOR METHODS
@@ -59,6 +82,14 @@ public class Armavator extends Subsystem {
     
     public boolean getUpperElevatorLimit() {
     	return upperElevatorLimit.get();
+    }
+    
+    public double getElevatorMagPosition() {
+    	return elevatorFollower.getSelectedSensorPosition(0);
+    }
+    
+    public void resetElevatorMag() {
+    	elevatorFollower.setSelectedSensorPosition(0, 0, 0);
     }
     
     //ARM METHODS

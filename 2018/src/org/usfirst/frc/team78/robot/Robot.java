@@ -20,10 +20,16 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team78.robot.commands.AUTO_centerRight;
 import org.usfirst.frc.team78.robot.commands.Distance;
+import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
 import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.drivefrompoint;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_centerLeft;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_centerRight;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_leftSwitchLeft;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_leftSwitchRight;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchLeft;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchRight;
 import org.usfirst.frc.team78.robot.subsystems.Armavator;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.Intake;
@@ -53,6 +59,7 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	SendableChooser<String> m_startPosition = new SendableChooser<>();
+	SendableChooser<String> m_gameElement = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -162,6 +169,10 @@ public class Robot extends TimedRobot {
 		m_startPosition.addObject("Right", "Right");
 		m_startPosition.addObject("Left", "Left");
 		
+		SmartDashboard.putData("Game Element", m_gameElement);
+		m_gameElement.addDefault("Switch", "switch");
+		m_gameElement.addObject("Scale", "scale");
+		
 		
 	}
 	
@@ -202,15 +213,46 @@ public class Robot extends TimedRobot {
 			if(getGameSpecificData("alliance") == R) {
 				m_autonomousCommand = new AUTO_centerRight();
 			}else if(getGameSpecificData("alliance") == L) {
-//				m_autonomousCommand = 
+				m_autonomousCommand = new AUTO_centerLeft();
 			}else {
 				m_autonomousCommand  = null;
 			}
 			
 		}else if(m_startPosition.getSelected().equals("Right")) {
+			if(m_gameElement.getSelected().equals("switch")) {
+				if(getGameSpecificData("alliance") == R) {
+					m_autonomousCommand = new AUTO_rightSwitchRight();
+				}else if(getGameSpecificData("alliance") == L) {
+					m_autonomousCommand = new AUTO_rightSwitchLeft();
+				}
+				
+			}else if(m_gameElement.getSelected().equals("scale")) {
+				if(getGameSpecificData("alliance") == R) {
+					m_autonomousCommand = new HowToTestAutoPath();
+				}else if(getGameSpecificData("alliance") == L) {
+					m_autonomousCommand = new HowToTestAutoPath();
+				}
+			}else {
+				m_autonomousCommand = null;
+			}
 			
 		}else if(m_startPosition.getSelected().equals("Left")) {
-			
+			if(m_gameElement.getSelected().equals("switch")) {
+				if(getGameSpecificData("alliance") == R) {
+					m_autonomousCommand = new AUTO_leftSwitchRight();
+				}else if(getGameSpecificData("alliance") == L) {
+					m_autonomousCommand = new AUTO_leftSwitchLeft();
+				}
+				
+			}else if(m_gameElement.getSelected().equals("scale")) {
+				if(getGameSpecificData("alliance") == R) {
+					m_autonomousCommand = new HowToTestAutoPath();
+				}else if(getGameSpecificData("alliance") == L) {
+					m_autonomousCommand = new HowToTestAutoPath();
+				}
+			}else {
+				m_autonomousCommand = null;
+			}
 		}
 		
 		/*
@@ -242,6 +284,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("Arm Pot Value", Robot.armavator.getArmPot());
+
 		Scheduler.getInstance().run();
 	}
 
@@ -276,17 +320,18 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
 		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
 		
-		SmartDashboard.putNumber("right Vel", chassis.rightMagVelocity());
-		SmartDashboard.putNumber("left Vel", chassis.leftMagVelocity());
-		SmartDashboard.putNumber("right Pos", chassis.rightMagPosition());
-		SmartDashboard.putNumber("left Pos", chassis.leftMagPosition());
+//		SmartDashboard.putNumber("right Vel", chassis.rightMagVelocity());
+//		SmartDashboard.putNumber("left Vel", chassis.leftMagVelocity());
+//		SmartDashboard.putNumber("right Pos", chassis.rightMagPosition());
+//		SmartDashboard.putNumber("left Pos", chassis.leftMagPosition());
 		SmartDashboard.putData("gyro", chassis.navx);
 		SmartDashboard.putData("Chassis",chassis);
 		SmartDashboard.putBoolean("shift is high", chassis.shiftIsHigh);
 		SmartDashboard.putNumber("Arm Pot Value", Robot.armavator.getArmPot());
+		SmartDashboard.putNumber("Elevator Encoder", armavator.getElevatorMagPosition());
 		
 //		SmartDashboard.putNumber("TurnPID", chassis.turnSpeed.getSpeed());
-		SmartDashboard.putData("TurnController", chassis.turnController);
+//		SmartDashboard.putData("TurnController", chassis.turnController);
 //		SmartDashboard.putData("Turn",new Turn());		
 //		SmartDashboard.putNumber("leftDistPID", chassis.leftDistanceSpeed.getSpeed());
 //		SmartDashboard.putNumber("rightDistPID", chassis.rightDistanceSpeed.getSpeed());
@@ -295,6 +340,11 @@ public class Robot extends TimedRobot {
 //		SmartDashboard.putData("test",new drivefrompoint());
 		
 		Scheduler.getInstance().run();
+		
+		if(!armavator.getBottomElevatorLimit()) {
+			armavator.resetElevatorMag();
+		}
+		
 	}
 
 	/**
