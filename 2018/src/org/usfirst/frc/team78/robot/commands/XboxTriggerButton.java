@@ -2,16 +2,16 @@ package org.usfirst.frc.team78.robot.commands;
 
 import org.usfirst.frc.team78.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 public class XboxTriggerButton extends Button {
 	
-	Joystick m_joystick;
+	XboxController m_joystick;
 	int m_axis;
 	
-	public XboxTriggerButton(Joystick joystick, int axis) {
-		m_joystick = joystick;
+	public XboxTriggerButton(XboxController manipulatorStick, int axis) {
+		m_joystick = manipulatorStick;
 		m_axis = axis;
 	}
 	

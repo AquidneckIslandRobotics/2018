@@ -1,7 +1,9 @@
 package org.usfirst.frc.team78.robot.subsystems;
 
 import org.usfirst.frc.team78.robot.OI;
+import org.usfirst.frc.team78.robot.Robot;
 import org.usfirst.frc.team78.robot.RobotMap;
+import org.usfirst.frc.team78.robot.SpeedOutput;
 import org.usfirst.frc.team78.robot.commands.LowerArmManual;
 import org.usfirst.frc.team78.robot.commands.LowerElevatorManual;
 import org.usfirst.frc.team78.robot.commands.ManualJoystickControls;
@@ -15,6 +17,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
@@ -37,10 +41,13 @@ public class Armavator extends Subsystem {
 	public DigitalInput bottomElevatorLimit = new DigitalInput(RobotMap.BOTTOM_ELEVATOR_LIMIT);
 	public DigitalInput upperElevatorLimit = new DigitalInput(RobotMap.UPPER_ELEVATOR_LIMIT);
 	
+//	public SpeedOutput eleSpeed = new SpeedOutput();
+	//public PIDController elePID = new PIDController(0.0,0.0,0.0,elevatorFollower.getSelectedSensorPosition(0),eleSpeed);
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	//setDefaultCommand(new ManualJoystickControls());
+    	setDefaultCommand(new ManualJoystickControls());
     }
     
     public void armavatorInit() {
@@ -48,27 +55,39 @@ public class Armavator extends Subsystem {
     	elevatorFollower.setInverted(false);
     	elevatorFollower.setNeutralMode(NeutralMode.Brake);
     	elevatorLeader.setNeutralMode(NeutralMode.Brake);
-    	elevatorFollower.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+    	elevatorFollower.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
     	arm.setNeutralMode(NeutralMode.Brake);
     	arm.setInverted(true);
     }
     
     public void manualJoystickControls() {
-    	if(OI.ManipulatorStick.getRawAxis(1) > RobotMap.STICK_DEADZONE) {
-    		new RaiseElevatorManual(OI.ManipulatorStick.getRawAxis(1));
-    	} else if(OI.ManipulatorStick.getY() < -RobotMap.STICK_DEADZONE) {
-    		new LowerElevatorManual(OI.ManipulatorStick.getY());
+    	
+    	if(OI.ManipulatorStick.getY(Hand.kLeft) > RobotMap.XBOX_DEADZONE && this.getBottomElevatorLimit()) {
+			this.setElevator(-OI.ManipulatorStick.getY(Hand.kLeft) * 0.8);
+    	} else if(OI.ManipulatorStick.getY(Hand.kLeft) < -RobotMap.XBOX_DEADZONE && this.getUpperElevatorLimit()) {
+			this.setElevator(-OI.ManipulatorStick.getY(Hand.kLeft) * 0.8);
+    	} else {
+    		this.stopElevator();
     	}
     	
-    	if(OI.ManipulatorStick.getThrottle() > RobotMap.STICK_DEADZONE) {
-    		new RaiseElevatorManual(OI.ManipulatorStick.getThrottle());
-    	} else if(OI.ManipulatorStick.getThrottle() < -RobotMap.STICK_DEADZONE) {
-    		new LowerElevatorManual(OI.ManipulatorStick.getThrottle());
-    	}    	
+    	if(OI.ManipulatorStick.getY(Hand.kRight) > RobotMap.XBOX_DEADZONE) {
+    		if(Robot.armavator.getArmPot() < RobotMap.ARM_POT_UPPER_LIMIT)
+    			this.setArm(-OI.ManipulatorStick.getY(Hand.kRight) * 0.8);
+    		else
+    			this.stopArm();
+    	} else if(OI.ManipulatorStick.getY(Hand.kRight) < -RobotMap.XBOX_DEADZONE) {
+    		if(Robot.armavator.getArmPot() > RobotMap.ARM_POT_LOWER_LIMIT)
+    			this.setArm(-OI.ManipulatorStick.getY(Hand.kRight) * 0.8);
+    		else
+    			this.stopArm();
+    	} else {
+    		this.stopArm();
+    	}
     }
     
     //ELEVATOR METHODS
     public void setElevator(double speed) {
+    	//TODO ADD LIMIT CHECKS
     	elevatorLeader.set(ControlMode.PercentOutput, speed);
     }
 

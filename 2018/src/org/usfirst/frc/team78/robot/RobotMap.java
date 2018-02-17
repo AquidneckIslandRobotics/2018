@@ -33,6 +33,7 @@ public class RobotMap {
 	public static final int RIGHT_BOTTOM = 16;
 	
 	public static final double STICK_DEADZONE = 0.05;
+	public static final double XBOX_DEADZONE = 0.20;
 	
 	//Sensors
 	public static final int RIGHT_ENC_A = 0;
@@ -55,13 +56,27 @@ public class RobotMap {
 	public static final double ARM_SPEED = 0.75; //TODO Tune arm speed
 	public static final double MAX_CLIMB_SPEED = 0.65;
 	public static final double ENGAGE_SPEED = 0.25; //TODO Tune engage speed
+	
+	//Armavator Presets
 	public static final double ARM_PARRELLEL_PRESET = 3.2;
+	public static final double STOWED_ARM_PRESET = 2.565;
+	public static final double STOWED_ELEVATOR_PRESET = 8220;
+	public static final double SWITCH_ARM_PRESET = 3.36;
+	public static final double SWITCH_ELEVATOR_PRESET = 0.0;
+//	public static final double LOW_SCALE_ARM_PRESET;
+//	public static final double LOW_SCALE_ELEVATOR_PRESET
+//	public static final double INTAKE_ARM_PRESET;
+//	public static final double INTAKE_ELEVATOR_PRESET;
+	public static final double ARM_DEADZONE = 0.025;
+	public static final double ELEVATOR_DEADZONE = 100;
+	public static final double ARM_SCALE_PRESET = 3.8;
+	public static final double ELEVATOR_SCALE_PRESET = 18200;
 	
 	
 	//Intake TODO Finalize intake stuff
 	public static final int INTAKE_LEADER = 12; //Assigned arbitrarily     12 is LEFT
 	public static final int INTAKE_FOLLOWER = 13; //^^                     13 is RIGHT
-	public static final double INTAKE_SPEED = 0.75;
+	public static final double INTAKE_SPEED = 1;
 	public static final double HOLD_CUBE = 0.2;
 	public static final double OUTTAKE_SPEED = 1;
 	

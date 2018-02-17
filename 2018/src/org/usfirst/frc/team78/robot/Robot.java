@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team78.robot.commands.Distance;
 import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
+import org.usfirst.frc.team78.robot.commands.PreMatchPresets;
 import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.drivefrompoint;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_centerLeft;
@@ -299,6 +300,8 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
+		SmartDashboard.putData("Stow Robot", new PreMatchPresets());
+		
 		getSwitchColor();
 		chassis.chassisInit();
 		intake.intakeInit();
@@ -340,6 +343,7 @@ public class Robot extends TimedRobot {
 //		SmartDashboard.putData("test",new drivefrompoint());
 		
 		Scheduler.getInstance().run();
+		
 		
 		if(!armavator.getBottomElevatorLimit()) {
 			armavator.resetElevatorMag();

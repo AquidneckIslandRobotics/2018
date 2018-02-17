@@ -2,23 +2,21 @@ package org.usfirst.frc.team78.robot.commands;
 
 import org.usfirst.frc.team78.robot.Robot;
 import org.usfirst.frc.team78.robot.RobotMap;
-import org.usfirst.frc.team78.robot.subsystems.Armavator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RaiseArmToPreset extends Command {
-
+public class RaiseElevatorToPreset extends Command {
+	
 	double preset;
 	double offset = 0.0;
 	
-    public RaiseArmToPreset(double Preset) {
+    public RaiseElevatorToPreset(double Preset) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-//    		requires(Robot.armavator);
-    		preset = Preset;
+    	preset = Preset;
     }
 
     // Called just before this Command runs the first time
@@ -27,23 +25,23 @@ public class RaiseArmToPreset extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.armavator.getArmPot() > (preset+offset+RobotMap.ARM_DEADZONE)) {
-    		Robot.armavator.setArm(-0.55);
-    	}else if(Robot.armavator.getArmPot() < (preset-offset-RobotMap.ARM_DEADZONE)) {
-    		Robot.armavator.setArm(0.55);
-    	}else {
-    		Robot.armavator.stopArm();
+    	if(Robot.armavator.getElevatorMagPosition() > (preset+offset+RobotMap.ELEVATOR_DEADZONE)) {
+    		Robot.armavator.setElevator(-0.4);
+    	}else if(Robot.armavator.getElevatorMagPosition() < (preset-offset-RobotMap.ELEVATOR_DEADZONE)) {
+    		Robot.armavator.setElevator(0.4);
+    	} else {
+    		Robot.armavator.stopElevator();
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Robot.armavator.getArmPot() == preset);
+        return ((Robot.armavator.getElevatorMagPosition() == preset) || !Robot.armavator.getBottomElevatorLimit() || !Robot.armavator.getUpperElevatorLimit());
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.armavator.stopArm();
+    	Robot.armavator.stopElevator();
     }
 
     // Called when another command which requires one or more of the same
