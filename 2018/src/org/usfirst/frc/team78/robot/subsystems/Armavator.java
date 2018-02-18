@@ -71,12 +71,12 @@ public class Armavator extends Subsystem {
     	}
     	
     	
-    	if(OI.ManipulatorStick.getY(Hand.kRight) < RobotMap.XBOX_DEADZONE) {
+    	if(OI.ManipulatorStick.getY(Hand.kRight) < -RobotMap.XBOX_DEADZONE) {
     		if((Robot.armavator.getArmPot() < RobotMap.ARM_POT_UPPER_LIMIT))
     			this.setArm(-OI.ManipulatorStick.getY(Hand.kRight) * 0.9);
     		else
     			this.stopArm();
-    	} else if(OI.ManipulatorStick.getY(Hand.kRight) > -RobotMap.XBOX_DEADZONE) {
+    	} else if(OI.ManipulatorStick.getY(Hand.kRight) > RobotMap.XBOX_DEADZONE) {
     		if(Robot.armavator.getArmPot() > RobotMap.ARM_POT_LOWER_LIMIT)
     			this.setArm(-OI.ManipulatorStick.getY(Hand.kRight) * 0.9);
     		else
