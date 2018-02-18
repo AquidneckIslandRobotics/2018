@@ -271,12 +271,12 @@ public class Robot extends TimedRobot {
 		}
 		
 		getSwitchColor();
-		SmartDashboard.putBoolean("Alliance_R", alliance_R_SwitchState);
-		SmartDashboard.putBoolean("Alliance_L", alliance_L_SwitchState);
-		SmartDashboard.putBoolean("Scale_R", R_scaleState);
-		SmartDashboard.putBoolean("Scale_L", L_scaleState);
-		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
-		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
+//		SmartDashboard.putBoolean("Alliance_R", alliance_R_SwitchState);
+//		SmartDashboard.putBoolean("Alliance_L", alliance_L_SwitchState);
+//		SmartDashboard.putBoolean("Scale_R", R_scaleState);
+//		SmartDashboard.putBoolean("Scale_L", L_scaleState);
+//		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
+//		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
 		
 	}
 
@@ -316,13 +316,13 @@ public class Robot extends TimedRobot {
 		
 		
 		
-		SmartDashboard.putBoolean("Alliance_R", alliance_R_SwitchState);
-		SmartDashboard.putBoolean("Alliance_L", alliance_L_SwitchState);
-		SmartDashboard.putBoolean("Scale_R", R_scaleState);
-		SmartDashboard.putBoolean("Scale_L", L_scaleState);
-		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
-		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
-		
+//		SmartDashboard.putBoolean("Alliance_R", alliance_R_SwitchState);
+//		SmartDashboard.putBoolean("Alliance_L", alliance_L_SwitchState);
+//		SmartDashboard.putBoolean("Scale_R", R_scaleState);
+//		SmartDashboard.putBoolean("Scale_L", L_scaleState);
+//		SmartDashboard.putBoolean("oppisite_R", opposite_R_SwitchState);
+//		SmartDashboard.putBoolean("opposite_L", opposite_L_SwitchState);
+//		
 //		SmartDashboard.putNumber("right Vel", chassis.rightMagVelocity());
 //		SmartDashboard.putNumber("left Vel", chassis.leftMagVelocity());
 //		SmartDashboard.putNumber("right Pos", chassis.rightMagPosition());

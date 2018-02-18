@@ -32,6 +32,9 @@ public class RobotMap {
 	public static final int RIGHT_TOP = 14;
 	public static final int RIGHT_BOTTOM = 16;
 	
+	public static final int SHIFT_HIGH = 1; //dogs inward
+	public static final int SHIFT_LOW = 0; //dogs outward
+	
 	public static final double STICK_DEADZONE = 0.05;
 	public static final double XBOX_DEADZONE = 0.20;
 	
@@ -40,8 +43,8 @@ public class RobotMap {
 	public static final int RIGHT_ENC_B = 1;
 	public static final int LEFT_ENC_A = 5;
 	public static final int LEFT_ENC_B = 4;
-	public static final int ELEVATOR_ENCODER = 0; //TODO Check elevator encoder port
-	public static final int ARM_POT = 0; //Actually correct at 0 (not just defaulted)
+	public static final int ELEVATOR_ENCODER = 0;
+	public static final int ARM_POT = 0; 
 	public static final int BOTTOM_ELEVATOR_LIMIT = 9;
 	public static final int UPPER_ELEVATOR_LIMIT = 8;
 	
@@ -49,13 +52,13 @@ public class RobotMap {
 	public static final int LEFT_ELEVATOR = 5;
 	public static final int RIGHT_ELEVATOR = 11;
 	public static final int ARM = 4;
-	public static final double ELEVATOR_SPEED = 0.65; //TODO Add fast and slow variants?
+	public static final double ELEVATOR_SPEED = 0.75; 
 	public static final double ELEVATOR_HOVER_SPEED = 0.06;
-	public static final double ARM_POT_UPPER_LIMIT = 4.43; //Initial test Monday, February 12, 2018
-	public static final double ARM_POT_LOWER_LIMIT = 2.45;  //Initial test Monday, February 12, 2018
-	public static final double ARM_SPEED = 0.75; //TODO Tune arm speed
+	public static final double ARM_POT_UPPER_LIMIT = 4.43; 
+	public static final double ARM_POT_LOWER_LIMIT = 2.8; 
+	public static final double ARM_SPEED = 0.85; 
 	public static final double MAX_CLIMB_SPEED = 0.65;
-	public static final double ENGAGE_SPEED = 0.25; //TODO Tune engage speed
+	public static final double ENGAGE_SPEED = 0.25; 
 	
 	//Armavator Presets
 	public static final double ARM_PARRELLEL_PRESET = 3.2;
@@ -73,18 +76,14 @@ public class RobotMap {
 	public static final double ELEVATOR_SCALE_PRESET = 18200;
 	
 	
-	//Intake TODO Finalize intake stuff
-	public static final int INTAKE_LEADER = 12; //Assigned arbitrarily     12 is LEFT
-	public static final int INTAKE_FOLLOWER = 13; //^^                     13 is RIGHT
+	//Intake 
+	public static final int INTAKE_LEADER = 12;   // 12 is LEFT
+	public static final int INTAKE_FOLLOWER = 13; // 13 is RIGHT
 	public static final double INTAKE_SPEED = 1;
-	public static final double HOLD_CUBE = 0.2;
+	public static final double HOLD_CUBE = 0.3;
 	public static final double OUTTAKE_SPEED = 1;
-	
-	public static final int INTAKE_GRIPPER_OPEN = 2; //Good as of Monday, February 12, 2018
+	public static final int INTAKE_GRIPPER_OPEN = 2; 
 	public static final int INTAKE_GRIPPER_CLOSED = 3;
-	
-	public static final int SHIFT_HIGH = 1; //dogs inward
-	public static final int SHIFT_LOW = 0; //dogs outward
 	
 	//Constant variables
 	public static final double WHEEL_DIAMETER = 6;

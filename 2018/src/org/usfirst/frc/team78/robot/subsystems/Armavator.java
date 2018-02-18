@@ -63,21 +63,22 @@ public class Armavator extends Subsystem {
     public void manualJoystickControls() {
     	
     	if(OI.ManipulatorStick.getY(Hand.kLeft) > RobotMap.XBOX_DEADZONE && this.getBottomElevatorLimit()) {
-			this.setElevator(-OI.ManipulatorStick.getY(Hand.kLeft) * 0.8);
+			this.setElevator(-OI.ManipulatorStick.getY(Hand.kLeft) * 0.9);
     	} else if(OI.ManipulatorStick.getY(Hand.kLeft) < -RobotMap.XBOX_DEADZONE && this.getUpperElevatorLimit()) {
-			this.setElevator(-OI.ManipulatorStick.getY(Hand.kLeft) * 0.8);
+			this.setElevator(-OI.ManipulatorStick.getY(Hand.kLeft) * 0.9);
     	} else {
     		this.stopElevator();
     	}
     	
-    	if(OI.ManipulatorStick.getY(Hand.kRight) > RobotMap.XBOX_DEADZONE) {
-    		if(Robot.armavator.getArmPot() < RobotMap.ARM_POT_UPPER_LIMIT)
-    			this.setArm(-OI.ManipulatorStick.getY(Hand.kRight) * 0.8);
+    	
+    	if(OI.ManipulatorStick.getY(Hand.kRight) < RobotMap.XBOX_DEADZONE) {
+    		if((Robot.armavator.getArmPot() < RobotMap.ARM_POT_UPPER_LIMIT))
+    			this.setArm(-OI.ManipulatorStick.getY(Hand.kRight) * 0.9);
     		else
     			this.stopArm();
-    	} else if(OI.ManipulatorStick.getY(Hand.kRight) < -RobotMap.XBOX_DEADZONE) {
+    	} else if(OI.ManipulatorStick.getY(Hand.kRight) > -RobotMap.XBOX_DEADZONE) {
     		if(Robot.armavator.getArmPot() > RobotMap.ARM_POT_LOWER_LIMIT)
-    			this.setArm(-OI.ManipulatorStick.getY(Hand.kRight) * 0.8);
+    			this.setArm(-OI.ManipulatorStick.getY(Hand.kRight) * 0.9);
     		else
     			this.stopArm();
     	} else {
@@ -87,7 +88,12 @@ public class Armavator extends Subsystem {
     
     //ELEVATOR METHODS
     public void setElevator(double speed) {
-    	//TODO ADD LIMIT CHECKS
+    	if(getElevatorMagPosition() < 2000) {
+    		speed *= 0.5;
+    	}else if(getElevatorMagPosition() > 16000) {
+    		speed *= 0.5;
+    	}
+    	
     	elevatorLeader.set(ControlMode.PercentOutput, speed);
     }
 
@@ -112,7 +118,7 @@ public class Armavator extends Subsystem {
     }
     
     //ARM METHODS
-    public void setArm(double speed) {
+    public void setArm(double speed) {    	
     	arm.set(ControlMode.PercentOutput, speed);
     }
     
