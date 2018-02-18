@@ -93,7 +93,7 @@ public class Armavator extends Subsystem {
     	}else if(getElevatorMagPosition() > 16000) {
     		speed *= 0.5;
     	}
-    	
+    	 
     	elevatorLeader.set(ControlMode.PercentOutput, speed);
     }
 
