@@ -68,8 +68,8 @@ public class RobotMap {
 	public static final double SWITCH_ELEVATOR_PRESET = 0.0;
 //	public static final double LOW_SCALE_ARM_PRESET;
 //	public static final double LOW_SCALE_ELEVATOR_PRESET
-//	public static final double INTAKE_ARM_PRESET;
-//	public static final double INTAKE_ELEVATOR_PRESET;
+	public static final double INTAKE_ARM_PRESET = 3;
+	public static final double INTAKE_ELEVATOR_PRESET = 0;
 	public static final double ARM_DEADZONE = 0.025;
 	public static final double ELEVATOR_DEADZONE = 100;
 	public static final double ARM_SCALE_PRESET = 3.8;

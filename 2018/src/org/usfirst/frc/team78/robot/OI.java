@@ -13,7 +13,6 @@ import org.usfirst.frc.team78.robot.commands.StopElevator;
 import org.usfirst.frc.team78.robot.commands.StopIntake;
 import org.usfirst.frc.team78.robot.commands.SwitchFront;
 import org.usfirst.frc.team78.robot.commands.Turn;
-import org.usfirst.frc.team78.robot.commands.XboxTriggerButton;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchLeft;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchRight;
 import org.usfirst.frc.team78.robot.commands.CloseIntakeGrabber;
@@ -27,6 +26,7 @@ import org.usfirst.frc.team78.robot.commands.OuttakeCube;
 import org.usfirst.frc.team78.robot.commands.RaiseArmManual;
 import org.usfirst.frc.team78.robot.commands.RaiseArmToPreset;
 import org.usfirst.frc.team78.robot.commands.RaiseElevatorManual;
+import org.usfirst.frc.team78.robot.commands.SetArmavatorPID;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPreset;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -118,7 +118,8 @@ public class OI {
 		manipulatorA.whenReleased(new StopIntake());
 		manipulatorB.whileHeld(new IntakeCube(RobotMap.HOLD_CUBE));
 		manipulatorB.whenReleased(new StopIntake());
-		manipulatorY.whileHeld(new SetArmavatorPreset(RobotMap.ARM_PARRELLEL_PRESET, RobotMap.SWITCH_ELEVATOR_PRESET));
+		manipulatorY.whileHeld(new SetArmavatorPID(RobotMap.ARM_PARRELLEL_PRESET, RobotMap.SWITCH_ELEVATOR_PRESET));
+		manipulatorY.whenReleased(new ManualJoystickControls());
 		//manipulatorY.whenReleased(new ManualJoystickControls());
 //		manipulatorLB.whileHeld(new RaiseElevatorManual(RobotMap.ELEVATOR_SPEED));// COMMENTED FOR MANUAL CONTROL ON MANIPULATOR JOYSTICKS
 //		manipulatorLB.whenReleased(new StopElevator());

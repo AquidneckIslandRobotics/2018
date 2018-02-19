@@ -3,6 +3,7 @@ package org.usfirst.frc.team78.robot.subsystems;
 import org.usfirst.frc.team78.robot.OI;
 import org.usfirst.frc.team78.robot.Robot;
 import org.usfirst.frc.team78.robot.RobotMap;
+import org.usfirst.frc.team78.robot.SensorInputPID;
 import org.usfirst.frc.team78.robot.SpeedOutput;
 import org.usfirst.frc.team78.robot.commands.LowerArmManual;
 import org.usfirst.frc.team78.robot.commands.LowerElevatorManual;
@@ -18,6 +19,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
@@ -41,8 +43,13 @@ public class Armavator extends Subsystem {
 	public DigitalInput bottomElevatorLimit = new DigitalInput(RobotMap.BOTTOM_ELEVATOR_LIMIT);
 	public DigitalInput upperElevatorLimit = new DigitalInput(RobotMap.UPPER_ELEVATOR_LIMIT);
 	
-//	public SpeedOutput eleSpeed = new SpeedOutput();
-	//public PIDController elePID = new PIDController(0.0,0.0,0.0,elevatorFollower.getSelectedSensorPosition(0),eleSpeed);
+	//PID
+	public SpeedOutput armSpeedOutput = new SpeedOutput();
+	public PIDController armPID = new PIDController(0.5, 0.0, 0.0, armPot, armSpeedOutput);
+	
+	public SpeedOutput eleSpeed = new SpeedOutput(); //"skraaa pop pop pop pop pop" - Nate Janssen
+	public SensorInputPID eleInput = new SensorInputPID(elevatorFollower, PIDSourceType.kDisplacement, 0);
+	public PIDController elePID = new PIDController(0.5, 0.0, 0.0, eleInput, eleSpeed);
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -93,8 +100,16 @@ public class Armavator extends Subsystem {
     	}else if(getElevatorMagPosition() > 16000) {
     		speed *= 0.5;
     	}
+    	
+    	if(speed < 0 && getBottomElevatorLimit()) {
+    		elevatorLeader.set(ControlMode.PercentOutput, speed);
+    	} else if(speed > 0 && getUpperElevatorLimit()) {
+    		elevatorLeader.set(ControlMode.PercentOutput, speed);
+    	} else if(speed == 0) {
+    		elevatorLeader.set(ControlMode.PercentOutput, speed);
+    	}
     	 
-    	elevatorLeader.set(ControlMode.PercentOutput, speed);
+    	
     }
 
     public void stopElevator() {
@@ -118,8 +133,14 @@ public class Armavator extends Subsystem {
     }
     
     //ARM METHODS
-    public void setArm(double speed) {    	
-    	arm.set(ControlMode.PercentOutput, speed);
+    public void setArm(double speed) {
+    	if(speed < 0 && getArmPot() > RobotMap.ARM_POT_LOWER_LIMIT) {
+    		arm.set(ControlMode.PercentOutput, speed);
+    	} else if(speed > 0 && getArmPot() < RobotMap.ARM_POT_UPPER_LIMIT) {
+    		arm.set(ControlMode.PercentOutput, speed);
+    	} else if(speed == 0) {
+    		arm.set(ControlMode.PercentOutput, speed);
+    	}
     }
     
     public void stopArm() {

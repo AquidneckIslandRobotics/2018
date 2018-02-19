@@ -341,6 +341,8 @@ public class Robot extends TimedRobot {
 //		SmartDashboard.putData("right drive controller", chassis.rightDistanceController);
 //		SmartDashboard.putData("left drive controller", chassis.leftDistanceController);			
 //		SmartDashboard.putData("test",new drivefrompoint());
+		SmartDashboard.putData("Arm PID", armavator.armPID);
+		SmartDashboard.putData("Elevator PID", armavator.elePID);
 		
 		Scheduler.getInstance().run();
 		

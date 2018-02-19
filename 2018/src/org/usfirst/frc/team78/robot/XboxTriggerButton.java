@@ -1,6 +1,4 @@
-package org.usfirst.frc.team78.robot.commands;
-
-import org.usfirst.frc.team78.robot.RobotMap;
+package org.usfirst.frc.team78.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
