@@ -16,6 +16,7 @@ public class RaiseElevatorToPreset extends Command {
     public RaiseElevatorToPreset(double Preset) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.elevator);
     	preset = Preset;
     }
 
@@ -25,23 +26,23 @@ public class RaiseElevatorToPreset extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.armavator.getElevatorMagPosition() > (preset+offset+RobotMap.ELEVATOR_DEADZONE)) {
-    		Robot.armavator.setElevator(-0.4);
-    	}else if(Robot.armavator.getElevatorMagPosition() < (preset-offset-RobotMap.ELEVATOR_DEADZONE)) {
-    		Robot.armavator.setElevator(0.4);
+    	if(Robot.elevator.getElevatorMagPosition() > (preset+offset+RobotMap.ELEVATOR_DEADZONE)) {
+    		Robot.elevator.setElevator(-0.4);
+    	}else if(Robot.elevator.getElevatorMagPosition() < (preset-offset-RobotMap.ELEVATOR_DEADZONE)) {
+    		Robot.elevator.setElevator(0.4);
     	} else {
-    		Robot.armavator.stopElevator();
+    		Robot.elevator.stopElevator();
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return ((Robot.armavator.getElevatorMagPosition() == preset) || !Robot.armavator.getBottomElevatorLimit() || !Robot.armavator.getUpperElevatorLimit());
+        return ((Robot.elevator.getElevatorMagPosition() == preset) || !Robot.elevator.getBottomElevatorLimit() || !Robot.elevator.getUpperElevatorLimit());
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.armavator.stopElevator();
+    	Robot.elevator.stopElevator();
     }
 
     // Called when another command which requires one or more of the same

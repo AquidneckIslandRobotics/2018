@@ -32,8 +32,8 @@ public class RobotMap {
 	public static final int RIGHT_TOP = 14;
 	public static final int RIGHT_BOTTOM = 16;
 	
-	public static final int SHIFT_HIGH = 1; //dogs inward
-	public static final int SHIFT_LOW = 0; //dogs outward
+	public static final int SHIFT_HIGH = 3; //dogs inward
+	public static final int SHIFT_LOW = 2; //dogs outward
 	
 	public static final double STICK_DEADZONE = 0.05;
 	public static final double XBOX_DEADZONE = 0.20;
@@ -54,27 +54,29 @@ public class RobotMap {
 	public static final int ARM = 4;
 	public static final double ELEVATOR_SPEED = 0.75; 
 	public static final double ELEVATOR_HOVER_SPEED = 0.06;
-	public static final double ARM_POT_UPPER_LIMIT = 4.43; 
-	public static final double ARM_POT_LOWER_LIMIT = 2.8; 
+	public static final double ARM_POT_UPPER_LIMIT = 4.54; 
+	public static final double ARM_POT_LOWER_LIMIT = 2.82;
 	public static final double ARM_SPEED = 0.85; 
 	public static final double MAX_CLIMB_SPEED = 0.65;
 	public static final double ENGAGE_SPEED = 0.25; 
+	public static final double CLIMB_HOVER_SPEED = 0.078;
 	
 	//Armavator Presets
-	public static final double ARM_PARRELLEL_PRESET = 3.2;
-	public static final double STOWED_ARM_PRESET = 2.565;
+	public static final double ARM_PARRELLEL_PRESET = 3.36;
+	public static final double STOWED_ARM_PRESET = 2.599;
 	public static final double STOWED_ELEVATOR_PRESET = 8220;
-	public static final double SWITCH_ARM_PRESET = 3.36;
+	public static final double SWITCH_ARM_PRESET = 3.46;
 	public static final double SWITCH_ELEVATOR_PRESET = 0.0;
-//	public static final double LOW_SCALE_ARM_PRESET;
-//	public static final double LOW_SCALE_ELEVATOR_PRESET
-	public static final double INTAKE_ARM_PRESET = 3;
+	public static final double INTAKE_ARM_PRESET = 2.90;
 	public static final double INTAKE_ELEVATOR_PRESET = 0;
+	public static final double NEUTRAL_SCALE_ARM_PRESET = 3.94;
+	public static final double NEUTRAL_SCALE_ELEVATOR_PRESET = 15380;
+	public static final double HIGH_SCALE_ARM_PRESET = 4.20;
+	public static final double HIGH_SCALE_ELEVATOR_PRESET = 17820;
+	
+	
 	public static final double ARM_DEADZONE = 0.025;
 	public static final double ELEVATOR_DEADZONE = 100;
-	public static final double ARM_SCALE_PRESET = 3.8;
-	public static final double ELEVATOR_SCALE_PRESET = 18200;
-	
 	
 	//Intake 
 	public static final int INTAKE_LEADER = 12;   // 12 is LEFT
@@ -82,8 +84,9 @@ public class RobotMap {
 	public static final double INTAKE_SPEED = 1;
 	public static final double HOLD_CUBE = 0.3;
 	public static final double OUTTAKE_SPEED = 1;
-	public static final int INTAKE_GRIPPER_OPEN = 2; 
-	public static final int INTAKE_GRIPPER_CLOSED = 3;
+	public static final int INTAKE_GRIPPER_OPEN = 1; 
+	public static final int INTAKE_GRIPPER_CLOSED = 0;
+	
 	
 	//Constant variables
 	public static final double WHEEL_DIAMETER = 6;

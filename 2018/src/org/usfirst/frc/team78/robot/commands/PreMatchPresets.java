@@ -29,8 +29,8 @@ public class PreMatchPresets extends CommandGroup {
     	addSequential(new RaiseArmToPreset(RobotMap.ARM_PARRELLEL_PRESET), 2);
     	addSequential(new LowerElevatorManual(0.2), 5);
     	addSequential(new RaiseElevatorManual(0.3), 1);
-    	addSequential(new RaiseElevatorToPreset(RobotMap.STOWED_ELEVATOR_PRESET), 2);
-    	addSequential(new RaiseArmToPreset(RobotMap.STOWED_ARM_PRESET), 2);
+    	addSequential(new SetElevatorPID(RobotMap.STOWED_ELEVATOR_PRESET, true, 0.3), 5);
+    	addSequential(new SetArmPID(RobotMap.STOWED_ARM_PRESET, true, 0.3), 5);
     	
     }
 }

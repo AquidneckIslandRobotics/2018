@@ -36,7 +36,7 @@ public class Intake extends Subsystem {
     	closeGrabber();
     	intakeFollower.follow(intakeLeader);
     	intakeLeader.setNeutralMode(NeutralMode.Brake);
-    	intakeLeader.setInverted(true);
+    	intakeLeader.setInverted(false);
     	intakeFollower.setNeutralMode(NeutralMode.Brake);
     	intakeFollower.setInverted(false);
     }

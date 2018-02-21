@@ -16,6 +16,7 @@ import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchLeft;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchRight;
 import org.usfirst.frc.team78.robot.commands.CloseIntakeGrabber;
+import org.usfirst.frc.team78.robot.commands.HoverClimber;
 import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
 import org.usfirst.frc.team78.robot.commands.IntakeCube;
 import org.usfirst.frc.team78.robot.commands.LowerArmManual;
@@ -28,6 +29,7 @@ import org.usfirst.frc.team78.robot.commands.RaiseArmToPreset;
 import org.usfirst.frc.team78.robot.commands.RaiseElevatorManual;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPID;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPreset;
+import org.usfirst.frc.team78.robot.commands.SetElevatorPID;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -114,18 +116,35 @@ public class OI {
 //		manipulatorB.whenReleased(new StopIntake());
 		manipulatorX.whileHeld(new OuttakeCube(RobotMap.OUTTAKE_SPEED));
 		manipulatorX.whenReleased(new StopIntake());
-		manipulatorA.whileHeld(new IntakeCube(RobotMap.INTAKE_SPEED));
-		manipulatorA.whenReleased(new StopIntake());
-		manipulatorB.whileHeld(new IntakeCube(RobotMap.HOLD_CUBE));
-		manipulatorB.whenReleased(new StopIntake());
-		manipulatorY.whileHeld(new SetArmavatorPID(RobotMap.ARM_PARRELLEL_PRESET, RobotMap.SWITCH_ELEVATOR_PRESET));
+		
+		//INTAKE PRESET
+		manipulatorRT.whileHeld(new SetArmavatorPID(RobotMap.INTAKE_ARM_PRESET, RobotMap.INTAKE_ELEVATOR_PRESET, true));
+		manipulatorRT.whenReleased(new ManualJoystickControls());
+		
+		//INTAKE WHEELS
+		manipulatorLT.whileHeld(new IntakeCube(RobotMap.INTAKE_SPEED));
+		manipulatorLT.whenReleased(new StopIntake());
+		
+		//HOLD CUBE
+		manipulatorLB.whileHeld(new IntakeCube(RobotMap.HOLD_CUBE));
+		manipulatorLB.whenReleased(new StopIntake());
+		
+		//SWITCH PRESET
+		manipulatorA.whileHeld(new SetArmavatorPID(RobotMap.SWITCH_ARM_PRESET, RobotMap.SWITCH_ELEVATOR_PRESET, true));
+		manipulatorA.whenReleased(new ManualJoystickControls());
+		
+		//NEUTRAL SCALE PRESET
+		manipulatorB.whileHeld(new SetArmavatorPID(RobotMap.NEUTRAL_SCALE_ARM_PRESET, RobotMap.NEUTRAL_SCALE_ELEVATOR_PRESET, true));
+		manipulatorB.whenReleased(new ManualJoystickControls());
+		
+		//HIGH SCALE PRESET
+		manipulatorY.whileHeld(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true));
 		manipulatorY.whenReleased(new ManualJoystickControls());
-		//manipulatorY.whenReleased(new ManualJoystickControls());
-//		manipulatorLB.whileHeld(new RaiseElevatorManual(RobotMap.ELEVATOR_SPEED));// COMMENTED FOR MANUAL CONTROL ON MANIPULATOR JOYSTICKS
-//		manipulatorLB.whenReleased(new StopElevator());
-//		manipulatorLT.whileHeld(new LowerElevatorManual(RobotMap.ELEVATOR_SPEED));
-		manipulatorLT.whileHeld(new SetArmavatorPreset(RobotMap.ARM_SCALE_PRESET, RobotMap.ELEVATOR_SCALE_PRESET));
-		manipulatorLT.whenReleased(new StopElevator());
+		
+		//HOLD CLIMB
+		manipulatorRB.whileHeld(new HoverClimber());
+		manipulatorRB.whenReleased(new ManualJoystickControls());
+		
 //		manipulatorRB.whileHeld(new RaiseArmManual(RobotMap.ARM_SPEED));
 //		manipulatorRB.whenReleased(new StopArm());
 //		manipulatorRT.whileHeld(new LowerArmManual(RobotMap.ARM_SPEED));

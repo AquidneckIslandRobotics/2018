@@ -77,6 +77,7 @@ public class Chassis extends Subsystem {
 	
 	public void chassisInit() {
 		resetEnc();
+		resetGyro();
 		
 		pdpVoltage = Robot.pdp.getVoltage();
 		
@@ -119,7 +120,7 @@ public class Chassis extends Subsystem {
 		rightFront.config_kD(0, 0, 10);   //.42 - 20
 		rightFront.configMotionCruiseVelocity(3653, 10);
 		rightFront.configMotionAcceleration(3653, 10);
-		rightFront.setSelectedSensorPosition(0, 1, 10);
+		rightFront.setSelectedSensorPosition(0, 0, 10);
 		
 		leftFront.setIntegralAccumulator(19, 0, 10);
 		leftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 10);
@@ -214,6 +215,10 @@ public class Chassis extends Subsystem {
     
     public double getAngle() {
     	return navx.getAngle();
+    }
+    
+    public void resetGyro() {
+    	navx.reset();
     }
 }
 

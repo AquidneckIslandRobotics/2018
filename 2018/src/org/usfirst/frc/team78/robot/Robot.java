@@ -22,17 +22,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team78.robot.commands.Distance;
 import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
+import org.usfirst.frc.team78.robot.commands.LowerElevatorManual;
 import org.usfirst.frc.team78.robot.commands.PreMatchPresets;
+import org.usfirst.frc.team78.robot.commands.SetElevatorPID;
 import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.drivefrompoint;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_centerLeft;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_centerRight;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_leftSwitchLeft;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_leftSwitchRight;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightScaleRight;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchLeft;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchRight;
-import org.usfirst.frc.team78.robot.subsystems.Armavator;
+import org.usfirst.frc.team78.robot.subsystems.Arm;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
+import org.usfirst.frc.team78.robot.subsystems.Elevator;
 import org.usfirst.frc.team78.robot.subsystems.Intake;
 import org.usfirst.frc.team78.robot.subsystems.MotionProfile;
 import org.json.simple.JSONArray;
@@ -50,7 +54,8 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static Chassis chassis = new Chassis();
 	public static MotionProfile motionProfile = new MotionProfile();
-	public static Armavator armavator = new Armavator();
+	public static Arm arm = new Arm();
+	public static Elevator elevator = new Elevator();
 	public static Intake intake = new Intake();
 	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 	public static Compressor compressor = new Compressor();
@@ -157,7 +162,8 @@ public class Robot extends TimedRobot {
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		chassis.chassisInit();
-		armavator.armavatorInit();
+		arm.armInit();
+		elevator.elevatorInit();
 		intake.intakeInit();
 		
 		new Thread(() -> {
@@ -229,7 +235,7 @@ public class Robot extends TimedRobot {
 				
 			}else if(m_gameElement.getSelected().equals("scale")) {
 				if(getGameSpecificData("alliance") == R) {
-					m_autonomousCommand = new HowToTestAutoPath();
+					m_autonomousCommand = new AUTO_rightScaleRight();
 				}else if(getGameSpecificData("alliance") == L) {
 					m_autonomousCommand = new HowToTestAutoPath();
 				}
@@ -285,9 +291,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		SmartDashboard.putNumber("Arm Pot Value", Robot.armavator.getArmPot());
+		SmartDashboard.putNumber("Arm Pot Value", Robot.arm.getArmPot());
 
 		Scheduler.getInstance().run();
+		
+		if(!elevator.getBottomElevatorLimit()) {
+			elevator.resetElevatorMag();
+		}
 	}
 
 	@Override
@@ -305,7 +315,8 @@ public class Robot extends TimedRobot {
 		getSwitchColor();
 		chassis.chassisInit();
 		intake.intakeInit();
-		armavator.armavatorInit();
+		arm.armInit();
+		elevator.elevatorInit();
 	}
 
 	/**
@@ -330,8 +341,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("gyro", chassis.navx);
 		SmartDashboard.putData("Chassis",chassis);
 		SmartDashboard.putBoolean("shift is high", chassis.shiftIsHigh);
-		SmartDashboard.putNumber("Arm Pot Value", Robot.armavator.getArmPot());
-		SmartDashboard.putNumber("Elevator Encoder", armavator.getElevatorMagPosition());
+		SmartDashboard.putNumber("Arm Pot Value", Robot.arm.getArmPot());
+		SmartDashboard.putNumber("Elevator Encoder", elevator.getElevatorMagPosition());
 		
 //		SmartDashboard.putNumber("TurnPID", chassis.turnSpeed.getSpeed());
 //		SmartDashboard.putData("TurnController", chassis.turnController);
@@ -341,14 +352,17 @@ public class Robot extends TimedRobot {
 //		SmartDashboard.putData("right drive controller", chassis.rightDistanceController);
 //		SmartDashboard.putData("left drive controller", chassis.leftDistanceController);			
 //		SmartDashboard.putData("test",new drivefrompoint());
-		SmartDashboard.putData("Arm PID", armavator.armPID);
-		SmartDashboard.putData("Elevator PID", armavator.elePID);
+		SmartDashboard.putData("Arm PID", arm.armPID);
+		SmartDashboard.putData("Elevator PID", elevator.elePID);
+		SmartDashboard.putData("Elevator Subsystem", elevator);
+		SmartDashboard.putData("Hold Climb Command", new LowerElevatorManual(0.1));
+		//SmartDashboard.putBoolean("Upper Elevator Limit Switch", elevato);
 		
 		Scheduler.getInstance().run();
 		
 		
-		if(!armavator.getBottomElevatorLimit()) {
-			armavator.resetElevatorMag();
+		if(!elevator.getBottomElevatorLimit()) {
+			elevator.resetElevatorMag();
 		}
 		
 	}

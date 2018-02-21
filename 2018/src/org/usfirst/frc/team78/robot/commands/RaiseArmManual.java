@@ -16,20 +16,21 @@ public class RaiseArmManual extends Command {
     public RaiseArmManual(double armSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.arm);
     	speed = armSpeed;
     	canRaise = false;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(Robot.armavator.getArmPot() < RobotMap.ARM_POT_UPPER_LIMIT) canRaise = true;
+    	if(Robot.arm.getArmPot() < RobotMap.ARM_POT_UPPER_LIMIT) canRaise = true;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.armavator.getArmPot() < RobotMap.ARM_POT_UPPER_LIMIT) canRaise = true;
+    	if(Robot.arm.getArmPot() < RobotMap.ARM_POT_UPPER_LIMIT) canRaise = true;
     	else canRaise = false;
-    	if(canRaise) Robot.armavator.setArm(speed);
+    	if(canRaise) Robot.arm.setArm(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -39,12 +40,12 @@ public class RaiseArmManual extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.armavator.stopArm();
+    	Robot.arm.stopArm();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.armavator.stopArm();
+    	Robot.arm.stopArm();
     }
 }

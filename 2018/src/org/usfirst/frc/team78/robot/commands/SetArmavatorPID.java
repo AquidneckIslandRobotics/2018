@@ -27,4 +27,16 @@ public class SetArmavatorPID extends CommandGroup {
     	addParallel(new SetArmPID(armTarget, toHoldOrNotToHold));
     	addSequential(new SetElevatorPID(elevatorTarget, toHoldOrNotToHold));
     }
+    
+    public SetArmavatorPID(double armTarget, double elevatorTarget, boolean toHoldOrNotToHold, double maxSpeed) {
+    	addParallel(new SetArmPID(armTarget, toHoldOrNotToHold, maxSpeed));
+    	addSequential(new SetElevatorPID(elevatorTarget, toHoldOrNotToHold, maxSpeed));
+    }
+    
+    public SetArmavatorPID(double armTarget, double elevatorTarget) {
+    	addParallel(new SetArmPID(armTarget, false));
+    	addSequential(new SetElevatorPID(elevatorTarget, false));
+    }
+    
+    
 }
