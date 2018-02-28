@@ -36,7 +36,7 @@ public class AUTO_rightScaleRight extends CommandGroup {
     	addSequential(new FollowTrajectory("rightScaleRight"), 6);
     	addSequential(new Turn(-35), 2);
     	addSequential(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true, 0.6), 3);
-    	addSequential(new SetSideSpeed(0.3, -0.3), 0.25);
+    	addSequential(new SetSideSpeed(0.4, -0.4), 0.5);
 //    	addSequential(new OpenIntakeGrabber());
     	addSequential(new OuttakeForAUTO(0.3), 1);
     	
