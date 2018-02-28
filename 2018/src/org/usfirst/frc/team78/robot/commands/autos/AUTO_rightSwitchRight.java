@@ -37,7 +37,7 @@ public class AUTO_rightSwitchRight extends CommandGroup {
     	addParallel(new SetArmavatorPID(RobotMap.SWITCH_ARM_PRESET, RobotMap.STOWED_ELEVATOR_PRESET, true),2);
     	addSequential(new FollowTrajectory("rightSwitchRightPt1"));
     	addSequential(new Turn(-80), 2);
-    	addSequential(new SetSideSpeed(0.75, -0.75), 0.5);
+    	addSequential(new SetSideSpeed(0.5, -0.5), 0.25);
     	addSequential(new OpenIntakeGrabber());
 //    	addSequential(new OuttakeForAUTO(RobotMap.OUTTAKE_SPEED-0.05), 1);
     	

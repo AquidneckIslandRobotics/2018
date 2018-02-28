@@ -39,7 +39,7 @@ public class AUTO_centerRight extends CommandGroup {
     	addParallel(new FollowTrajectory("centerRight"));
     	addParallel(new SetArmavatorPID(RobotMap.SWITCH_ARM_PRESET, RobotMap.STOWED_ELEVATOR_PRESET, true));
     	addSequential(new IntakeCube(RobotMap.HOLD_CUBE), 3);
-    	addSequential(new OuttakeCube(0.5), 2);
+    	addSequential(new OuttakeCube(0.35), 2);
 //    	addSequential(new OuttakeForAUTO(RobotMap.OUTTAKE_SPEED-0.05), 1);
     	addSequential(new FollowTrajectory("reverseCenterRight"));
     	addSequential(new SetArmavatorPID(RobotMap.INTAKE_ARM_PRESET, RobotMap.INTAKE_ELEVATOR_PRESET, true, 0.8) );
