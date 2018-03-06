@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -23,6 +24,7 @@ public class Intake extends Subsystem {
 	public TalonSRX intakeFollower = new TalonSRX(RobotMap.INTAKE_FOLLOWER);
 	
 	public DoubleSolenoid grabber = new DoubleSolenoid(RobotMap.INTAKE_GRIPPER_OPEN, RobotMap.INTAKE_GRIPPER_CLOSED);
+	public Solenoid shuttleValve = new Solenoid(RobotMap.SUTTLE_VALVE);
 	
 	//Sensors
 	
@@ -36,7 +38,7 @@ public class Intake extends Subsystem {
     	closeGrabber();
     	intakeFollower.follow(intakeLeader);
     	intakeLeader.setNeutralMode(NeutralMode.Brake);
-    	intakeLeader.setInverted(false);
+    	intakeLeader.setInverted(true);
     	intakeFollower.setNeutralMode(NeutralMode.Brake);
     	intakeFollower.setInverted(false);
     }
@@ -51,6 +53,14 @@ public class Intake extends Subsystem {
     
     public void setIntake(double speed) {
     	intakeLeader.set(ControlMode.PercentOutput, speed); //CHECK DIRECTION ON ACTUAL ROBOT
+    }
+    
+    public void shuttleHigh() {
+    	shuttleValve.set(true);
+    }
+    
+    public void shuttleLow() {
+    	shuttleValve.set(false);
     }
     
     public void stopIntake() {

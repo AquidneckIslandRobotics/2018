@@ -156,8 +156,9 @@ public class Chassis extends Subsystem {
     	if(Math.abs(OI.DriverStick.getY()) < RobotMap.STICK_DEADZONE) leftSpeed = 0;
     	else leftSpeed = -OI.DriverStick.getY();
     	if(Math.abs(OI.DriverStick.getThrottle()) < RobotMap.STICK_DEADZONE) rightSpeed = 0;
-    	else rightSpeed = OI.DriverStick.getThrottle();
-    	setSpeed(rightSpeed, leftSpeed);
+    	else rightSpeed = OI.DriverStick.getThrottle(); 
+    	double sqrRight = rightSpeed * Math.abs(rightSpeed), sqrLeft = leftSpeed * Math.abs(leftSpeed);   	
+    	setSpeed(sqrRight, sqrLeft);
 	}
     
     public void setSpeed(double left, double right) {

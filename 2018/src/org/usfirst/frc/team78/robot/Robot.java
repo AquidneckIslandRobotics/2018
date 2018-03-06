@@ -25,6 +25,7 @@ import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
 import org.usfirst.frc.team78.robot.commands.LowerElevatorManual;
 import org.usfirst.frc.team78.robot.commands.PreMatchPresets;
 import org.usfirst.frc.team78.robot.commands.SetElevatorPID;
+import org.usfirst.frc.team78.robot.commands.ShuttleHigh;
 import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.drivefrompoint;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_centerLeft;
@@ -246,7 +247,7 @@ public class Robot extends TimedRobot {
 		}else if(m_startPosition.getSelected().equals("Left")) {
 			if(m_gameElement.getSelected().equals("switch")) {
 				if(getGameSpecificData("alliance") == R) {
-					m_autonomousCommand = new AUTO_leftSwitchRight();
+					m_autonomousCommand = new HowToTestAutoPath();//AUTO_leftSwitchRight();
 				}else if(getGameSpecificData("alliance") == L) {
 					m_autonomousCommand = new AUTO_leftSwitchLeft();
 				}
@@ -317,6 +318,9 @@ public class Robot extends TimedRobot {
 		intake.intakeInit();
 		arm.armInit();
 		elevator.elevatorInit();
+		SmartDashboard.putNumber("Arm Pot Value", Robot.arm.getArmPot());
+
+//		SmartDashboard.putData("high", new ShuttleHigh());
 	}
 
 	/**
@@ -356,6 +360,11 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Elevator PID", elevator.elePID);
 		SmartDashboard.putData("Elevator Subsystem", elevator);
 		SmartDashboard.putData("Hold Climb Command", new LowerElevatorManual(0.1));
+		
+		SmartDashboard.putNumber("intake lead current", Robot.intake.intakeLeader.getOutputCurrent());
+		SmartDashboard.putNumber("intake follow current", Robot.intake.intakeFollower.getOutputCurrent());
+		
+		SmartDashboard.putNumber("arm current", arm.arm.getOutputCurrent());
 		//SmartDashboard.putBoolean("Upper Elevator Limit Switch", elevato);
 		
 		Scheduler.getInstance().run();

@@ -24,6 +24,7 @@ import org.usfirst.frc.team78.robot.commands.LowerElevatorManual;
 import org.usfirst.frc.team78.robot.commands.ManualJoystickControls;
 import org.usfirst.frc.team78.robot.commands.OpenIntakeGrabber;
 import org.usfirst.frc.team78.robot.commands.OuttakeCube;
+import org.usfirst.frc.team78.robot.commands.Override;
 import org.usfirst.frc.team78.robot.commands.RaiseArmManual;
 import org.usfirst.frc.team78.robot.commands.RaiseArmToPreset;
 import org.usfirst.frc.team78.robot.commands.RaiseElevatorManual;
@@ -68,6 +69,7 @@ public class OI {
 	public XboxTriggerButton manipulatorLT;
 	public XboxTriggerButton manipulatorRT;
 	public Button manipulatorBack;
+	
 	
 	public OI() {
 		//DRIVER BUTTONS
@@ -114,8 +116,11 @@ public class OI {
 //		manipulatorA.whenReleased(new StopIntake());
 //		manipulatorB.whileHeld(new IntakeCube(RobotMap.HOLD_CUBE));
 //		manipulatorB.whenReleased(new StopIntake());
-		manipulatorX.whileHeld(new OuttakeCube(RobotMap.OUTTAKE_SPEED));
+		manipulatorX.whenPressed(new OpenIntakeGrabber());
+		manipulatorX.whileHeld(new IntakeCube(RobotMap.INTAKE_SPEED));
 		manipulatorX.whenReleased(new StopIntake());
+		manipulatorX.whenReleased(new CloseIntakeGrabber());
+
 		
 		//INTAKE PRESET
 		manipulatorRT.whileHeld(new SetArmavatorPID(RobotMap.INTAKE_ARM_PRESET, RobotMap.INTAKE_ELEVATOR_PRESET, true));
@@ -149,6 +154,8 @@ public class OI {
 //		manipulatorRB.whenReleased(new StopArm());
 //		manipulatorRT.whileHeld(new LowerArmManual(RobotMap.ARM_SPEED));
 //		manipulatorRT.whenReleased(new StopArm());
+		
+		manipulatorBack.whenReleased(new Override());
 	}
 	
 }

@@ -49,30 +49,34 @@ public class RobotMap {
 	public static final int UPPER_ELEVATOR_LIMIT = 8;
 	
 	//Armavator
+	
+	static final double offset = 0;
+	
 	public static final int LEFT_ELEVATOR = 5;
 	public static final int RIGHT_ELEVATOR = 11;
 	public static final int ARM = 4;
 	public static final double ELEVATOR_SPEED = 0.75; 
 	public static final double ELEVATOR_HOVER_SPEED = 0.06;
-	public static final double ARM_POT_UPPER_LIMIT = 4.54; 
-	public static final double ARM_POT_LOWER_LIMIT = 2.82;
+	public static final double ARM_POT_UPPER_LIMIT = 4.6; //3.74 diff=0.8 //4.54old
+	public static final double ARM_POT_LOWER_LIMIT = 2.35; //2.18 diff=0.64 //2.82old
 	public static final double ARM_SPEED = 0.85; 
 	public static final double MAX_CLIMB_SPEED = 0.65;
 	public static final double ENGAGE_SPEED = 0.25; 
 	public static final double CLIMB_HOVER_SPEED = 0.078;
 	
 	//Armavator Presets
-	public static final double ARM_PARRELLEL_PRESET = 3.36;
-	public static final double STOWED_ARM_PRESET = 2.599;
-	public static final double STOWED_ELEVATOR_PRESET = 8220;
-	public static final double SWITCH_ARM_PRESET = 3.46;
+	public static final double ARM_PARRELLEL_PRESET = 3.24;// 2.3last, 2.65 diff=0.71 //3.36old
+	public static final double STOWED_ARM_PRESET = 2.46; //1.98 diff = 0.619 //2.599old
+	public static final double STOWED_ELEVATOR_PRESET = 8300;
+	public static final double SWITCH_ARM_PRESET = 3.24; //3.46old
 	public static final double SWITCH_ELEVATOR_PRESET = 0.0;
-	public static final double INTAKE_ARM_PRESET = 2.90;
+	public static final double INTAKE_ARM_PRESET = 2.77; //2.9old
 	public static final double INTAKE_ELEVATOR_PRESET = 0;
-	public static final double NEUTRAL_SCALE_ARM_PRESET = 3.94;
+	public static final double NEUTRAL_SCALE_ARM_PRESET = 3.75; //3.94old
 	public static final double NEUTRAL_SCALE_ELEVATOR_PRESET = 15380;
-	public static final double HIGH_SCALE_ARM_PRESET = 4.20;
+	public static final double HIGH_SCALE_ARM_PRESET = 4.06; //4.20old
 	public static final double HIGH_SCALE_ELEVATOR_PRESET = 17820;
+	
 	
 	
 	public static final double ARM_DEADZONE = 0.025;
@@ -81,11 +85,12 @@ public class RobotMap {
 	//Intake 
 	public static final int INTAKE_LEADER = 12;   // 12 is LEFT
 	public static final int INTAKE_FOLLOWER = 13; // 13 is RIGHT
-	public static final double INTAKE_SPEED = 1;
+	public static final double INTAKE_SPEED = 1; //0.65old
 	public static final double HOLD_CUBE = 0.3;
 	public static final double OUTTAKE_SPEED = 1;
 	public static final int INTAKE_GRIPPER_OPEN = 1; 
 	public static final int INTAKE_GRIPPER_CLOSED = 0;
+	public static final int SUTTLE_VALVE = 6;
 	
 	
 	//Constant variables
@@ -93,6 +98,6 @@ public class RobotMap {
 	public static final double PULSES_PER_ROTATION = 4096;
 	
 	//start config
-	public static final double ARM_START_CONFIG = 2.573;
+//	public static final double ARM_START_CONFIG = 2.573;
 	
 }
