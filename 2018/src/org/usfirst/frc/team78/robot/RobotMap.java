@@ -72,7 +72,7 @@ public class RobotMap {
 	public static final double SWITCH_ELEVATOR_PRESET = 0.0;
 	public static final double INTAKE_ARM_PRESET = 2.77; //2.9old
 	public static final double INTAKE_ELEVATOR_PRESET = 0;
-	public static final double NEUTRAL_SCALE_ARM_PRESET = 3.75; //3.94old
+	public static final double NEUTRAL_SCALE_ARM_PRESET = 3.74; //3.94old
 	public static final double NEUTRAL_SCALE_ELEVATOR_PRESET = 15380;
 	public static final double HIGH_SCALE_ARM_PRESET = 4.06; //4.20old
 	public static final double HIGH_SCALE_ELEVATOR_PRESET = 17820;

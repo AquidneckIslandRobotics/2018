@@ -59,7 +59,8 @@ public class SetArmPID extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	new StopArm();
+    	//new StopArm();
+    	Robot.arm.stopArm();
     }
 
     // Called when another command which requires one or more of the same
