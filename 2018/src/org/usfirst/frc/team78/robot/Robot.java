@@ -237,9 +237,9 @@ public class Robot extends TimedRobot {
 				}
 				
 			}else if(m_gameElement.getSelected().equals("scale")) {
-				if(getGameSpecificData("alliance") == R) {
+				if(getGameSpecificData("scale") == R) {
 					m_autonomousCommand = new AUTO_rightScaleRight();
-				}else if(getGameSpecificData("alliance") == L) {
+				}else if(getGameSpecificData("scale") == L) {
 					m_autonomousCommand = new HowToTestAutoPath();
 				}
 			}else {
@@ -255,9 +255,9 @@ public class Robot extends TimedRobot {
 				}
 				
 			}else if(m_gameElement.getSelected().equals("scale")) {
-				if(getGameSpecificData("alliance") == R) {
+				if(getGameSpecificData("scale") == R) {
 					m_autonomousCommand = new AUTO_leftScaleRight();
-				}else if(getGameSpecificData("alliance") == L) {
+				}else if(getGameSpecificData("scale") == L) {
 					m_autonomousCommand = new AUTO_leftScaleLeft();
 				}
 			}else {

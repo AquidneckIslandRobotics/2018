@@ -33,9 +33,9 @@ public class AUTO_leftScaleLeft extends CommandGroup {
         // arm.
     	addSequential(new SetSideSpeed( 0.75, -0.75),3.8); //3
     	addSequential(new Turn(30), 2);
+    	addSequential(new IntakeCube(RobotMap.HOLD_CUBE), 1);
     	addSequential(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true), 3);
-//    	addSequential(new IntakeCube(RobotMap.HOLD_CUBE), 3);
     	addSequential(new SetSideSpeed(0.25, -0.25), 1.7);
-//    	addSequential(new OuttakeCubes(0.35), 2);
+    	addSequential(new OuttakeCube(0.4), 2);
     }
 }
