@@ -30,6 +30,8 @@ import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.drivefrompoint;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_centerLeft;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_centerRight;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_leftScaleLeft;
+import org.usfirst.frc.team78.robot.commands.autos.AUTO_leftScaleRight;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_leftSwitchLeft;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_leftSwitchRight;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightScaleRight;
@@ -235,9 +237,9 @@ public class Robot extends TimedRobot {
 				}
 				
 			}else if(m_gameElement.getSelected().equals("scale")) {
-				if(getGameSpecificData("alliance") == R) {
+				if(getGameSpecificData("scale") == R) {
 					m_autonomousCommand = new AUTO_rightScaleRight();
-				}else if(getGameSpecificData("alliance") == L) {
+				}else if(getGameSpecificData("scale") == L) {
 					m_autonomousCommand = new HowToTestAutoPath();
 				}
 			}else {
@@ -253,10 +255,10 @@ public class Robot extends TimedRobot {
 				}
 				
 			}else if(m_gameElement.getSelected().equals("scale")) {
-				if(getGameSpecificData("alliance") == R) {
-					m_autonomousCommand = new HowToTestAutoPath();
-				}else if(getGameSpecificData("alliance") == L) {
-					m_autonomousCommand = new HowToTestAutoPath();
+				if(getGameSpecificData("scale") == R) {
+					m_autonomousCommand = new AUTO_leftScaleRight();
+				}else if(getGameSpecificData("scale") == L) {
+					m_autonomousCommand = new AUTO_leftScaleLeft();
 				}
 			}else {
 				m_autonomousCommand = null;

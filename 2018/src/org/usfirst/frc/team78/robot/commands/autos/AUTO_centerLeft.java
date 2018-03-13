@@ -37,7 +37,7 @@ public class AUTO_centerLeft extends CommandGroup {
     	//addParallel(new RaiseArmToPreset(RobotMap.ARM_PARRELLEL_PRESET), 3);
     	addParallel(new FollowTrajectory("centerLeft"));
     	addParallel(new SetArmavatorPID(RobotMap.SWITCH_ARM_PRESET, RobotMap.STOWED_ELEVATOR_PRESET, true));
-    	addSequential(new IntakeCube(RobotMap.HOLD_CUBE), 4);
+    	addSequential(new IntakeCube(0.0), 4);
     	addSequential(new OuttakeCube(0.35), 2);
 //    	addSequential(new OuttakeForAUTO(RobotMap.OUTTAKE_SPEED-0.05), 1);
     	addSequential(new FollowTrajectory("reverseCenterLeft"));

@@ -1,23 +1,20 @@
 package org.usfirst.frc.team78.robot.commands.autos;
 
 import org.usfirst.frc.team78.robot.RobotMap;
-import org.usfirst.frc.team78.robot.commands.FollowTrajectory;
 import org.usfirst.frc.team78.robot.commands.IntakeCube;
-import org.usfirst.frc.team78.robot.commands.OpenIntakeGrabber;
 import org.usfirst.frc.team78.robot.commands.OuttakeCube;
-import org.usfirst.frc.team78.robot.commands.OuttakeForAUTO;
-import org.usfirst.frc.team78.robot.commands.RaiseArmToPreset;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPID;
-import org.usfirst.frc.team78.robot.commands.StopIntake;
+import org.usfirst.frc.team78.robot.commands.SetSideSpeed;
+import org.usfirst.frc.team78.robot.commands.Turn;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AUTO_centerRight extends CommandGroup {
+public class AUTO_rightScaleLeft extends CommandGroup {
 
-    public AUTO_centerRight() {
+    public AUTO_rightScaleLeft() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -34,14 +31,13 @@ public class AUTO_centerRight extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	//addParallel(new RaiseArmToPreset(RobotMap.ARM_PARRELLEL_PRESET), 3);
-    	
-    	addParallel(new FollowTrajectory("centerRight"));
-    	addParallel(new SetArmavatorPID(RobotMap.SWITCH_ARM_PRESET, RobotMap.STOWED_ELEVATOR_PRESET, true));
-    	addSequential(new IntakeCube(0.0), 3);
-    	addSequential(new OuttakeCube(0.35), 2);
-//    	addSequential(new OuttakeForAUTO(RobotMap.OUTTAKE_SPEED-0.05), 1);
-    	addSequential(new FollowTrajectory("reverseCenterRight"));
-    	addSequential(new SetArmavatorPID(RobotMap.INTAKE_ARM_PRESET, RobotMap.INTAKE_ELEVATOR_PRESET, true, 0.8) );
+    	addSequential(new SetSideSpeed( 0.85, -0.85),2.62); 
+    	addSequential(new Turn(-90));
+    	addSequential(new IntakeCube(RobotMap.HOLD_CUBE), 1);
+    	addParallel(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true), 3);
+    	addSequential(new SetSideSpeed( 0.75, -0.75),3.0); 
+    	addSequential(new Turn(23), 2);
+    	addSequential(new SetSideSpeed(0.50, -0.50), 1.3);
+    	addSequential(new OuttakeCube(0.4), 2);
     }
 }

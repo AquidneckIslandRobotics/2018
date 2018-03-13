@@ -2,7 +2,9 @@ package org.usfirst.frc.team78.robot.commands.autos;
 
 import org.usfirst.frc.team78.robot.RobotMap;
 import org.usfirst.frc.team78.robot.commands.FollowTrajectory;
+import org.usfirst.frc.team78.robot.commands.IntakeCube;
 import org.usfirst.frc.team78.robot.commands.OpenIntakeGrabber;
+import org.usfirst.frc.team78.robot.commands.OuttakeCube;
 import org.usfirst.frc.team78.robot.commands.OuttakeForAUTO;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPID;
 import org.usfirst.frc.team78.robot.commands.SetSideSpeed;
@@ -33,12 +35,19 @@ public class AUTO_rightScaleRight extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 //    	addParallel(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true, 0.5));
-    	addSequential(new FollowTrajectory("rightScaleRight"), 6);
-    	addSequential(new Turn(-35), 2);
-    	addSequential(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true, 0.6), 3);
-    	addSequential(new SetSideSpeed(0.4, -0.4), 0.5);
-//    	addSequential(new OpenIntakeGrabber());
-    	addSequential(new OuttakeForAUTO(0.3), 1);
+//    	addSequential(new FollowTrajectory("rightScaleRight"), 6);
+//    	addSequential(new Turn(-35), 2);
+//    	addSequential(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true, 0.6), 3);
+//    	addSequential(new SetSideSpeed(0.4, -0.4), 0.5);
+////    	addSequential(new OpenIntakeGrabber());
+//    	addSequential(new OuttakeForAUTO(0.3), 1);
+    	
+    	addSequential(new SetSideSpeed( 0.75, -0.75),3.8); //3
+    	addSequential(new Turn(-30), 2);
+    	addSequential(new IntakeCube(RobotMap.HOLD_CUBE), 1);
+    	addSequential(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true), 3);
+    	addSequential(new SetSideSpeed(0.25, -0.25), 1.7);
+    	addSequential(new OuttakeCube(0.4), 2);
     	
     }
 }
