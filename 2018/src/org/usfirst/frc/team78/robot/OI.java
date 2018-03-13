@@ -89,10 +89,12 @@ public class OI {
 		
 		driverRB.whenPressed(new Shift());
 		driverRB.whenReleased(new Shift());
-		driverLT.whenPressed(new OpenIntakeGrabber());
-		driverLT.whenReleased(new CloseIntakeGrabber());
+		driverRT.whenPressed(new OpenIntakeGrabber());
+		driverRT.whenReleased(new CloseIntakeGrabber());
 		driverLB.whileHeld(new OuttakeCube(RobotMap.OUTTAKE_SPEED));
 		driverLB.whenReleased(new StopIntake());
+		driverLT.whileHeld(new OuttakeCube(0.65));
+		driverLT.whenReleased(new StopIntake());
 		driverStart.whenReleased(new SwitchFront());
 		
 //		driverA.whenPressed(new HowToTestAutoPath());
@@ -117,7 +119,7 @@ public class OI {
 //		manipulatorB.whileHeld(new IntakeCube(RobotMap.HOLD_CUBE));
 //		manipulatorB.whenReleased(new StopIntake());
 		manipulatorX.whenPressed(new OpenIntakeGrabber());
-		manipulatorX.whileHeld(new IntakeCube(RobotMap.INTAKE_SPEED));
+//		manipulatorX.whileHeld(new IntakeCube(RobotMap.INTAKE_SPEED));
 		manipulatorX.whenReleased(new StopIntake());
 		manipulatorX.whenReleased(new CloseIntakeGrabber());
 

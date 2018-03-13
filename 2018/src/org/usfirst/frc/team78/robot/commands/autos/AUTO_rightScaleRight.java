@@ -6,6 +6,7 @@ import org.usfirst.frc.team78.robot.commands.IntakeCube;
 import org.usfirst.frc.team78.robot.commands.OpenIntakeGrabber;
 import org.usfirst.frc.team78.robot.commands.OuttakeCube;
 import org.usfirst.frc.team78.robot.commands.OuttakeForAUTO;
+import org.usfirst.frc.team78.robot.commands.ResetGyro;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPID;
 import org.usfirst.frc.team78.robot.commands.SetSideSpeed;
 import org.usfirst.frc.team78.robot.commands.Turn;
@@ -41,7 +42,7 @@ public class AUTO_rightScaleRight extends CommandGroup {
 //    	addSequential(new SetSideSpeed(0.4, -0.4), 0.5);
 ////    	addSequential(new OpenIntakeGrabber());
 //    	addSequential(new OuttakeForAUTO(0.3), 1);
-    	
+    	addSequential(new ResetGyro());
     	addSequential(new SetSideSpeed( 0.75, -0.75),3.8); //3
     	addSequential(new Turn(-30), 2);
     	addSequential(new IntakeCube(RobotMap.HOLD_CUBE), 1);

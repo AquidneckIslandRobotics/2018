@@ -5,6 +5,7 @@ import org.usfirst.frc.team78.robot.commands.FollowTrajectory;
 import org.usfirst.frc.team78.robot.commands.OpenIntakeGrabber;
 import org.usfirst.frc.team78.robot.commands.OuttakeForAUTO;
 import org.usfirst.frc.team78.robot.commands.RaiseArmToPreset;
+import org.usfirst.frc.team78.robot.commands.ResetGyro;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPID;
 import org.usfirst.frc.team78.robot.commands.SetSideSpeed;
 import org.usfirst.frc.team78.robot.commands.Turn;
@@ -33,6 +34,7 @@ public class AUTO_leftSwitchLeft extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new ResetGyro());
     	addParallel(new SetArmavatorPID(RobotMap.SWITCH_ARM_PRESET, RobotMap.STOWED_ELEVATOR_PRESET, true),2);
     	addSequential(new FollowTrajectory("leftSwitchLeftPt1"));
     	addSequential(new Turn(80), 2);

@@ -17,9 +17,11 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team78.robot.commands.DefaultAuto;
 import org.usfirst.frc.team78.robot.commands.Distance;
 import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
 import org.usfirst.frc.team78.robot.commands.LowerElevatorManual;
@@ -162,8 +164,10 @@ public class Robot extends TimedRobot {
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
+		//New for 2018, addes a ton of CAN bus calls to PDP and other CAN items you probably don't want
+		LiveWindow.disableAllTelemetry();
 		
-		SmartDashboard.putData("Auto mode", m_chooser);
+//		SmartDashboard.putData("Auto mode", m_chooser);
 		chassis.chassisInit();
 		arm.armInit();
 		elevator.elevatorInit();
@@ -175,6 +179,7 @@ public class Robot extends TimedRobot {
 		}).start();
 		
 		SmartDashboard.putData("Start Position", m_startPosition);
+//		m_startPosition.addDefault("default straight", "Default");
 		m_startPosition.addDefault("Center", "Center");
 		m_startPosition.addObject("Right", "Right");
 		m_startPosition.addObject("Left", "Left");
@@ -218,8 +223,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 //		m_autonomousCommand = m_chooser.getSelected();
-		
-		if(m_startPosition.getSelected().equals("Center")) {
+		if(m_startPosition.getSelected().equals("Default")) {
+			m_autonomousCommand = new DefaultAuto();
+		}else if(m_startPosition.getSelected().equals("Center")) {
 			if(getGameSpecificData("alliance") == R) {
 				m_autonomousCommand = new AUTO_centerRight();
 			}else if(getGameSpecificData("alliance") == L) {
@@ -256,9 +262,9 @@ public class Robot extends TimedRobot {
 				
 			}else if(m_gameElement.getSelected().equals("scale")) {
 				if(getGameSpecificData("scale") == R) {
-					m_autonomousCommand = new AUTO_leftScaleRight();
+					m_autonomousCommand = new HowToTestAutoPath();//AUTO_leftScaleRight();
 				}else if(getGameSpecificData("scale") == L) {
-					m_autonomousCommand = new AUTO_leftScaleLeft();
+					m_autonomousCommand = new HowToTestAutoPath();//AUTO_leftScaleLeft();
 				}
 			}else {
 				m_autonomousCommand = null;
@@ -358,15 +364,15 @@ public class Robot extends TimedRobot {
 //		SmartDashboard.putData("right drive controller", chassis.rightDistanceController);
 //		SmartDashboard.putData("left drive controller", chassis.leftDistanceController);			
 //		SmartDashboard.putData("test",new drivefrompoint());
-		SmartDashboard.putData("Arm PID", arm.armPID);
-		SmartDashboard.putData("Elevator PID", elevator.elePID);
-		SmartDashboard.putData("Elevator Subsystem", elevator);
-		SmartDashboard.putData("Hold Climb Command", new LowerElevatorManual(0.1));
+//		SmartDashboard.putData("Arm PID", arm.armPID);
+//		SmartDashboard.putData("Elevator PID", elevator.elePID);
+//		SmartDashboard.putData("Elevator Subsystem", elevator);
+//		SmartDashboard.putData("Hold Climb Command", new LowerElevatorManual(0.1));
 		
-		SmartDashboard.putNumber("intake lead current", Robot.intake.intakeLeader.getOutputCurrent());
-		SmartDashboard.putNumber("intake follow current", Robot.intake.intakeFollower.getOutputCurrent());
+//		SmartDashboard.putNumber("intake lead current", Robot.intake.intakeLeader.getOutputCurrent());
+//		SmartDashboard.putNumber("intake follow current", Robot.intake.intakeFollower.getOutputCurrent());
 		
-		SmartDashboard.putNumber("arm current", arm.arm.getOutputCurrent());
+//		SmartDashboard.putNumber("arm current", arm.arm.getOutputCurrent());
 		//SmartDashboard.putBoolean("Upper Elevator Limit Switch", elevato);
 		
 		Scheduler.getInstance().run();

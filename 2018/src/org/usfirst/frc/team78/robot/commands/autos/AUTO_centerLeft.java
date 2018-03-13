@@ -7,6 +7,7 @@ import org.usfirst.frc.team78.robot.commands.OpenIntakeGrabber;
 import org.usfirst.frc.team78.robot.commands.OuttakeCube;
 import org.usfirst.frc.team78.robot.commands.OuttakeForAUTO;
 import org.usfirst.frc.team78.robot.commands.RaiseArmToPreset;
+import org.usfirst.frc.team78.robot.commands.ResetGyro;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPID;
 import org.usfirst.frc.team78.robot.commands.StopIntake;
 
@@ -35,6 +36,7 @@ public class AUTO_centerLeft extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	//addParallel(new RaiseArmToPreset(RobotMap.ARM_PARRELLEL_PRESET), 3);
+    	addSequential(new ResetGyro());
     	addParallel(new FollowTrajectory("centerLeft"));
     	addParallel(new SetArmavatorPID(RobotMap.SWITCH_ARM_PRESET, RobotMap.STOWED_ELEVATOR_PRESET, true));
     	addSequential(new IntakeCube(0.0), 4);

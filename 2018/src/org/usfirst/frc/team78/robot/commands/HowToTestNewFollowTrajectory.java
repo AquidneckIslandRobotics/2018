@@ -1,16 +1,13 @@
-package org.usfirst.frc.team78.robot.commands.autos;
-
-import org.usfirst.frc.team78.robot.commands.FollowTrajectory;
-import org.usfirst.frc.team78.robot.commands.ResetGyro;
+package org.usfirst.frc.team78.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AUTO_leftSwitchRight extends CommandGroup {
+public class HowToTestNewFollowTrajectory extends CommandGroup {
 
-    public AUTO_leftSwitchRight() {
+    public HowToTestNewFollowTrajectory() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -27,8 +24,6 @@ public class AUTO_leftSwitchRight extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new ResetGyro());
-    	addSequential(new FollowTrajectory("leftSwitchLeftPt1"));
-
+    	addSequential(new NewFollowTrajectory("78 test auto"));
     }
 }

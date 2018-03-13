@@ -3,6 +3,7 @@ package org.usfirst.frc.team78.robot.commands.autos;
 import org.usfirst.frc.team78.robot.RobotMap;
 import org.usfirst.frc.team78.robot.commands.IntakeCube;
 import org.usfirst.frc.team78.robot.commands.OuttakeCube;
+import org.usfirst.frc.team78.robot.commands.ResetGyro;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPID;
 import org.usfirst.frc.team78.robot.commands.SetSideSpeed;
 import org.usfirst.frc.team78.robot.commands.Turn;
@@ -31,6 +32,7 @@ public class AUTO_rightScaleLeft extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new ResetGyro());
     	addSequential(new SetSideSpeed( 0.85, -0.85),2.62); 
     	addSequential(new Turn(-90));
     	addSequential(new IntakeCube(RobotMap.HOLD_CUBE), 1);

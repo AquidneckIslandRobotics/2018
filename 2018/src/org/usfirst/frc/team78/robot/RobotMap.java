@@ -53,7 +53,7 @@ public class RobotMap {
 	static final double offset = 0;
 	
 	public static final int LEFT_ELEVATOR = 5;
-	public static final int RIGHT_ELEVATOR = 11;
+	public static final int RIGHT_ELEVATOR = 10;
 	public static final int ARM = 4;
 	public static final double ELEVATOR_SPEED = 0.75; 
 	public static final double ELEVATOR_HOVER_SPEED = 0.06;
@@ -84,7 +84,7 @@ public class RobotMap {
 	
 	//Intake 
 	public static final int INTAKE_LEADER = 12;   // 12 is LEFT
-	public static final int INTAKE_FOLLOWER = 13; // 13 is RIGHT
+	public static final int INTAKE_FOLLOWER = 9; // 13 is RIGHT
 	public static final double INTAKE_SPEED = 1; //0.65old
 	public static final double HOLD_CUBE = 0.3;
 	public static final double OUTTAKE_SPEED = 1;
