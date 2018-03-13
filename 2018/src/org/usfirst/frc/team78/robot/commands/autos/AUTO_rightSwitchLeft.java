@@ -7,14 +7,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class rightSwitchLeft extends CommandGroup {
+public class AUTO_rightSwitchLeft extends CommandGroup {
 
-    public rightSwitchLeft() {
+    public AUTO_rightSwitchLeft() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
-
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
@@ -26,6 +25,6 @@ public class rightSwitchLeft extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new FollowTrajectory("rightSwitchLeftPt1"));
+    	addSequential(new FollowTrajectory("rightSwitchRightPt1"));
     }
 }

@@ -65,7 +65,10 @@ public class Chassis extends Subsystem {
 	public double pulsesToFeet = ((wheelDiameterInFeet * Math.PI) / pulsesPerRot);
 	public double feetToPulses = (pulsesPerRot / (wheelDiameterInFeet * Math.PI));
 	
+	double leftSpeed, rightSpeed;
+	
 	public boolean shiftIsHigh;
+	public boolean switchFront = true;
 	
 	int timeoutMs = 5000;
 	
@@ -74,6 +77,7 @@ public class Chassis extends Subsystem {
 	
 	public void chassisInit() {
 		resetEnc();
+		resetGyro();
 		
 		pdpVoltage = Robot.pdp.getVoltage();
 		
@@ -116,7 +120,7 @@ public class Chassis extends Subsystem {
 		rightFront.config_kD(0, 0, 10);   //.42 - 20
 		rightFront.configMotionCruiseVelocity(3653, 10);
 		rightFront.configMotionAcceleration(3653, 10);
-		rightFront.setSelectedSensorPosition(0, 1, 10);
+		rightFront.setSelectedSensorPosition(0, 0, 10);
 		
 		leftFront.setIntegralAccumulator(19, 0, 10);
 		leftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 10);
@@ -141,7 +145,20 @@ public class Chassis extends Subsystem {
     }
     
     public void driveWithJoysticks() {
-    	setSpeed(-OI.DriverStick.getY(), OI.DriverStick.getThrottle());
+    	if(Math.abs(OI.DriverStick.getY()) < RobotMap.STICK_DEADZONE) leftSpeed = 0;
+    	else leftSpeed = -OI.DriverStick.getY();
+    	if(Math.abs(OI.DriverStick.getThrottle()) < RobotMap.STICK_DEADZONE) rightSpeed = 0;
+    	else rightSpeed = OI.DriverStick.getThrottle();
+    	setSpeed(leftSpeed, rightSpeed);
+	}
+    
+    public void reverseDriveWithJoysticks() {
+    	if(Math.abs(OI.DriverStick.getY()) < RobotMap.STICK_DEADZONE) leftSpeed = 0;
+    	else leftSpeed = -OI.DriverStick.getY();
+    	if(Math.abs(OI.DriverStick.getThrottle()) < RobotMap.STICK_DEADZONE) rightSpeed = 0;
+    	else rightSpeed = OI.DriverStick.getThrottle(); 
+    	double sqrRight = rightSpeed * Math.abs(rightSpeed), sqrLeft = leftSpeed * Math.abs(leftSpeed);   	
+    	setSpeed(sqrRight, sqrLeft);
 	}
     
     public void setSpeed(double left, double right) {
@@ -199,6 +216,10 @@ public class Chassis extends Subsystem {
     
     public double getAngle() {
     	return navx.getAngle();
+    }
+    
+    public void resetGyro() {
+    	navx.reset();
     }
 }
 

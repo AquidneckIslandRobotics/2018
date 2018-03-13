@@ -24,11 +24,13 @@ public class HowToTestAutoPath extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-//    	addSequential(new FollowTrajectory("78 test auto"));
-//    	addSequential(new FollowTrajectory("SpenceAuto"));
+    	addSequential(new FollowTrajectory("78 test auto"));
+    	addSequential(new FollowTrajectory("78 test auto"));
+
+    	//    	addSequential(new FollowTrajectory("SpenceAuto"));
 //    	addSequential(new FollowTrajectory("turntest"));
 //    	addSequential(new FollowTrajectory("centerRight"));
 //    	addSequential(new FollowTrajectory("centerLeft"));
-    	addSequential(new FollowTrajectory("rightSwitchLeftPt1"));
+//    	addSequential(new FollowTrajectory("rightSwitchLeftPt1"));
     }
 }

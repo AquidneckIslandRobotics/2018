@@ -19,9 +19,10 @@ public class Turn extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.chassis.turnController.setInputRange(-180.0f, 180.0f);
     	Robot.chassis.turnController.setContinuous(true);
     	Robot.chassis.turnController.setInputRange(-180.0f, 180.0f);
-    	Robot.chassis.turnController.setOutputRange(-1.0, 1.0);
+    	Robot.chassis.turnController.setOutputRange(-0.5, 0.5);
     	Robot.chassis.turnController.setSetpoint(angle);
     	Robot.chassis.turnController.enable();
     }
