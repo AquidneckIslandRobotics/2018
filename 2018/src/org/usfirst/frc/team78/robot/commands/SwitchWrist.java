@@ -1,5 +1,7 @@
 package org.usfirst.frc.team78.robot.commands;
 
+import org.usfirst.frc.team78.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -14,6 +16,15 @@ public class SwitchWrist extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(Robot.intake.switchWrist) {
+    		Robot.intake.flexWrist();
+    		Robot.intake.switchWrist = false;
+    	}else if(!Robot.intake.switchWrist) {
+    		Robot.intake.straightenWrist();
+    		Robot.intake.switchWrist = true;
+    	}else {
+    		Robot.intake.straightenWrist();
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -22,7 +33,7 @@ public class SwitchWrist extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

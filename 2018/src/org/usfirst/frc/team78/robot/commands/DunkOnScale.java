@@ -1,5 +1,8 @@
 package org.usfirst.frc.team78.robot.commands;
 
+import org.usfirst.frc.team78.robot.Robot;
+import org.usfirst.frc.team78.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -24,5 +27,7 @@ public class DunkOnScale extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addParallel(new FlexWrist());
+    	addSequential(new SetArmavatorPID(RobotMap.DUNK_SCALE_ARM_PRESET, RobotMap.DUNK_SCALE_ELEVATOR_PRESET, true, 0.75));
     }
 }
