@@ -38,19 +38,12 @@ public class SetElevatorPID extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.elevator.elePID.setContinuous(false);
-    	Robot.elevator.elePID.setInputRange(0, 19000);
-    	Robot.elevator.elePID.setOutputRange(-maxSpeed, maxSpeed);
-    	Robot.elevator.elePID.setAbsoluteTolerance(100);
-    	Robot.elevator.elePID.setSetpoint(targetValue);
-    	Robot.elevator.elePID.enable();
+    	Robot.elevator.elevatorPIDInit(maxSpeed, targetValue);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	outputSpeed = Robot.elevator.eleSpeed.getSpeed();
-    	Robot.elevator.setElevator(outputSpeed);
-    	SmartDashboard.putNumber("Elevator PID Output Speed", outputSpeed);
+    	Robot.elevator.elevatorPIDExecute();
     }
 
     // Make this return true when this Command no longer needs to run execute()

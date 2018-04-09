@@ -2,6 +2,7 @@ package org.usfirst.frc.team78.robot.commands.autos;
 
 import org.usfirst.frc.team78.robot.RobotMap;
 import org.usfirst.frc.team78.robot.commands.FollowTrajectory;
+import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
 import org.usfirst.frc.team78.robot.commands.IntakeCube;
 import org.usfirst.frc.team78.robot.commands.OuttakeCube;
 import org.usfirst.frc.team78.robot.commands.ResetGyro;
@@ -43,8 +44,11 @@ public class AUTO_leftScaleLeft extends CommandGroup {
 //    	addSequential(new SetSideSpeed(-0.4, 0.4), 0.6);
 //    	addSequential(new SetArmavatorPID(RobotMap.INTAKE_ARM_PRESET, RobotMap.INTAKE_ELEVATOR_PRESET, true), 3);
     	addSequential(new ResetGyro());
-    	addParallel(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true, 0.6, 2)); //2 sec or ms delay - not timeout
+//    	addParallel(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true, 0.6, 2)); //2 sec or ms delay - not timeout
+    	addSequential(new FollowTrajectory("LScL_Forward"));
+    	addParallel(new SetArmavatorPID(RobotMap.SCALE_AUTO_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true, 0.6));
     	addSequential(new FollowTrajectory("leftScaleLeft"));
+    	addSequential(new Turn(38), 2);
     	addSequential(new OuttakeCube(0.4), 2);
 	
 

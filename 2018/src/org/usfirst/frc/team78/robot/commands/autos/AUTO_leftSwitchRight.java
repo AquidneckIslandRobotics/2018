@@ -28,7 +28,7 @@ public class AUTO_leftSwitchRight extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new ResetGyro());
-    	addSequential(new FollowTrajectory("leftSwitchLeftPt1"));
+    	addSequential(new FollowTrajectory("leftSwitchRight"));
 
     }
 }

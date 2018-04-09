@@ -1,9 +1,11 @@
 package org.usfirst.frc.team78.robot.subsystems;
 
 import org.usfirst.frc.team78.robot.OI;
+import org.usfirst.frc.team78.robot.Robot;
 import org.usfirst.frc.team78.robot.RobotMap;
 import org.usfirst.frc.team78.robot.SensorInputPID;
 import org.usfirst.frc.team78.robot.SpeedOutput;
+import org.usfirst.frc.team78.robot.commands.ManualJoystickControls;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -17,6 +19,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -37,11 +40,12 @@ public class Elevator extends Subsystem {
 	//PID
 	public SpeedOutput eleSpeed = new SpeedOutput(); //"skraaa pop pop pop pop pop" - Nate Janssen
 	public SensorInputPID eleInput = new SensorInputPID(elevatorFollower, PIDSourceType.kDisplacement, 0);
-	public PIDController elePID = new PIDController(0.0009, 0.0, 0.0009, eleInput, eleSpeed);
+	public PIDController elePID = new PIDController(0.00045, 0.0, 0.00045, eleInput, eleSpeed);
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new ManualJoystickControls());
     }
     
     public void elevatorInit() {
@@ -52,6 +56,21 @@ public class Elevator extends Subsystem {
     	elevatorFollower.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
     	elevatorLeader.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
     	elevatorLeader.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+    }
+    
+    public void elevatorPIDInit(double maxSpeed, double targetValue) {
+    	Robot.elevator.elePID.setContinuous(false);
+    	Robot.elevator.elePID.setInputRange(0, 19000);
+    	Robot.elevator.elePID.setOutputRange(-maxSpeed, maxSpeed);
+    	Robot.elevator.elePID.setAbsoluteTolerance(100);
+    	Robot.elevator.elePID.setSetpoint(targetValue);
+    	Robot.elevator.elePID.enable();
+    }
+    
+    public void elevatorPIDExecute() {
+    	double outputSpeed = Robot.elevator.eleSpeed.getSpeed();
+    	Robot.elevator.setElevator(outputSpeed);
+    	SmartDashboard.putNumber("Elevator PID Output Speed", outputSpeed);
     }
     
     public void manualJoystickElevatorControls() {

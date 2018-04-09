@@ -11,11 +11,14 @@ import org.usfirst.frc.team78.robot.commands.Shift;
 import org.usfirst.frc.team78.robot.commands.StopArm;
 import org.usfirst.frc.team78.robot.commands.StopElevator;
 import org.usfirst.frc.team78.robot.commands.StopIntake;
+import org.usfirst.frc.team78.robot.commands.StraightenWrist;
 import org.usfirst.frc.team78.robot.commands.SwitchFront;
+import org.usfirst.frc.team78.robot.commands.SwitchWrist;
 import org.usfirst.frc.team78.robot.commands.Turn;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchLeft;
 import org.usfirst.frc.team78.robot.commands.autos.AUTO_rightSwitchRight;
 import org.usfirst.frc.team78.robot.commands.CloseIntakeGrabber;
+import org.usfirst.frc.team78.robot.commands.DunkOnScale;
 import org.usfirst.frc.team78.robot.commands.HoverClimber;
 import org.usfirst.frc.team78.robot.commands.HowToTestAutoPath;
 import org.usfirst.frc.team78.robot.commands.IntakeCube;
@@ -28,6 +31,7 @@ import org.usfirst.frc.team78.robot.commands.Override;
 import org.usfirst.frc.team78.robot.commands.RaiseArmManual;
 import org.usfirst.frc.team78.robot.commands.RaiseArmToPreset;
 import org.usfirst.frc.team78.robot.commands.RaiseElevatorManual;
+import org.usfirst.frc.team78.robot.commands.SetArmPID;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPID;
 import org.usfirst.frc.team78.robot.commands.SetArmavatorPreset;
 import org.usfirst.frc.team78.robot.commands.SetElevatorPID;
@@ -118,10 +122,10 @@ public class OI {
 //		manipulatorA.whenReleased(new StopIntake());
 //		manipulatorB.whileHeld(new IntakeCube(RobotMap.HOLD_CUBE));
 //		manipulatorB.whenReleased(new StopIntake());
-		manipulatorX.whenPressed(new OpenIntakeGrabber());
+//		manipulatorX.whenPressed(new OpenIntakeGrabber());
 //		manipulatorX.whileHeld(new IntakeCube(RobotMap.INTAKE_SPEED));
-		manipulatorX.whenReleased(new StopIntake());
-		manipulatorX.whenReleased(new CloseIntakeGrabber());
+//		manipulatorX.whenReleased(new StopIntake());
+//		manipulatorX.whenReleased(new CloseIntakeGrabber());
 
 		
 		//INTAKE PRESET
@@ -145,8 +149,14 @@ public class OI {
 		manipulatorB.whenReleased(new ManualJoystickControls());
 		
 		//HIGH SCALE PRESET
-		manipulatorY.whileHeld(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true));
+//		manipulatorY.whileHeld(new SetArmavatorPID(RobotMap.HIGH_SCALE_ARM_PRESET, RobotMap.HIGH_SCALE_ELEVATOR_PRESET, true));
+		manipulatorY.whileHeld(new DunkOnScale());
+		manipulatorY.whenReleased(new StraightenWrist());
 		manipulatorY.whenReleased(new ManualJoystickControls());
+		
+		
+		//WRIST 
+		manipulatorX.whenReleased(new SwitchWrist());
 		
 		//HOLD CLIMB
 		manipulatorRB.whileHeld(new HoverClimber());
@@ -156,6 +166,12 @@ public class OI {
 //		manipulatorRB.whenReleased(new StopArm());
 //		manipulatorRT.whileHeld(new LowerArmManual(RobotMap.ARM_SPEED));
 //		manipulatorRT.whenReleased(new StopArm());
+		
+		//PID TUNING
+//		manipulatorX.whileHeld(new SetArmPID(RobotMap.ARM_PARRELLEL_PRESET, true));
+//		manipulatorX.whenReleased(new StopArm());
+//		manipulatorX.whileHeld(new SetElevatorPID(RobotMap.NEUTRAL_SCALE_ELEVATOR_PRESET, true));
+//		manipulatorX.whenReleased(new StopElevator());
 		
 		manipulatorBack.whenReleased(new Override());
 	}

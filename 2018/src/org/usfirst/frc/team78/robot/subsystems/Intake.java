@@ -24,10 +24,12 @@ public class Intake extends Subsystem {
 	public TalonSRX intakeFollower = new TalonSRX(RobotMap.INTAKE_FOLLOWER);
 	
 	public DoubleSolenoid grabber = new DoubleSolenoid(RobotMap.INTAKE_GRIPPER_OPEN, RobotMap.INTAKE_GRIPPER_CLOSED);
-	public Solenoid shuttleValve = new Solenoid(RobotMap.SUTTLE_VALVE);
+//	public Solenoid shuttleValve = new Solenoid(RobotMap.SUTTLE_VALVE);
+	public DoubleSolenoid wrist = new DoubleSolenoid(RobotMap.WRIST_IN, RobotMap.WRIST_OUT);
 	
 	//Sensors
 	
+	public boolean switchWrist = true;
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -55,12 +57,20 @@ public class Intake extends Subsystem {
     	intakeLeader.set(ControlMode.PercentOutput, speed); //CHECK DIRECTION ON ACTUAL ROBOT
     }
     
-    public void shuttleHigh() {
-    	shuttleValve.set(true);
-    }
+//    public void shuttleHigh() {
+//    	shuttleValve.set(true);
+//    }
+//    
+//    public void shuttleLow() {
+//    	shuttleValve.set(false);
+//    }
     
-    public void shuttleLow() {
-    	shuttleValve.set(false);
+    public void flexWrist() {
+    	wrist.set(Value.kForward);
+    } 
+    									//test these
+    public void straightenWrist() {
+    	wrist.set(Value.kReverse);
     }
     
     public void stopIntake() {

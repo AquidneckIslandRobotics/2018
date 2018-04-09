@@ -1,6 +1,7 @@
 package org.usfirst.frc.team78.robot.commands.autos;
 
 import org.usfirst.frc.team78.robot.RobotMap;
+import org.usfirst.frc.team78.robot.commands.DoNothing;
 import org.usfirst.frc.team78.robot.commands.FollowTrajectory;
 import org.usfirst.frc.team78.robot.commands.IntakeCube;
 import org.usfirst.frc.team78.robot.commands.OpenIntakeGrabber;
@@ -39,10 +40,16 @@ public class AUTO_centerRight extends CommandGroup {
     	addSequential(new ResetGyro());
     	addParallel(new FollowTrajectory("centerRight"));
     	addParallel(new SetArmavatorPID(RobotMap.SWITCH_ARM_PRESET, RobotMap.STOWED_ELEVATOR_PRESET, true));
-    	addSequential(new IntakeCube(0.0), 3);
+    	addSequential(new IntakeCube(0.0), 4);
     	addSequential(new OuttakeCube(0.35), 2);
 //    	addSequential(new OuttakeForAUTO(RobotMap.OUTTAKE_SPEED-0.05), 1);
     	addSequential(new FollowTrajectory("reverseCenterRight"));
-    	addSequential(new SetArmavatorPID(RobotMap.INTAKE_ARM_PRESET, RobotMap.INTAKE_ELEVATOR_PRESET, true, 0.8) );
+    	addParallel(new SetArmavatorPID(RobotMap.INTAKE_ARM_PRESET, RobotMap.INTAKE_ELEVATOR_PRESET, true, 0.8), 2);
+//    	addParallel(new IntakeCube(RobotMap.INTAKE_SPEED), 3);
+//    	addSequential(new FollowTrajectory("centerStraight"));
+//    	addSequential(new StopIntake());
+//    	addSequential(new FollowTrajectory("reverseCenterLeft"));
+//    	addSequential(new FollowTrajectory("centerStraight"));
+//    	addSequential(new OuttakeCube(0.35), 2);
     }
 }

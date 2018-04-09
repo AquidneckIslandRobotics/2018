@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -61,6 +62,20 @@ public class Arm extends Subsystem {
     	
     }
     
+    public void armPIDInit(double maxSpeed, double targetValue) {
+    	Robot.arm.armPID.setContinuous(false);
+    	Robot.arm.armPID.setInputRange(0, 12);
+    	Robot.arm.armPID.setOutputRange(-maxSpeed, maxSpeed);
+    	Robot.arm.armPID.setAbsoluteTolerance(0.01);
+    	Robot.arm.armPID.setSetpoint(targetValue);
+    	Robot.arm.armPID.enable();
+    }
+    
+    public void armPIDExecute() {
+    	double outputSpeed = Robot.arm.armSpeedOutput.getSpeed();
+    	Robot.arm.setArm(outputSpeed);
+    	SmartDashboard.putNumber("Arm PID Output Speed", outputSpeed);
+    }
     
     public void manualJoystickArmControls() {    	
     	if(OI.ManipulatorStick.getY(Hand.kRight) < -RobotMap.XBOX_DEADZONE) {

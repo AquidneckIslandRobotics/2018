@@ -7,6 +7,7 @@ import javax.swing.text.AbstractDocument.LeafElement;
 import org.usfirst.frc.team78.robot.OI;
 import org.usfirst.frc.team78.robot.Robot;
 import org.usfirst.frc.team78.robot.RobotMap;
+import org.usfirst.frc.team78.robot.SensorInputPID;
 import org.usfirst.frc.team78.robot.SpeedOutput;
 import org.usfirst.frc.team78.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team78.robot.commands.Turn;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
@@ -50,6 +52,14 @@ public class Chassis extends Subsystem {
 	
 	public SpeedOutput turnSpeed = new SpeedOutput();
 	public PIDController turnController = new PIDController(0.015,0.0,0.03, navx, turnSpeed);
+	
+	public SpeedOutput leftDriveSpeed = new SpeedOutput();
+	public SensorInputPID leftDriveInput = new SensorInputPID(leftFront, PIDSourceType.kDisplacement, 0);
+	public PIDController leftDriveController = new PIDController(0, 0, 0, leftDriveInput, leftDriveSpeed);
+	
+	public SpeedOutput rightDriveSpeed = new SpeedOutput();
+	public SensorInputPID rightDriveInput = new SensorInputPID(rightFront, PIDSourceType.kDisplacement, 0);
+	public PIDController rightDriveController = new PIDController(0, 0, 0, rightDriveInput, rightDriveSpeed);
 	
 //	public SpeedOutput rightDistanceSpeed = new SpeedOutput();
 //	public SpeedOutput leftDistanceSpeed = new SpeedOutput();
@@ -149,6 +159,13 @@ public class Chassis extends Subsystem {
     	else leftSpeed = -OI.DriverStick.getY();
     	if(Math.abs(OI.DriverStick.getThrottle()) < RobotMap.STICK_DEADZONE) rightSpeed = 0;
     	else rightSpeed = OI.DriverStick.getThrottle();
+    	
+    	if(Robot.elevator.getElevatorMagPosition() > RobotMap.ELEVATOR_DRIVE_SLOWDOWN_THRESHOLD) {
+    		leftSpeed *= 0.5;
+    		rightSpeed *= 0.5;
+    		
+    	}
+    	
     	setSpeed(leftSpeed, rightSpeed);
 	}
     

@@ -187,7 +187,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Game Element", m_gameElement);
 		m_gameElement.addDefault("Switch", "switch");
 		m_gameElement.addObject("Scale", "scale");
-		
+		m_gameElement.addObject("Side Based", "sideBased");
 		
 	}
 	
@@ -255,18 +255,26 @@ public class Robot extends TimedRobot {
 		}else if(m_startPosition.getSelected().equals("Left")) {
 			if(m_gameElement.getSelected().equals("switch")) {
 				if(getGameSpecificData("alliance") == R) {
-					m_autonomousCommand = new HowToTestAutoPath();//AUTO_leftSwitchRight();
+					m_autonomousCommand = new AUTO_leftSwitchRight();
 				}else if(getGameSpecificData("alliance") == L) {
 					m_autonomousCommand = new AUTO_leftSwitchLeft();
-				}
-				
+				}											
+
 			}else if(m_gameElement.getSelected().equals("scale")) {
 				if(getGameSpecificData("scale") == R) {
 					m_autonomousCommand = new HowToTestAutoPath();//AUTO_leftScaleRight();
 				}else if(getGameSpecificData("scale") == L) {
-					m_autonomousCommand = new HowToTestAutoPath();//AUTO_leftScaleLeft();
+					m_autonomousCommand = new AUTO_leftScaleLeft();
 				}
-			}else {
+			} else if(m_gameElement.getSelected().equals("sideBased")) {
+				if(getGameSpecificData("scale") == L) {
+					m_autonomousCommand = new AUTO_leftScaleLeft();
+				} else if(getGameSpecificData("switch") == L) {
+					m_autonomousCommand = new AUTO_leftSwitchLeft();
+				} else {
+					m_autonomousCommand = new HowToTestAutoPath();
+				}
+			} else {
 				m_autonomousCommand = null;
 			}
 		}
@@ -278,7 +286,7 @@ public class Robot extends TimedRobot {
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
 
-		SmartDashboard.putData("auto command",m_autonomousCommand);
+//		SmartDashboard.putData("auto command",m_autonomousCommand);
 		
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
@@ -364,8 +372,8 @@ public class Robot extends TimedRobot {
 //		SmartDashboard.putData("right drive controller", chassis.rightDistanceController);
 //		SmartDashboard.putData("left drive controller", chassis.leftDistanceController);			
 //		SmartDashboard.putData("test",new drivefrompoint());
-//		SmartDashboard.putData("Arm PID", arm.armPID);
-//		SmartDashboard.putData("Elevator PID", elevator.elePID);
+		SmartDashboard.putData("Arm PID", arm.armPID);
+		SmartDashboard.putData("Elevator PID", elevator.elePID);
 //		SmartDashboard.putData("Elevator Subsystem", elevator);
 //		SmartDashboard.putData("Hold Climb Command", new LowerElevatorManual(0.1));
 		

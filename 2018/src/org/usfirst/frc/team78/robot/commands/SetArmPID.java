@@ -36,19 +36,12 @@ public class SetArmPID extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.arm.armPID.setContinuous(false);
-    	Robot.arm.armPID.setInputRange(0, 12);
-    	Robot.arm.armPID.setOutputRange(-maxSpeed, maxSpeed);
-    	Robot.arm.armPID.setAbsoluteTolerance(0.01);
-    	Robot.arm.armPID.setSetpoint(targetValue);
-    	Robot.arm.armPID.enable();
+    	Robot.arm.armPIDInit(maxSpeed, targetValue);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	outputSpeed = Robot.arm.armSpeedOutput.getSpeed();
-    	Robot.arm.setArm(outputSpeed);
-    	SmartDashboard.putNumber("Arm PID Output Speed", outputSpeed);
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
