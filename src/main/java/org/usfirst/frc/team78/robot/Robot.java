@@ -330,6 +330,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		// Read elevator
+
+		/* Read Elevator 
+
+		Want to read elevator encoder
+		*/
 		
 		
 		
